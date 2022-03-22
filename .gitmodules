@@ -1,0 +1,3 @@
+[submodule "spring-frontend"]
+	path = spring-frontend
+	url = /media/pandora/ssd/Projects_Skillbox/skillbox_spring/BookShop/MyBookShopApp/src/main/resources/spring-frontend
