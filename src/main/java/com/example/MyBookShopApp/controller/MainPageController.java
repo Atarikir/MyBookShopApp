@@ -26,7 +26,7 @@ public class MainPageController {
     }
 
     @GetMapping("/")
-    public String mainPage(Model model) {
+    public String mainPage() {
         return "index";
     }
 }

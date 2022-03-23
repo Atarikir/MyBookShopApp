@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api")
 public class BooksController {
 
     private final BookService bookService;
@@ -34,5 +33,10 @@ public class BooksController {
     @GetMapping("/books/recent")
     public String recentBookPage() {
         return "books/recent";
+    }
+
+    @GetMapping("/postponed")
+    public String postponed() {
+        return "postponed";
     }
 }
