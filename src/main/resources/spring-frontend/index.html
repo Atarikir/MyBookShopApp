@@ -11,7 +11,7 @@
 <!--[if gt IE 9]><!-->
 <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
-    <title>Магазин 📚</title>
+    <title th:text="#{title.main}">Магазин 📚</title>
     <meta name="description" content="Описание страницы">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -47,11 +47,11 @@ p.error-browser
     <div class="wrap">
         <main class="Middle-main">
             <div class="Section">
-                <div th:replace="~{fragments/book_slider_fragment :: bookSlider(title='Рекомендуемое')}"></div>
-                <div th:replace="~{fragments/book_slider_fragment :: bookSlider(title='Новинки')}"></div>
-                <div th:replace="~{fragments/book_slider_fragment :: bookSlider(title='Популярное')}"></div>
+                <div th:replace="~{fragments/book_slider_fragment :: bookSlider(title=${#messages.msg('topbar.recommended')})}"></div>
+                <div th:replace="~{fragments/book_slider_fragment :: bookSlider(title=${#messages.msg('topbar.news')})}"></div>
+                <div th:replace="~{fragments/book_slider_fragment :: bookSlider(title=${#messages.msg('topbar.popular')})}"></div>
             </div>
-            <h2 class="Middle-title">Книги по тегам
+            <h2 class="Middle-title" th:text="#{main.title.tags}">Книги по тегам
             </h2>
             <div class="Tags" id="tags" th:replace="~{fragments/tag_cloud_fragment :: cloud}"></div>
         </main>
