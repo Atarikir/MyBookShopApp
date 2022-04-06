@@ -1,6 +1,6 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.data.Book;
+import com.example.MyBookShopApp.data.book.BookEntity;
 import com.example.MyBookShopApp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class PostponedController {
     }
 
     @ModelAttribute("booksList")
-    public List<Book> bookList() {
+    public List<BookEntity> bookList() {
         return bookService.getBooksData();
     }
 

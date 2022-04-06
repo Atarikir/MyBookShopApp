@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="book2author-createIndexes">
+        <createIndex indexName="fk_book2author_book_id" tableName="book2author">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_book2author_author_id" tableName="book2author">
+            <column name="author_id"/>
+        </createIndex>
+        <comment>book2author table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2author-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="book2author"
+                                 constraintName="fk_book2author_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="book2author-fk-2">
+        <addForeignKeyConstraint baseColumnNames="author_id"
+                                 baseTableName="book2author"
+                                 constraintName="fk_book2author_author_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="author"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2genre-createIndexes">
+        <createIndex indexName="fk_book2genre_book_id" tableName="book2genre">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_book2genre_genre_id" tableName="book2genre">
+            <column name="genre_id"/>
+        </createIndex>
+        <comment>book2genre table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2genre-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="book2genre"
+                                 constraintName="fk_book2genre_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="book2genre-fk-2">
+        <addForeignKeyConstraint baseColumnNames="genre_id"
+                                 baseTableName="book2genre"
+                                 constraintName="fk_book2genre_genre_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="genre"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2user-createIndexes">
+        <createIndex indexName="fk_book2user_book_id" tableName="book2user">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_book2user_user_id" tableName="book2user">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>book2user table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2user-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="book2user"
+                                 constraintName="fk_book2user_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="book2user-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="book2user"
+                                 constraintName="fk_book2user_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="file_download-createIndexes">
+        <createIndex indexName="fk_file_download_book_id" tableName="file_download">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_file_download_user_id" tableName="file_download">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>file_download table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="file_download-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="file_download"
+                                 constraintName="fk_file_download_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="file_download-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="file_download"
+                                 constraintName="fk_file_download_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="balance_transaction-createIndexes">
+        <createIndex indexName="fk_balance_transaction_book_id" tableName="balance_transaction">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_balance_transaction_user_id" tableName="balance_transaction">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>balance_transaction table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="balance_transaction-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="balance_transaction"
+                                 constraintName="fk_balance_transaction_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="balance_transaction-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="balance_transaction"
+                                 constraintName="fk_balance_transaction_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book_review-createIndexes">
+        <createIndex indexName="fk_book_review_book_id" tableName="book_review">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_book_review_user_id" tableName="book_review">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>book_review table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book_review-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="book_review"
+                                 constraintName="fk_book_review_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="book_review-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="book_review"
+                                 constraintName="fk_book_review_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book_review_like-createIndexes">
+        <createIndex indexName="fk_book_review_like_user_id" tableName="book_review_like">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>book_review_like table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book_review_like-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="book_review_like"
+                                 constraintName="fk_book_review_like_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="message-createIndexes">
+        <createIndex indexName="fk_message_user_id" tableName="message">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>message table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="message-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="user_contact-createIndexes">
+        <createIndex indexName="fk_user_contact_user_id" tableName="user_contact">
+            <column name="user_id"/>
+        </createIndex>
+        <comment>user_contact table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="user_contact-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_contact"
+                                 constraintName="fk_user_contact_user_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

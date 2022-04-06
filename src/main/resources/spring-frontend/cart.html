@@ -33,7 +33,7 @@
                         </div>
                         <div class="Cart-block Cart-block_row">
                             <div class="Cart-block Cart-block_info">
-                                <div class="Cart-author"><a href="#" th:text="${book.author}">Борис Васильевич
+                                <div class="Cart-authorEntity"><a href="#" th:text="${book.authorEntity}">Борис Васильевич
                                     Бедный</a>
                                 </div>
                                 <div class="Cart-title"><a href="#" th:text="${book.title}">Жизнь</a>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="Cart-price" th:text="${book.price}">100 р.
                                 </div>
-                                <div class="Cart-sale">-30%
+                                <div class="Cart-sale" th:if="${not book.priceOld.isEmpty()}">-30%
                                 </div>
                             </div>
                         </div>

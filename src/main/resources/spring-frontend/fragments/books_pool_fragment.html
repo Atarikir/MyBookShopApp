@@ -4,11 +4,13 @@
     <div class="Card" th:each="book: ${booksList}">
         <div class="Card-picture"><a href="#a" th:href="${book.id}"><img
                 src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
+            <div class="Card-sale" th:if="${not book.priceOld.isEmpty()}">30% скидка
+            </div>
         </div>
         <div class="Card-content">
             <strong class="Card-title"><a href="#" th:text="${book.title}">Техника</a>
             </strong>
-            <div class="Card-description" th:text="${book.author}">Кондратенко Александр Петрович
+            <div class="Card-description" th:text="${book.authorEntity}">Кондратенко Александр Петрович
             </div>
             <div class="Card-cost">
                 <span class="Card-priceOld" th:text="${book.priceOld}">₽300.00</span>

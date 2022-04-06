@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.04.05--5--create-table-book2user">
+        <createTable tableName="book2user">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book2user_pkey"/>
+            </column>
+            <column name="book_id" type="INT" remarks="идентификатор книги">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP" remarks="дата и время возникновения привязки">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="INT" remarks="тип привязки книги к пользователю">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT" remarks="идентификатор пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

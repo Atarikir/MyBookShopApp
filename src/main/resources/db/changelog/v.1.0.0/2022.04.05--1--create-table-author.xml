@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.04.05--1--create-table-author">
+        <createTable tableName="author">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="author_pkey"/>
+            </column>
+            <column name="description" type="TEXT" remarks="описание (биография, характеристика)"/>
+            <column name="name" type="VARCHAR(255)" remarks="имя и фамилия автора">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="VARCHAR(255)" remarks="изображение с фотографией автора"/>
+            <column name="slug" type="VARCHAR(255)" remarks="мнемонический идентификатор автора,
+            который будет отображаться в ссылке на его страницу">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

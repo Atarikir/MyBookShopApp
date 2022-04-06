@@ -141,8 +141,8 @@ p.error-browser
                     <li class="menu-item"><a class="menu-link" href="/books/popular.html" th:text="#{topbar.popular}"
                                              th:href="@{/popular}">Популярное</a>
                     </li>
-                    <li class="menu-item"><a class="menu-link" href="/authors/index.html" th:text="#{topbar.authors}"
-                                             th:href="@{/spring-frontend/authors}">Авторы</a>
+                    <li class="menu-item"><a class="menu-link" href="/authorEntities/index.html" th:text="#{topbar.authorEntities}"
+                                             th:href="@{/spring-frontend/authorEntities}">Авторы</a>
                     </li>
                 </ul>
             </nav>
@@ -166,7 +166,7 @@ p.error-browser
                                     <div class="Card-content">
                                         <strong class="Card-title"><a href="/books/slug.html" th:text="${book.title}">Техника</a>
                                         </strong>
-                                        <div class="Card-description" th:text="${book.author}">Кондратенко Валерий
+                                        <div class="Card-description" th:text="${book.authorEntity}">Кондратенко Валерий
                                             Петрович
                                         </div>
                                         <div class="Card-cost">
@@ -372,8 +372,8 @@ p.error-browser
                     </li>
                     <li class="menu-item"><a class="menu-link" href="/books/popular.html" th:href="@{/popular}">Популярное</a>
                     </li>
-                    <li class="menu-item"><a class="menu-link" href="/authors/index.html"
-                                             th:href="@{/spring-frontend/authors}">Авторы</a>
+                    <li class="menu-item"><a class="menu-link" href="/authorEntities/index.html"
+                                             th:href="@{/spring-frontend/authorEntities}">Авторы</a>
                     </li>
                 </ul>
             </div>

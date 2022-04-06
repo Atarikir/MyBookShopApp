@@ -87,8 +87,9 @@
                     </div>
                 </div>
                 <div class="FAQ-footer">
-                    <p class="FAQ-link">Или&#32;<a href="/contacts.html" th:text="#{faq.link.contacts}">свяжитесь с
-                        нами</a>
+                    <p class="FAQ-link"><span th:text="#{faq.footer}">Или&#32;</span>
+                        <a href="/contacts.html" th:href="@{/contacts}" th:text="#{faq.link.contacts}">свяжитесь с нами
+                        </a>
                     </p>
                 </div>
             </div>

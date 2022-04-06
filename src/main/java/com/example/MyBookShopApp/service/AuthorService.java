@@ -1,12 +1,9 @@
 package com.example.MyBookShopApp.service;
 
-import com.example.MyBookShopApp.data.Author;
-import com.example.MyBookShopApp.repository.AuthorJdbcRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.example.MyBookShopApp.data.author.AuthorEntity;
+import com.example.MyBookShopApp.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,17 +11,15 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorService {
 
-    private final AuthorJdbcRepository authorJdbcRepository;
+    private final AuthorRepository authorRepository;
 
-    @Autowired
-    public AuthorService(AuthorJdbcRepository authorJdbcRepository) {
-        this.authorJdbcRepository = authorJdbcRepository;
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
-    public Map<String, List<Author>> getAuthorsMap() {
-        List<Author> authors = authorJdbcRepository.getAll();
-        return authors.stream().collect(Collectors.groupingBy((Author a) -> {
-            return a.getLastName().substring(0, 1);
-        }));
+
+    public Map<String, List<AuthorEntity>> getAuthorsMap() {
+        List<AuthorEntity> authorEntities = authorRepository.findAll();
+        return authorEntities.stream().collect(Collectors.groupingBy((AuthorEntity a) -> a.getName().substring(0, 1)));
     }
 }

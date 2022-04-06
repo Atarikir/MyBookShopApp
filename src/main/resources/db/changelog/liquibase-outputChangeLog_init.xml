@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="pandora (generated)" id="1649261010613-1">
+        <createSequence sequenceName="author_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-2">
+        <createSequence sequenceName="author_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-3">
+        <createSequence sequenceName="author_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-4">
+        <createSequence sequenceName="author_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-5">
+        <createSequence sequenceName="balance_transaction_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-6">
+        <createSequence sequenceName="balance_transaction_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-7">
+        <createSequence sequenceName="balance_transaction_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-8">
+        <createSequence sequenceName="balance_transaction_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-9">
+        <createSequence sequenceName="book2author_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-10">
+        <createSequence sequenceName="book2author_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-11">
+        <createSequence sequenceName="book2author_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-12">
+        <createSequence sequenceName="book2author_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-13">
+        <createSequence sequenceName="book2genre_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-14">
+        <createSequence sequenceName="book2genre_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-15">
+        <createSequence sequenceName="book2genre_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-16">
+        <createSequence sequenceName="book2genre_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-17">
+        <createSequence sequenceName="book2user_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-18">
+        <createSequence sequenceName="book2user_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-19">
+        <createSequence sequenceName="book2user_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-20">
+        <createSequence sequenceName="book2user_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-21">
+        <createSequence sequenceName="book2user_type_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-22">
+        <createSequence sequenceName="book2user_type_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-23">
+        <createSequence sequenceName="book2user_type_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-24">
+        <createSequence sequenceName="book2user_type_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-25">
+        <createSequence sequenceName="book_file_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-26">
+        <createSequence sequenceName="book_file_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-27">
+        <createSequence sequenceName="book_file_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-28">
+        <createSequence sequenceName="book_file_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-29">
+        <createSequence sequenceName="book_file_type_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-30">
+        <createSequence sequenceName="book_file_type_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-31">
+        <createSequence sequenceName="book_file_type_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-32">
+        <createSequence sequenceName="book_file_type_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-33">
+        <createSequence sequenceName="book_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-34">
+        <createSequence sequenceName="book_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-35">
+        <createSequence sequenceName="book_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-36">
+        <createSequence sequenceName="book_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-37">
+        <createSequence sequenceName="book_review_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-38">
+        <createSequence sequenceName="book_review_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-39">
+        <createSequence sequenceName="book_review_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-40">
+        <createSequence sequenceName="book_review_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-41">
+        <createSequence sequenceName="book_review_like_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-42">
+        <createSequence sequenceName="book_review_like_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-43">
+        <createSequence sequenceName="book_review_like_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-44">
+        <createSequence sequenceName="book_review_like_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-45">
+        <createSequence sequenceName="document_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-46">
+        <createSequence sequenceName="document_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-47">
+        <createSequence sequenceName="document_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-48">
+        <createSequence sequenceName="document_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-49">
+        <createSequence sequenceName="faq_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-50">
+        <createSequence sequenceName="faq_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-51">
+        <createSequence sequenceName="faq_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-52">
+        <createSequence sequenceName="faq_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-53">
+        <createSequence sequenceName="file_download_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-54">
+        <createSequence sequenceName="file_download_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-55">
+        <createSequence sequenceName="file_download_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-56">
+        <createSequence sequenceName="file_download_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-57">
+        <createSequence sequenceName="genre_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-58">
+        <createSequence sequenceName="genre_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-59">
+        <createSequence sequenceName="genre_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-60">
+        <createSequence sequenceName="genre_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-61">
+        <createSequence sequenceName="message_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-62">
+        <createSequence sequenceName="message_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-63">
+        <createSequence sequenceName="message_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-64">
+        <createSequence sequenceName="message_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-65">
+        <createSequence sequenceName="user_contact_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-66">
+        <createSequence sequenceName="user_contact_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-67">
+        <createSequence sequenceName="user_contact_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-68">
+        <createSequence sequenceName="user_contact_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-69">
+        <createSequence sequenceName="users_id_seq"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-70">
+        <createSequence sequenceName="users_id_seq1"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-71">
+        <createSequence sequenceName="users_id_seq2"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-72">
+        <createSequence sequenceName="users_id_seq3"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-73">
+        <createTable tableName="author">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="author_pkey"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="VARCHAR(255)"/>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-74">
+        <createTable tableName="balance_transaction">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="balance_transaction_pkey"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="value" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-75">
+        <createTable tableName="book">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_pkey"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column defaultValueNumeric="0" name="discount" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_bestseller" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pub_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-76">
+        <createTable tableName="book2author">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book2author_pkey"/>
+            </column>
+            <column name="author_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort_index" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-77">
+        <createTable tableName="book2genre">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book2genre_pkey"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-78">
+        <createTable tableName="book2user">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book2user_pkey"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-79">
+        <createTable tableName="book2user_type">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book2user_type_pkey"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-80">
+        <createTable tableName="book_file">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_file_pkey"/>
+            </column>
+            <column name="hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(2147483647)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-81">
+        <createTable tableName="book_file_type">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_file_type_pkey"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-82">
+        <createTable tableName="book_review">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_review_pkey"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-83">
+        <createTable tableName="book_review_like">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_review_like_pkey"/>
+            </column>
+            <column name="review_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-84">
+        <createTable tableName="document">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="document_pkey"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort_index" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-85">
+        <createTable tableName="faq">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="faq_pkey"/>
+            </column>
+            <column name="answer" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sort_index" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-86">
+        <createTable tableName="file_download">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="file_download_pkey"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-87">
+        <createTable tableName="genre">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="genre_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT"/>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-88">
+        <createTable tableName="message">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="message_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="subject" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-89">
+        <createTable tableName="user_contact">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="user_contact_pkey"/>
+            </column>
+            <column name="approved" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_time" type="TIMESTAMP"/>
+            <column name="code_trails" type="INT"/>
+            <column name="contact" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-90">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="balance" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reg_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-91">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="book2user"
+                                 constraintName="fk1i8i82uo8kbv1wepiujenmj7x" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-92">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book_review"
+                                 constraintName="fk29oatdl4f30mtg65oxo1nkmjg" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-93">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2user"
+                                 constraintName="fk7cv34daf9pi5ie147slv010b3" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-94">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2author"
+                                 constraintName="fkafij5snytuqywyya5gj5r30l3" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-95">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="book_review_like"
+                                 constraintName="fkbh4qufg71ntnx2v11gy8ldc5f" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-96">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="book2author"
+                                 constraintName="fkcdamvjmc66dxs94gpco2g5yyb" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="author"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-97">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="file_download"
+                                 constraintName="fkckyk51qg1y0buyh6pe7uwcw8w" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-98">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2genre"
+                                 constraintName="fkdyiaf682r8d022a3gi1q16ypw" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-99">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="file_download"
+                                 constraintName="fkelm7ats7ftrgyvfn8a1xwhin9" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-100">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="balance_transaction"
+                                 constraintName="fkfmqooydnad6dlf5jjhx1mmqft" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-101">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_contact"
+                                 constraintName="fkigqfory4r46pqd0sl4csnwp72" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-102">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="book2genre"
+                                 constraintName="fkkdc8kcprnkl4ygg2f0v9588wi" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="genre"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-103">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="balance_transaction"
+                                 constraintName="fkndi1dijwreoyd8stngrabtx8m" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-104">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="book_review"
+                                 constraintName="fkntncp0b191bex8jkm3vy3l13x" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="pandora (generated)" id="1649261010613-105">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="message"
+                                 constraintName="fkpdrb79dg3bgym7pydlf9k3p1n" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+</databaseChangeLog>

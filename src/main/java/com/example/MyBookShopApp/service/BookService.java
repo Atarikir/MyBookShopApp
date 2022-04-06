@@ -1,26 +1,22 @@
 package com.example.MyBookShopApp.service;
 
-import com.example.MyBookShopApp.data.Book;
-import com.example.MyBookShopApp.repository.BookJdbcRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.MyBookShopApp.data.book.BookEntity;
+import com.example.MyBookShopApp.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 public class BookService {
 
-    private final BookJdbcRepository bookJdbcRepository;
+    private final BookRepository bookRepository;
 
-    @Autowired
-    public BookService(BookJdbcRepository bookJdbcRepository) {
-        this.bookJdbcRepository = bookJdbcRepository;
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    public List<Book> getBooksData() {
-        List<Book> books = bookJdbcRepository.getAll();
-        return new ArrayList<>(books);
+    public List<BookEntity> getBooksData() {
+        return bookRepository.findAll();
     }
 }

@@ -1,0 +1,23 @@
+server:
+  port: 8086
+
+spring:
+  messages.basename: lang.messages
+  web.resources.static-locations: classpath:/spring-frontend/
+  thymeleaf.prefix: classpath:/spring-frontend/
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+
+  jpa:
+    hibernate.ddl-auto: validate #create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml

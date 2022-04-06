@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.04.05--15--create-table-message">
+        <createTable tableName="message">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="message_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)" remarks="электронная почта пользователя, если он не был
+            авторизован"/>
+            <column name="name" type="VARCHAR(255)" remarks="имя пользователя, если он не был авторизован"/>
+            <column name="subject" type="VARCHAR(255)" remarks="тема сообщения">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT" remarks="текст сообщения">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP" remarks="дата и время отправки сообщения">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT" remarks="если пользователь был авторизован"/>
+        </createTable>
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

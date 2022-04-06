@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.04.05--10--create-table-book_review_like">
+        <createTable tableName="book_review_like">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_review_like_pkey"/>
+            </column>
+            <column name="review_id" type="INT" remarks="идентификатор отзыва">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP" remarks="дата и время, в которое поставлен лайк или
+            дизлайк">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT" remarks="идентификатор пользователя, поставившего
+            лайк или дизлайк">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="SMALLINT" remarks="лайк (1) или дизлайк (-1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

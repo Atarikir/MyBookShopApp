@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.04.05--8--create-table-book">
+        <createTable tableName="book">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book_pkey"/>
+            </column>
+            <column name="description" type="TEXT" remarks="описание книги"/>
+            <column defaultValueNumeric="0" name="discount" type="SMALLINT" remarks="скидка в процентах или 0,
+            если её нет">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="VARCHAR(255)" remarks="изображение обложки">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_bestseller" type="SMALLINT" remarks="книга очень популярна, является
+            бестселлером">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="INT" remarks="цена в рублях основная">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pub_date" type="date" remarks="дата публикации">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)" remarks="мнемонический идентификатор книги">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)" remarks="название книги">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

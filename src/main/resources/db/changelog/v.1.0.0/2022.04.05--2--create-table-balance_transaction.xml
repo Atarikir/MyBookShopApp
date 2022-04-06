@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.04.05--2--create-table-balance_transaction">
+        <createTable tableName="balance_transaction">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="balance_transaction_pkey"/>
+            </column>
+            <column name="book_id" type="INT" remarks="книга, за покупку которой произошло списание,
+            или NULL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT" remarks="описание транзакции: если зачисление, то
+            откуда, если списание, то на что">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="TIMESTAMP" remarks="дата и время транзакции">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT" remarks="идентификатор пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="value" type="INT" remarks="размер транзакции (положительный —
+            зачисление, отрицательный — списание)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
