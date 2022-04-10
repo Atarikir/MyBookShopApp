@@ -1,12 +1,14 @@
 package com.example.MyBookShopApp.data.genre;
 
 import com.example.MyBookShopApp.data.book.BookEntity;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "genre")
+@Data
 public class GenreEntity {
 
     @Id
@@ -29,44 +31,4 @@ public class GenreEntity {
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
     private List<BookEntity> bookEntityList;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<BookEntity> getBookEntityList() {
-        return bookEntityList;
-    }
-
-    public void setBookEntityList(List<BookEntity> bookEntityList) {
-        this.bookEntityList = bookEntityList;
-    }
 }

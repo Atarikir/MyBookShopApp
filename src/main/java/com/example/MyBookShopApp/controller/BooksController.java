@@ -1,15 +1,16 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.data.book.BookEntity;
+import com.example.MyBookShopApp.api.response.BookDto;
+import com.example.MyBookShopApp.api.response.BooksPageResponse;
 import com.example.MyBookShopApp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class BooksController {
 
     private final BookService bookService;
@@ -19,18 +20,21 @@ public class BooksController {
         this.bookService = bookService;
     }
 
-    @ModelAttribute("booksList")
-    public List<BookEntity> bookList() {
-        return bookService.getBooksData();
-    }
-
-    @GetMapping("/books/popular")
-    public String popularBookPage() {
-        return "books/popular";
+    @GetMapping("/books/recommended")
+    public BooksPageResponse recommendedBooksPage(@RequestParam("offset") Integer offset,
+                                              @RequestParam("limit") Integer limit) {
+        return new BooksPageResponse(bookService.getPageOfRecommendedBooks(offset, limit));
     }
 
     @GetMapping("/books/recent")
-    public String recentBooksPage() {
-        return "books/recent";
+    public BooksPageResponse recentBooksPage(@RequestParam("offset") Integer offset,
+                                             @RequestParam("limit") Integer limit) {
+        return new BooksPageResponse(bookService.getPageOfRecentBooks(offset, limit));
+    }
+
+    @GetMapping("/books/popular")
+    public BooksPageResponse popularBooksPage(@RequestParam("offset") Integer offset,
+                                              @RequestParam("limit") Integer limit) {
+        return new BooksPageResponse(bookService.getPageOfPopularBooks(offset, limit));
     }
 }

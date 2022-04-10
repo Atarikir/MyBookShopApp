@@ -22,9 +22,9 @@ paths:
     /books/recommended:
         get:
             tags:
-                - recomended
+                - recommended
             summary: Show recommended books
-            operationId: recomended
+            operationId: recommendedgit
             parameters:
                 -   name: offset
                     in: query

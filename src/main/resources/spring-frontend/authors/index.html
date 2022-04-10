@@ -11,7 +11,7 @@
 <!--[if gt IE 9]><!-->
 <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
-    <title th:text="#{topbar.authorEntities}">Тут название страницы написать</title>
+    <title th:text="#{topbar.authors}">Тут название страницы написать</title>
     <meta name="description" content="Описание страницы">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -41,12 +41,12 @@
       | для правильного отображения сайта.
   -->
 <header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(authorEntities='menu-item menu-item_ACTIVE', status='unauthorized')}">
+        th:replace="~{fragments/common_header_fragment :: head(authors='menu-item menu-item_ACTIVE', status='unauthorized')}">
 </header>
 <div class="Middle">
     <div class="wrap">
         <main class="Middle-main">
-            <h1 class="Middle-title" th:text="#{topbar.authorEntities}">Авторы
+            <h1 class="Middle-title" th:text="#{topbar.authors}">Авторы
             </h1>
             <div class="Section">
                 <div class="Authors">
@@ -59,8 +59,8 @@
                             th:text="${authorList.key}">А
                         </h2>
                         <div class="Authors-letter">
-                            <div th:each="authorEntity : ${authorList.value}" class="Authors-item">
-                                <a href="/author/slug.html" th:text="${authorEntity.getName()}">Абгарян
+                            <div th:each="author : ${authorList.value}" class="Authors-item">
+                                <a href="/author/slug.html" th:text="${author.getName()}">Абгарян
                                     Наринэ</a>
                             </div>
                         </div>

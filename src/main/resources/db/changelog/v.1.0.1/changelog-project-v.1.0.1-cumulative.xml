@@ -7,7 +7,7 @@
 
     <include file="2022.04.06--1--insert-table-book.xml" relativeToChangelogFile="true"/>
     <include file="2022.04.06--2--insert-table-author.xml" relativeToChangelogFile="true"/>
-<!--    <include file="/2021.07.13&#45;&#45;3&#45;&#45;insert-post_votes.xml" relativeToChangelogFile="true"/>-->
+    <include file="2022.04.08--3--insert-table-book2author.xml" relativeToChangelogFile="true"/>
 <!--    <include file="/2021.07.13&#45;&#45;4&#45;&#45;insert-tags.xml" relativeToChangelogFile="true"/>-->
 <!--    <include file="/2021.07.13&#45;&#45;5&#45;&#45;insert-tag2post.xml" relativeToChangelogFile="true"/>-->
 <!--    <include file="/2021.07.13&#45;&#45;6&#45;&#45;insert-post_comments.xml" relativeToChangelogFile="true"/>-->

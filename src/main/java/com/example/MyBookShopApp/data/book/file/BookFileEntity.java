@@ -1,9 +1,12 @@
 package com.example.MyBookShopApp.data.book.file;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book_file")
+@Data
 public class BookFileEntity {
 
     @Id
@@ -18,36 +21,4 @@ public class BookFileEntity {
 
     @Column(columnDefinition = "VARCHAR NOT NULL")
     private String path;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 }

@@ -1,6 +1,6 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.data.book.BookEntity;
+import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +19,24 @@ public class MainPageController {
         this.bookService = bookService;
     }
 
-    @ModelAttribute("recommendedBooks")
-    public List<BookEntity> recommendedBooks() {
-        return bookService.getBooksData();
+    @ModelAttribute("all")
+    public List<BookDto> allBooks() {
+        return bookService.getPageOfAllBooks(0,20);
+    }
+
+    @ModelAttribute("recommended")
+    public List<BookDto> recommendedBooks() {
+        return bookService.getPageOfRecommendedBooks(0, 20);
+    }
+
+    @ModelAttribute("recent")
+    public List<BookDto> recentBooks() {
+        return bookService.getPageOfRecentBooks(0, 20);
+    }
+
+    @ModelAttribute("popular")
+    public List<BookDto> popularBooks() {
+        return bookService.getPageOfPopularBooks(0, 20);
     }
 
     @GetMapping("/")

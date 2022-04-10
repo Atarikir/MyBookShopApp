@@ -3,6 +3,7 @@ package com.example.MyBookShopApp.data.user;
 import com.example.MyBookShopApp.data.book.BookEntity;
 import com.example.MyBookShopApp.data.book.review.BookReviewLikeEntity;
 import com.example.MyBookShopApp.data.book.review.MessageEntity;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 public class UserEntity {
 
     @Id
@@ -69,100 +71,4 @@ public class UserEntity {
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
     private List<BookEntity> bookReviewList;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public LocalDateTime getRegTime() {
-        return regTime;
-    }
-
-    public void setRegTime(LocalDateTime regTime) {
-        this.regTime = regTime;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<BookEntity> getBookEntityList() {
-        return bookEntityList;
-    }
-
-    public void setBookEntityList(List<BookEntity> bookEntityList) {
-        this.bookEntityList = bookEntityList;
-    }
-
-    public List<BookEntity> getBookEntities() {
-        return bookEntities;
-    }
-
-    public void setBookEntities(List<BookEntity> bookEntities) {
-        this.bookEntities = bookEntities;
-    }
-
-    public List<BookEntity> getBookTransactList() {
-        return bookTransactList;
-    }
-
-    public void setBookTransactList(List<BookEntity> bookTransactList) {
-        this.bookTransactList = bookTransactList;
-    }
-
-    public List<BookEntity> getBookReviewList() {
-        return bookReviewList;
-    }
-
-    public void setBookReviewList(List<BookEntity> bookReviewList) {
-        this.bookReviewList = bookReviewList;
-    }
-
-    public List<BookReviewLikeEntity> getLikeList() {
-        return likeList;
-    }
-
-    public void setLikeList(List<BookReviewLikeEntity> likeList) {
-        this.likeList = likeList;
-    }
-
-    public List<MessageEntity> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<MessageEntity> messageList) {
-        this.messageList = messageList;
-    }
-
-    public UserContactEntity getUserContact() {
-        return userContact;
-    }
-
-    public void setUserContact(UserContactEntity userContact) {
-        this.userContact = userContact;
-    }
 }
