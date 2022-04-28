@@ -1,8 +1,6 @@
 package com.example.MyBookShopApp.api.response;
 
-import com.example.MyBookShopApp.data.book.BookEntity;
 import lombok.Data;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

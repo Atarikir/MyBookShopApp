@@ -1,10 +1,8 @@
 package com.example.MyBookShopApp.api.response;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class BookDto {
 
     private int id;
@@ -18,4 +16,12 @@ public class BookDto {
     private String status;
     private Integer price;
     private Integer discountPrice;
+
+    public void setIsBestseller(Short isBestseller) {
+        if (isBestseller == 1) {
+            this.isBestseller = true;
+        } else {
+            this.isBestseller = false;
+        }
+    }
 }
