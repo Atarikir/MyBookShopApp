@@ -3,6 +3,7 @@ package com.example.MyBookShopApp.controller;
 import com.example.MyBookShopApp.api.response.BooksPageResponse;
 import com.example.MyBookShopApp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,20 +17,20 @@ public class BooksController {
     }
 
     @GetMapping("/books/recommended")
-    public BooksPageResponse recommendedBooksPage(@RequestParam("offset") Integer offset,
-                                              @RequestParam("limit") Integer limit) {
-        return new BooksPageResponse(bookService.getPageOfRecommendedBooks(offset, limit));
+    public ResponseEntity<BooksPageResponse> recommendedBooksPage(@RequestParam(value = "offset", required = false) Integer offset,
+                                              @RequestParam(value = "limit", required = false) Integer limit) {
+        return ResponseEntity.ok(bookService.getPageOfRecommendedBooks(offset, limit));
     }
 
     @GetMapping("/books/recent")
-    public BooksPageResponse recentBooksPage(@RequestParam("offset") Integer offset,
-                                             @RequestParam("limit") Integer limit) {
-        return new BooksPageResponse(bookService.getPageOfRecentBooks(offset, limit));
+    public ResponseEntity<BooksPageResponse> recentBooksPage(@RequestParam(value = "offset", required = false) Integer offset,
+                                             @RequestParam(value = "limit", required = false) Integer limit) {
+        return ResponseEntity.ok(bookService.getPageOfRecentBooks(offset, limit));
     }
 
     @GetMapping("/books/popular")
-    public BooksPageResponse popularBooksPage(@RequestParam("offset") Integer offset,
-                                              @RequestParam("limit") Integer limit) {
-        return new BooksPageResponse(bookService.getPageOfPopularBooks(offset, limit));
+    public ResponseEntity<BooksPageResponse> popularBooksPage(@RequestParam(value = "offset", required = false) Integer offset,
+                                              @RequestParam(value = "limit", required = false) Integer limit) {
+        return ResponseEntity.ok(bookService.getPageOfPopularBooks(offset, limit));
     }
 }

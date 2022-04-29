@@ -46,6 +46,10 @@ public class BookEntity {
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private Short discount;
 
+    @OneToOne(mappedBy = "bookId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private BookRatingEntity bookRating;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "book2author",

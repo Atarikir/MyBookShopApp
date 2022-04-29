@@ -1,6 +1,7 @@
 package com.example.MyBookShopApp.service;
 
 import com.example.MyBookShopApp.api.response.BookDto;
+import com.example.MyBookShopApp.api.response.BooksPageResponse;
 import com.example.MyBookShopApp.data.book.BookEntity;
 import com.example.MyBookShopApp.mapper.BookMapper;
 import com.example.MyBookShopApp.repository.BookRepository;
@@ -13,13 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-
 
     @Autowired
     public BookService(BookRepository bookRepository, BookMapper bookMapper) {
@@ -39,28 +38,39 @@ public class BookService {
         return bookRepository.findAll(getPageable(offset, limit));
     }
 
-    public List<BookDto> getPageOfRecommendedBooks(Integer offset, Integer limit) {
-        return getBookDtoList(getRecommendedBooks(offset, limit));
+    public BooksPageResponse getPageOfRecommendedBooks(Integer offset, Integer limit) {
+        Page<BookEntity> books = getRecommendedBooks(offset, limit);
+        return getBooksPageResponse(books);
+    }
+
+    public BooksPageResponse getPageOfRecentBooks(Integer offset, Integer limit) {
+        Page<BookEntity> books = getRecentBooks(offset, limit);
+        return getBooksPageResponse(books);
+    }
+
+    public BooksPageResponse getPageOfPopularBooks(Integer offset, Integer limit) {
+        Page<BookEntity> books = getPopularBooks(offset, limit);
+        return getBooksPageResponse(books);
     }
 
     private Page<BookEntity> getRecommendedBooks(Integer offset, Integer limit) {
         return bookRepository.findAll(getPageable(offset, limit));
     }
 
-    public List<BookDto> getPageOfRecentBooks(Integer offset, Integer limit) {
-        return getBookDtoList(getRecentBooks(offset, limit));
-    }
-
     private Page<BookEntity> getRecentBooks(Integer offset, Integer limit) {
         return bookRepository.findAll(getPageable(offset, limit));
     }
 
-    public List<BookDto> getPageOfPopularBooks(Integer offset, Integer limit) {
-        return getBookDtoList(getPopularBooks(offset, limit));
-    }
-
     private Page<BookEntity> getPopularBooks(Integer offset, Integer limit) {
         return bookRepository.findAll(getPageable(offset, limit));
+    }
+
+    private BooksPageResponse getBooksPageResponse(Page<BookEntity> books) {
+        List<BookDto> bookDtoList = getBookDtoList(books);
+        return new BooksPageResponse(
+                (int) books.getTotalElements(),
+                bookDtoList
+        );
     }
 
     private List<BookDto> getBookDtoList(Page<BookEntity> books) {
