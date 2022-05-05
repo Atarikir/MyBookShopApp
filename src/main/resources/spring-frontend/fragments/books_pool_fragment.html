@@ -18,10 +18,11 @@
             </div>
         </div>
     </div>
-    <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#"
-                                                     th:attr="data-refreshshow = ${category}" data-refreshshow="recent"
-                                                     data-refreshoffset="20" data-refreshlimit="20"
+    <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="recent"
+                                                     data-refreshoffset="0" data-refreshlimit="20"
+                                                     th:attr="data-refreshquery=${searchWordDto.example}"
                                                      th:text="#{button.refresh}">Показать еще</a>
+<!--        th:attr="data-refreshshow = ${category}"-->
     </div>
 </div>
 </html>

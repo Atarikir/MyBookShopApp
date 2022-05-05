@@ -34,9 +34,24 @@ public class BookService {
         return getBookDtoList(getAllBooks(offset, limit));
     }
 
-    private Page<BookEntity> getAllBooks(Integer offset, Integer limit) {
-        return bookRepository.findAll(getPageable(offset, limit));
+
+
+    public List<BookDto> getPageOfSearchResultBooks(String searchWord, Integer offset, Integer limit) {
+        return getBookDtoList(getSearchResultsBooks(searchWord, offset, limit));
     }
+
+    private Page<BookEntity> getSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
+        return bookRepository.findBookByTitleContaining(searchWord, getPageable(offset, limit));
+    }
+
+    public BooksPageResponse getPageOfSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
+        Page<BookEntity> books = getSearchResultsBooks(searchWord, offset, limit);
+        return getBooksPageResponse(books);
+    }
+
+
+
+
 
     public BooksPageResponse getPageOfRecommendedBooks(Integer offset, Integer limit) {
         Page<BookEntity> books = getRecommendedBooks(offset, limit);
@@ -51,6 +66,10 @@ public class BookService {
     public BooksPageResponse getPageOfPopularBooks(Integer offset, Integer limit) {
         Page<BookEntity> books = getPopularBooks(offset, limit);
         return getBooksPageResponse(books);
+    }
+
+    private Page<BookEntity> getAllBooks(Integer offset, Integer limit) {
+        return bookRepository.findAll(getPageable(offset, limit));
     }
 
     private Page<BookEntity> getRecommendedBooks(Integer offset, Integer limit) {

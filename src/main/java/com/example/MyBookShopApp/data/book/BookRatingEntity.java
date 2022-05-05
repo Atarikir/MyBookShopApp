@@ -16,7 +16,7 @@ public class BookRatingEntity {
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private Short value;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id", columnDefinition = "INT NOT NULL")
     private BookEntity bookId;
 }

@@ -13,7 +13,7 @@
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="book_rating_pkey"/>
             </column>
-            <column name="value" type="SMALLINT" remarks="число от 1 до 5, которое
+            <column defaultValueNumeric="0" name="value" type="SMALLINT" remarks="число от 1 до 5, которое
             рассчитывается как среднее значение всех оценок пользователей данной книги,
             если ни один пользователь не оценил книгу, её рейтинг равен 0">
                 <constraints nullable="false"/>

@@ -22,10 +22,14 @@
                     </div>
                     <div class="Header-search">
                         <div class="search">
-                            <form class="form form_search" action="#" method="post" data-searchlimit="20">
+                            <form class="form form_search" action="#" method="post" data-searchlimit="20"
+                                  th:object="${searchWordDto}">
                                 <input class="search-input" id="query" name="query" type="text"
-                                       placeholder="Search over 30 million book titles" value="" th:placeholder="#{topbar.placeholder}"/>
-                                <button class="search-button" type="submit" name="search" id="search" th:text="#{title.search}">Поиск
+                                       placeholder="Search over 30 million book titles"  value=""
+                                       th:placeholder="#{topbar.placeholder}"/>
+<!--                                th:field="*{example}"-->
+                                <button class="search-button" type="submit" name="search" id="search"
+                                        th:text="#{title.search}">Поиск
                                 </button>
                             </form>
                         </div>
@@ -57,11 +61,13 @@
                                                                   th:text="#{topbar.news}">Новинки</a>
                     </li>
                     <li class="menu-item" th:class="${popular}"><a class="menu-link"
-                                                                   href="/books/popular.html" th:href="@{/books/popular}"
+                                                                   href="/books/popular.html"
+                                                                   th:href="@{/books/popular}"
                                                                    th:text="#{topbar.popular}">Популярное</a>
                     </li>
                     <li class="menu-item" th:class="${authors}"><a class="menu-link"
-                                                                   href="/authorEntities/index.html" th:href="@{/authors}"
+                                                                   href="/authorEntities/index.html"
+                                                                   th:href="@{/authors}"
                                                                    th:text="#{topbar.authors}">Авторы</a>
                     </li>
                 </ul>

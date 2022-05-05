@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, Integer> {
+
+    Page<BookEntity> findBookByTitleContaining(String bookTitle, Pageable pageable);
 }

@@ -4,6 +4,7 @@ import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,5 +49,18 @@ public class MainPageController {
     @GetMapping("/")
     public String mainPage() {
         return "index";
+    }
+
+
+    //TODO: перенести в BookController
+    @GetMapping(value = "/books/recent", produces = MediaType.TEXT_HTML_VALUE)
+    public String recentPage() {
+        return "books/recent";
+    }
+
+    //TODO: перенести в BookController
+    @GetMapping(value = "/books/popular", produces = MediaType.TEXT_HTML_VALUE)
+    public String popularPage() {
+        return "books/popular";
     }
 }
