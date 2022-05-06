@@ -28,39 +28,8 @@ public class MainPageController {
         return bookService.getPageOfAllBooks(0,20);
     }
 
-//    @ModelAttribute("recommended")
-//    public List<BookDto> recommendedBooks() {
-//        log.info("recommended");
-//        return bookService.getPageOfRecommendedBooks(0, 20);
-//    }
-//
-//    @ModelAttribute("recent")
-//    public List<BookDto> recentBooks() {
-//        log.info("recent");
-//        return bookService.getPageOfRecentBooks(0, 20);
-//    }
-//
-//    @ModelAttribute("popular")
-//    public List<BookDto> popularBooks() {
-//        log.info("popular");
-//        return bookService.getPageOfPopularBooks(0, 20);
-//    }
-
     @GetMapping("/")
     public String mainPage() {
         return "index";
-    }
-
-
-    //TODO: перенести в BookController
-    @GetMapping(value = "/books/recent", produces = MediaType.TEXT_HTML_VALUE)
-    public String recentPage() {
-        return "books/recent";
-    }
-
-    //TODO: перенести в BookController
-    @GetMapping(value = "/books/popular", produces = MediaType.TEXT_HTML_VALUE)
-    public String popularPage() {
-        return "books/popular";
     }
 }

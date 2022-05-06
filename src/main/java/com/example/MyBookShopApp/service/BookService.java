@@ -72,7 +72,7 @@ public class BookService {
         return bookRepository.findAll(getPageable(offset, limit));
     }
 
-    private Page<BookEntity> getRecommendedBooks(Integer offset, Integer limit) {
+    public Page<BookEntity> getRecommendedBooks(Integer offset, Integer limit) {
         return bookRepository.findAll(getPageable(offset, limit));
     }
 

@@ -18,10 +18,6 @@ public class BookDto {
     private Integer discountPrice;
 
     public void setIsBestseller(Short isBestseller) {
-        if (isBestseller == 1) {
-            this.isBestseller = true;
-        } else {
-            this.isBestseller = false;
-        }
+        this.isBestseller = isBestseller == 1;
     }
 }

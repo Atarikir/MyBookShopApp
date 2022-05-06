@@ -3,16 +3,17 @@ package com.example.MyBookShopApp.mapper;
 import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.book.BookEntity;
-import com.example.MyBookShopApp.data.book.links.Book2AuthorEntity;
+import com.example.MyBookShopApp.data.book.BookRatingEntity;
 import com.example.MyBookShopApp.repository.AuthorRepository;
 import com.example.MyBookShopApp.repository.Book2AuthorRepository;
 import com.example.MyBookShopApp.service.AuthorService;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Mapper(componentModel = "spring")
 public abstract class BookMapper {
 
@@ -23,7 +24,6 @@ public abstract class BookMapper {
     @Autowired
     protected AuthorRepository authorRepository;
 
-
 //    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
     public BookDto bookEntityToBookDTO(BookEntity book) {
@@ -31,32 +31,57 @@ public abstract class BookMapper {
             return null;
         }
 
-        String authorString = null;
-//        int authorId = book2AuthorRepository.getAuthorBySortIndex(book);
-//        AuthorEntity author = authorRepository.findById(authorId);
-//        List<String> authors = new ArrayList<>();
-        List<AuthorEntity> authorList = book.getAuthorEntityList();
-//        authorList.stream().forEach(a -> authors.add(a.getName()));
-        if (authorList.size() == 1) {
-            authorString = authorList.get(0).getName();
-        }
-        if (authorList.size() > 1) {
-            authorString = " и другие";
-        }
-
         BookDto bookDTO = new BookDto();
         bookDTO.setId(book.getId());
         bookDTO.setSlug(book.getSlug());
         bookDTO.setTitle(book.getTitle());
         bookDTO.setImage(book.getImage());
-        bookDTO.setAuthors(authorString);
+        bookDTO.setAuthors(getAuthors(book));
         bookDTO.setDiscount(Integer.valueOf(book.getDiscount()));
         bookDTO.setIsBestseller(book.getIsBestseller());
-        bookDTO.setRating(0);
-        bookDTO.setStatus(String.valueOf(false));
+        bookDTO.setRating(getRating(book));
+        bookDTO.setStatus(getStatusBook());
         bookDTO.setPrice(book.getPrice());
         bookDTO.setDiscountPrice(book.getPrice() - book.getDiscount() * book.getPrice() / 100);
 
         return bookDTO;
+    }
+
+    private String getAuthors(BookEntity book) {
+        String authorString = null;
+        Integer bookId = book2AuthorRepository.getBookId(book.getId());
+        log.info("bookId - " + bookId);
+        if (bookId != null) {
+            int authorId = book2AuthorRepository.getAuthorIdBySortIndex(bookId);
+            log.info("author_id - " + authorId);
+            AuthorEntity author = authorRepository.findById(authorId);
+            List<AuthorEntity> authorList = book.getAuthorEntityList();
+            if (authorList.size() == 1) {
+                authorString = authorList.get(0).getName();
+            }
+            if (authorList.size() > 1) {
+                authorString = author.getName() + " и другие";
+            }
+        }
+
+        return authorString;
+    }
+
+    private Integer getRating(BookEntity book) {
+        int rating;
+        List<BookRatingEntity> bookEntityList = book.getBookRatingList();
+        if (bookEntityList.isEmpty()) {
+            rating = 0;
+        } else {
+            int count = bookEntityList.size();
+            int sumValue = bookEntityList.stream().mapToInt(BookRatingEntity::getValue).sum();
+            rating = Math.round((float) sumValue / count);
+        }
+
+        return rating;
+    }
+
+    private String getStatusBook() {
+        return String.valueOf(false);
     }
 }

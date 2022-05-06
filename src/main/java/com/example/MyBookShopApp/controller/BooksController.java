@@ -1,5 +1,6 @@
 package com.example.MyBookShopApp.controller;
 
+import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.api.response.BooksPageResponse;
 import com.example.MyBookShopApp.api.response.SearchWordDto;
 import com.example.MyBookShopApp.data.book.BookEntity;
@@ -24,12 +25,30 @@ public class BooksController {
         this.bookService = bookService;
     }
 
+//        @ModelAttribute("recommended")
+//    public List<BookDto> recommendedBooks() {
+//        log.info("recommended");
+//        return bookService.getRecommendedBooks(0, 20);
+//    }
+//
+//    @ModelAttribute("recent")
+//    public List<BookDto> recentBooks() {
+//        log.info("recent");
+//        return bookService.getPageOfRecentBooks(0, 20);
+//    }
+//
+//    @ModelAttribute("popular")
+//    public List<BookDto> popularBooks() {
+//        log.info("popular");
+//        return bookService.getPageOfPopularBooks(0, 20);
+//    }
+
     @ModelAttribute("searchWordDto")
     public SearchWordDto searchWordDto() {
         return new SearchWordDto();
     }
 
-    //TODO: Переделать на List<BookDto>
+    //TODO: переделать на List<BookDto>
     @ModelAttribute("searchResults")
     public List<BookEntity> searchResults() {
         return new ArrayList<>();
@@ -56,7 +75,17 @@ public class BooksController {
         return ResponseEntity.ok(bookService.getPageOfPopularBooks(offset, limit));
     }
 
-//    @GetMapping(value = {"/search", "/search/{searchWord}"})
+    @GetMapping(value = "/books/recent", produces = MediaType.TEXT_HTML_VALUE)
+    public String recentPage() {
+        return "books/recent";
+    }
+
+    @GetMapping(value = "/books/popular", produces = MediaType.TEXT_HTML_VALUE)
+    public String popularPage() {
+        return "books/popular";
+    }
+
+//    @GetMapping(value = {"/search", "/search/{searchWord}"}, produces = MediaType.TEXT_HTML_VALUE)
 //    public String getSearchResults(@PathVariable(value = "searchWord", required = false) SearchWordDto searchWordDto,
 //                                   Model model) {
 //        model.addAttribute("searchWordDto", searchWordDto);
@@ -65,7 +94,7 @@ public class BooksController {
 //        return "/search/index";
 //    }
 //
-//    @GetMapping("/search/page/{searchWord}")
+//    @GetMapping(value = "/search/{searchWord}", produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseBody
 //    public ResponseEntity<BooksPageResponse> getNextSearchNextPage(@PathVariable(value = "searchWord", required = false)
 //                                                   SearchWordDto searchWordDto,
