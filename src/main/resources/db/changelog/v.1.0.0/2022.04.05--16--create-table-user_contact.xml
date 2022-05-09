@@ -32,7 +32,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table user_contact;
         </rollback>
     </changeSet>
 

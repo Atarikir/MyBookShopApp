@@ -21,7 +21,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table book2genre;
         </rollback>
     </changeSet>
 

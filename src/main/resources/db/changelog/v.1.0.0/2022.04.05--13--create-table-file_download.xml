@@ -24,7 +24,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table file_download;
         </rollback>
     </changeSet>
 

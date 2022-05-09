@@ -8,10 +8,10 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="dmitriy_kir" id="2022.04.08--3--insert-table-book2author">
+    <changeSet author="dmitriy_kir" id="2022.05.08--6--insert-table-users">
         <sqlFile dbms="postgresql"
                  encoding="UTF-8"
-                 path="db/changelog/v.1.0.1/data/book2author.sql"
+                 path="db/changelog/v.1.0.1/data/users.sql"
                  stripComments="true"/>
     </changeSet>
 

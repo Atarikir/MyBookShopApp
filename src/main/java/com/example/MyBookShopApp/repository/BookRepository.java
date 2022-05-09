@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
     Page<BookEntity> findBookByTitleContaining(String bookTitle, Pageable pageable);
+
+    Page<BookEntity> findByPriceBetween(int from, int to, Pageable pageable);
 }

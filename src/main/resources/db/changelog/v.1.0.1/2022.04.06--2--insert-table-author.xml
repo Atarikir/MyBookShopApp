@@ -11,7 +11,7 @@
     <changeSet author="dmitriy_kir" id="2022.04.06--2--insert-table-author">
         <sqlFile dbms="postgresql"
                  encoding="UTF-8"
-                 path="db/changelog/v.1.0.1/author.sql"
+                 path="db/changelog/v.1.0.1/data/author.sql"
                  stripComments="true"/>
     </changeSet>
 

@@ -22,7 +22,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table book_file_type;
         </rollback>
     </changeSet>
 

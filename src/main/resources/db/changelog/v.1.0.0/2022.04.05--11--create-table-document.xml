@@ -29,7 +29,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table document;
         </rollback>
     </changeSet>
 

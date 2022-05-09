@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div class="Cards Cards_refresh" th:fragment="pool">
-    <div class="Card" th:each="book: ${all}">
+<div class="Cards Cards_refresh" th:fragment="pool(category, scroll)">
+    <div class="Card" th:each="book: ${scroll}">
         <div class="Card-picture"><a href="#a" th:href="${book.id}"><img
                 th:src="${book.image}" src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
             <div class="Card-sale" th:text="${book.discount + '% '} + #{title.sale}">30% скидка
@@ -20,9 +20,10 @@
     </div>
     <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="recent"
                                                      data-refreshoffset="0" data-refreshlimit="20"
-                                                     th:attr="data-refreshquery=${searchWordDto.example}"
+                                                     th:attr="data-refreshshow = ${category}"
+
                                                      th:text="#{button.refresh}">Показать еще</a>
-<!--        th:attr="data-refreshshow = ${category}"-->
+<!--        th:attr="data-refreshquery=${searchWordDto.example}"-->
     </div>
 </div>
 </html>

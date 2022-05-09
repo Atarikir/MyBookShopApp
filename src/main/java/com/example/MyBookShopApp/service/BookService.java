@@ -30,28 +30,34 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public List<BookDto> getPageOfAllBooks(Integer offset, Integer limit) {
-        return getBookDtoList(getAllBooks(offset, limit));
+    public List<BookDto> getRecommendedBooksList(Integer offset, Integer limit) {
+        return getBookDtoList(getRecommendedBooks(offset, limit));
     }
 
-
-
-    public List<BookDto> getPageOfSearchResultBooks(String searchWord, Integer offset, Integer limit) {
-        return getBookDtoList(getSearchResultsBooks(searchWord, offset, limit));
+    public List<BookDto> getRecentBooksList(Integer offset, Integer limit) {
+        return getBookDtoList(getRecentBooks(offset, limit));
     }
 
-    private Page<BookEntity> getSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
-        return bookRepository.findBookByTitleContaining(searchWord, getPageable(offset, limit));
+    public List<BookDto> getPopularBooksList(Integer offset, Integer limit) {
+        return getBookDtoList(getPopularBooks(offset, limit));
     }
 
-    public BooksPageResponse getPageOfSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
-        Page<BookEntity> books = getSearchResultsBooks(searchWord, offset, limit);
-        return getBooksPageResponse(books);
-    }
+//---------------------------------------------------------------------------------------------------------------------
 
+//    public List<BookDto> getPageOfSearchResultBooks(String searchWord, Integer offset, Integer limit) {
+//        return getBookDtoList(getSearchResultsBooks(searchWord, offset, limit));
+//    }
+//
+//    private Page<BookEntity> getSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
+//        return bookRepository.findBookByTitleContaining(searchWord, getPageable(offset, limit));
+//    }
+//
+//    public BooksPageResponse getPageOfSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
+//        Page<BookEntity> books = getSearchResultsBooks(searchWord, offset, limit);
+//        return getBooksPageResponse(books);
+//    }
 
-
-
+//---------------------------------------------------------------------------------------------------------------------
 
     public BooksPageResponse getPageOfRecommendedBooks(Integer offset, Integer limit) {
         Page<BookEntity> books = getRecommendedBooks(offset, limit);
@@ -68,20 +74,19 @@ public class BookService {
         return getBooksPageResponse(books);
     }
 
-    private Page<BookEntity> getAllBooks(Integer offset, Integer limit) {
-        return bookRepository.findAll(getPageable(offset, limit));
-    }
-
+    //TODO: реализовать выборку рекомендованных книг
     public Page<BookEntity> getRecommendedBooks(Integer offset, Integer limit) {
-        return bookRepository.findAll(getPageable(offset, limit));
+        return bookRepository.findByPriceBetween(0, 999, getPageable(offset, limit));
     }
 
+    //TODO: реализовать выборку новых книг
     private Page<BookEntity> getRecentBooks(Integer offset, Integer limit) {
-        return bookRepository.findAll(getPageable(offset, limit));
+        return bookRepository.findByPriceBetween(1000, 1999, getPageable(offset, limit));
     }
 
+    //TODO: реализовать выборку популярных книг
     private Page<BookEntity> getPopularBooks(Integer offset, Integer limit) {
-        return bookRepository.findAll(getPageable(offset, limit));
+        return bookRepository.findByPriceBetween(2000, 3000, getPageable(offset, limit));
     }
 
     private BooksPageResponse getBooksPageResponse(Page<BookEntity> books) {

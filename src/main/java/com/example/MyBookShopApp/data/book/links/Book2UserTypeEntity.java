@@ -3,6 +3,7 @@ package com.example.MyBookShopApp.data.book.links;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "book2user_type")
@@ -18,8 +19,4 @@ public class Book2UserTypeEntity {
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String name;
-
-    @OneToOne(mappedBy = "typeId", fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Book2UserEntity statusType;
 }

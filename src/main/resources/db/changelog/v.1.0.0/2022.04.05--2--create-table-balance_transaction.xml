@@ -33,7 +33,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table balance_transaction;
         </rollback>
     </changeSet>
 

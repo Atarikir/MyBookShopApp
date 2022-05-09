@@ -21,3 +21,7 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
+
+value:
+  offset: 0
+  limit: 20

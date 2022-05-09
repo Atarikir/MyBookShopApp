@@ -1,19 +1,22 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import java.util.List;
 
 @Controller
 @Slf4j
 public class MainPageController {
+
+    @Value("${value.offset}")
+    private int offset;
+
+    @Value("${value.limit}")
+    private int limit;
 
     private final BookService bookService;
 
@@ -22,14 +25,11 @@ public class MainPageController {
         this.bookService = bookService;
     }
 
-    @ModelAttribute("all")
-    public List<BookDto> allBooks() {
-        log.info("all books");
-        return bookService.getPageOfAllBooks(0,20);
-    }
-
     @GetMapping("/")
-    public String mainPage() {
+    public String mainPage(Model model) {
+        model.addAttribute("recommended", bookService.getRecommendedBooksList(offset, limit));
+        model.addAttribute("recent", bookService.getRecentBooksList(offset, limit));
+        model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
         return "index";
     }
 }

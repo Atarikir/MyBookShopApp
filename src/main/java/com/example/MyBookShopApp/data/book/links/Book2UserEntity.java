@@ -17,9 +17,8 @@ public class Book2UserEntity {
     @Column(columnDefinition = "TIMESTAMP NOT NULL")
     private LocalDateTime time;
 
-    @OneToOne
-    @JoinColumn(name = "type_id", columnDefinition = "INT NOT NULL")
-    private Book2UserTypeEntity typeId;
+    @Column(name = "type_id", columnDefinition = "INT NOT NULL")
+    private int typeId;
 
     @Column(name = "book_id", columnDefinition = "INT NOT NULL")
     private int bookId;

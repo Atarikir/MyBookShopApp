@@ -25,7 +25,7 @@
             </column>
         </createTable>
         <rollback>
-            drop table users;
+            drop table faq;
         </rollback>
     </changeSet>
 

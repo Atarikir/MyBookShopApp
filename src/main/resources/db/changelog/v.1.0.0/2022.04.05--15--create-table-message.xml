@@ -28,7 +28,7 @@
             <column name="user_id" type="INT" remarks="если пользователь был авторизован"/>
         </createTable>
         <rollback>
-            drop table users;
+            drop table message;
         </rollback>
     </changeSet>
 

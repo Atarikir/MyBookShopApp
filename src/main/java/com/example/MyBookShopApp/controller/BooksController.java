@@ -5,7 +5,9 @@ import com.example.MyBookShopApp.api.response.BooksPageResponse;
 import com.example.MyBookShopApp.api.response.SearchWordDto;
 import com.example.MyBookShopApp.data.book.BookEntity;
 import com.example.MyBookShopApp.service.BookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,8 +17,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class BooksController {
+
+    @Value("${value.offset}")
+    private int offset;
+
+    @Value("${value.limit}")
+    private int limit;
 
     private final BookService bookService;
 
@@ -25,36 +34,18 @@ public class BooksController {
         this.bookService = bookService;
     }
 
-//        @ModelAttribute("recommended")
-//    public List<BookDto> recommendedBooks() {
-//        log.info("recommended");
-//        return bookService.getRecommendedBooks(0, 20);
-//    }
-//
-//    @ModelAttribute("recent")
-//    public List<BookDto> recentBooks() {
-//        log.info("recent");
-//        return bookService.getPageOfRecentBooks(0, 20);
-//    }
-//
-//    @ModelAttribute("popular")
-//    public List<BookDto> popularBooks() {
-//        log.info("popular");
-//        return bookService.getPageOfPopularBooks(0, 20);
+//    @ModelAttribute("searchWordDto")
+//    public SearchWordDto searchWordDto() {
+//        return new SearchWordDto();
 //    }
 
-    @ModelAttribute("searchWordDto")
-    public SearchWordDto searchWordDto() {
-        return new SearchWordDto();
-    }
+//    //TODO: переделать на List<BookDto>
+//    @ModelAttribute("searchResults")
+//    public List<BookEntity> searchResults() {
+//        return new ArrayList<>();
+//    }
 
-    //TODO: переделать на List<BookDto>
-    @ModelAttribute("searchResults")
-    public List<BookEntity> searchResults() {
-        return new ArrayList<>();
-    }
-
-    @GetMapping("/books/recommended")
+    @GetMapping(value = "/books/recommended", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<BooksPageResponse> recommendedBooksPage(@RequestParam(value = "offset", required = false) Integer offset,
                                                                   @RequestParam(value = "limit", required = false) Integer limit) {
@@ -68,7 +59,7 @@ public class BooksController {
         return ResponseEntity.ok(bookService.getPageOfRecentBooks(offset, limit));
     }
 
-    @GetMapping("/books/popular")
+    @GetMapping(value = "/books/popular", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<BooksPageResponse> popularBooksPage(@RequestParam(value = "offset", required = false) Integer offset,
                                                               @RequestParam(value = "limit", required = false) Integer limit) {
@@ -76,12 +67,14 @@ public class BooksController {
     }
 
     @GetMapping(value = "/books/recent", produces = MediaType.TEXT_HTML_VALUE)
-    public String recentPage() {
+    public String recentPage(Model model) {
+        model.addAttribute("recent", bookService.getRecentBooksList(offset, limit));
         return "books/recent";
     }
 
     @GetMapping(value = "/books/popular", produces = MediaType.TEXT_HTML_VALUE)
-    public String popularPage() {
+    public String popularPage(Model model) {
+        model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
         return "books/popular";
     }
 
