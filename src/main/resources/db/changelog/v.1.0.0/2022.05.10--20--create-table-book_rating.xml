@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.05.10--20--create-table-book_rating">
+        <createTable tableName="book_rating">
+<!--            <column autoIncrement="true" name="id" type="SERIAL">-->
+<!--                <constraints primaryKey="true" primaryKeyName="book_rating_pkey"/>-->
+<!--            </column>-->
+            <column defaultValueNumeric="0" name="value" type="SMALLINT" remarks="число от 1 до 5, которое
+            рассчитывается как среднее значение всех оценок пользователей данной книги,
+            если ни один пользователь не оценил книгу, её рейтинг равен 0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="INT" remarks="идентификатор книги, к которому
+            относится данное значение рейтинга">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table book_rating;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -73,9 +73,6 @@
         <createIndex indexName="fk_book2user_user_id" tableName="book2user">
             <column name="user_id"/>
         </createIndex>
-<!--        <createIndex indexName="fk_book2user_type_id" tableName="book2user">-->
-<!--            <column name="type_id"/>-->
-<!--        </createIndex>-->
         <comment>book2user table</comment>
     </changeSet>
 
@@ -97,15 +94,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="users"/>
     </changeSet>
-<!--    <changeSet author="dmitriy_kir" id="book2user-fk-3">-->
-<!--        <addForeignKeyConstraint baseColumnNames="type_id"-->
-<!--                                 baseTableName="book2user"-->
-<!--                                 constraintName="fk_book2user_type_id"-->
-<!--                                 onDelete="NO ACTION"-->
-<!--                                 onUpdate="NO ACTION"-->
-<!--                                 referencedColumnNames="id"-->
-<!--                                 referencedTableName="book2user_type"/>-->
-<!--    </changeSet>-->
 
     <changeSet author="dmitriy_kir" id="file_download-createIndexes">
         <createIndex indexName="fk_file_download_book_id" tableName="file_download">
@@ -245,21 +233,38 @@
                                  referencedTableName="users"/>
     </changeSet>
 
-    <changeSet author="dmitriy_kir" id="book_rating-createIndexes">
-        <createIndex indexName="fk_book_rating_book_id" tableName="book_rating">
+    <changeSet author="dmitriy_kir" id="book_grade-createIndexes">
+        <createIndex indexName="fk_book_grade_book_id" tableName="book_grade">
             <column name="book_id"/>
         </createIndex>
-        <comment>book_rating table</comment>
+        <comment>book_grade table</comment>
     </changeSet>
 
-    <changeSet author="dmitriy_kir" id="book_rating-fk-1">
+    <changeSet author="dmitriy_kir" id="book_grade-fk-1">
         <addForeignKeyConstraint baseColumnNames="book_id"
-                                 baseTableName="book_rating"
-                                 constraintName="fk_book_rating_book_id"
+                                 baseTableName="book_grade"
+                                 constraintName="fk_book_grade_book_id"
                                  onDelete="NO ACTION"
                                  onUpdate="NO ACTION"
                                  referencedColumnNames="id"
                                  referencedTableName="book"/>
     </changeSet>
+
+<!--    <changeSet author="dmitriy_kir" id="book_rating-createIndexes">-->
+<!--        <createIndex indexName="fk_book_rating_book_id" tableName="book_rating">-->
+<!--            <column name="book_id"/>-->
+<!--        </createIndex>-->
+<!--        <comment>book_rating table</comment>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet author="dmitriy_kir" id="book_rating-fk-1">-->
+<!--        <addForeignKeyConstraint baseColumnNames="book_id"-->
+<!--                                 baseTableName="book_rating"-->
+<!--                                 constraintName="fk_book_rating_book_id"-->
+<!--                                 onDelete="NO ACTION"-->
+<!--                                 onUpdate="NO ACTION"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 referencedTableName="book"/>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>

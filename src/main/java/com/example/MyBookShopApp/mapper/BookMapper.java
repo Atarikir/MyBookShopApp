@@ -3,13 +3,11 @@ package com.example.MyBookShopApp.mapper;
 import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.book.BookEntity;
-import com.example.MyBookShopApp.data.book.BookRatingEntity;
-import com.example.MyBookShopApp.data.book.links.Book2UserTypeEntity;
+import com.example.MyBookShopApp.data.book.BookGradeEntity;
 import com.example.MyBookShopApp.repository.*;
 import com.example.MyBookShopApp.service.AuthorService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -46,7 +44,7 @@ public abstract class BookMapper {
         bookDTO.setAuthors(getAuthors(book));
         bookDTO.setDiscount(Integer.valueOf(book.getDiscount()));
         bookDTO.setIsBestseller(book.getIsBestseller());
-        bookDTO.setRating(getRating(book));
+        bookDTO.setRating(book.getBookRating());
         bookDTO.setStatus(getStatusBook(book));
         bookDTO.setPrice(book.getPrice());
         bookDTO.setDiscountPrice(getDiscountPrice(book));
@@ -79,12 +77,12 @@ public abstract class BookMapper {
 
     private Integer getRating(BookEntity book) {
         int rating;
-        List<BookRatingEntity> bookEntityList = book.getBookRatingList();
-        if (bookEntityList.isEmpty()) {
+        List<BookGradeEntity> bookGradeEntityList = book.getBookGradeList();
+        if (bookGradeEntityList.isEmpty()) {
             rating = 0;
         } else {
-            int count = bookEntityList.size();
-            int sumValue = bookEntityList.stream().mapToInt(BookRatingEntity::getValue).sum();
+            int count = bookGradeEntityList.size();
+            int sumValue = bookGradeEntityList.stream().mapToInt(BookGradeEntity::getValue).sum();
             rating = Math.round((float) sumValue / count);
         }
 

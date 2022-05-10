@@ -8,23 +8,21 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="dmitriy_kir" id="2022.04.29--20--create-table-book_rating">
-        <createTable tableName="book_rating">
+    <changeSet author="dmitriy_kir" id="2022.04.06--19--create-table-book_grade">
+        <createTable tableName="book_grade">
             <column autoIncrement="true" name="id" type="SERIAL">
-                <constraints primaryKey="true" primaryKeyName="book_rating_pkey"/>
+                <constraints primaryKey="true" primaryKeyName="book_grade_pkey"/>
             </column>
-            <column defaultValueNumeric="0" name="value" type="SMALLINT" remarks="число от 1 до 5, которое
-            рассчитывается как среднее значение всех оценок пользователей данной книги,
-            если ни один пользователь не оценил книгу, её рейтинг равен 0">
+            <column defaultValueNumeric="0" name="value" type="SMALLINT" remarks="число от 1 до 5">
                 <constraints nullable="false"/>
             </column>
             <column name="book_id" type="INT" remarks="идентификатор книги, к которому
-            относится данное значение рейтинга">
+            относится данное значение оценки">
                 <constraints nullable="false"/>
             </column>
         </createTable>
         <rollback>
-            drop table book_rating;
+            drop table book_grade;
         </rollback>
     </changeSet>
 

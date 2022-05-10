@@ -2,6 +2,7 @@ package com.example.MyBookShopApp.data.book;
 
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.genre.GenreEntity;
+import com.example.MyBookShopApp.data.user.UserContactEntity;
 import com.example.MyBookShopApp.data.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,8 +47,11 @@ public class BookEntity {
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private Short discount;
 
+    @Column(name="book_rating", columnDefinition = "INT")
+    private Integer bookRating;
+
     @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BookRatingEntity> bookRatingList;
+    private List<BookGradeEntity> bookGradeList;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

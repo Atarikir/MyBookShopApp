@@ -23,10 +23,8 @@ public class BooksController {
 
     @Value("${value.offset}")
     private int offset;
-
     @Value("${value.limit}")
     private int limit;
-
     private final BookService bookService;
 
     @Autowired
