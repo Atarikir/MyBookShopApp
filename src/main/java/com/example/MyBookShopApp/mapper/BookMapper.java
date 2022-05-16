@@ -3,7 +3,6 @@ package com.example.MyBookShopApp.mapper;
 import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.book.BookEntity;
-import com.example.MyBookShopApp.data.book.BookGradeEntity;
 import com.example.MyBookShopApp.repository.*;
 import com.example.MyBookShopApp.service.AuthorService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +22,7 @@ public abstract class BookMapper {
     @Autowired
     protected AuthorRepository authorRepository;
     @Autowired
-    private Book2UserRepository book2UserRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private Book2UserTypeRepository book2UserTypeRepository;
-
-//    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
+    private BookRatingRepository bookRatingRepository;
 
     public BookDto bookEntityToBookDTO(BookEntity book) {
         if (book == null) {
@@ -44,7 +37,7 @@ public abstract class BookMapper {
         bookDTO.setAuthors(getAuthors(book));
         bookDTO.setDiscount(Integer.valueOf(book.getDiscount()));
         bookDTO.setIsBestseller(book.getIsBestseller());
-        bookDTO.setRating(book.getBookRating());
+        bookDTO.setRating(getRating(book));
         bookDTO.setStatus(getStatusBook(book));
         bookDTO.setPrice(book.getPrice());
         bookDTO.setDiscountPrice(getDiscountPrice(book));
@@ -76,30 +69,17 @@ public abstract class BookMapper {
     }
 
     private Integer getRating(BookEntity book) {
-        int rating;
-        List<BookGradeEntity> bookGradeEntityList = book.getBookGradeList();
-        if (bookGradeEntityList.isEmpty()) {
-            rating = 0;
-        } else {
-            int count = bookGradeEntityList.size();
-            int sumValue = bookGradeEntityList.stream().mapToInt(BookGradeEntity::getValue).sum();
-            rating = Math.round((float) sumValue / count);
+        Integer rating = 0;
+        BookEntity bookId = bookRatingRepository.getBookId(book);
+        if (bookId != null) {
+            rating = bookRatingRepository.getValueRating(bookId);
         }
 
         return rating;
     }
 
+    //TODO: переделать поиск текущего пользователя, когда будет реализована аутентификация
     private String getStatusBook(BookEntity book) {
-        String statusBook = String.valueOf(false);
-        //TODO: переделать поиск текущего пользователя, когда будет реализована аутентификация
-//        Integer currentUser = book2UserRepository.getUserId(20);
-//        Integer bookId = book2UserRepository.getBookId(book.getId());
-//        if (bookId != null && currentUser != null) {
-//            int typeId = book2UserRepository.getTypeIdByBookIdAndUserId(currentUser, bookId);
-//                Book2UserTypeEntity book2UserType = book2UserTypeRepository.findById(typeId);
-//                statusBook = book2UserType.getCode();
-//        }
-
-        return statusBook;
+        return String.valueOf(false);
     }
 }

@@ -1,23 +1,21 @@
 package com.example.MyBookShopApp.data.user;
 
 import com.example.MyBookShopApp.data.enums.ContactType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_contact")
-@Data
+@Getter
+@Setter
 public class UserContactEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @OneToOne
-    @JoinColumn(name = "user_id", columnDefinition = "INT NOT NULL")
-    private UserEntity userId;
 
     @Enumerated(EnumType.STRING)
     private ContactType type;
@@ -36,4 +34,8 @@ public class UserContactEntity {
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String contact;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", columnDefinition = "INT NOT NULL")
+    private UserEntity userId;
 }

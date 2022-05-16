@@ -1,0 +1,12 @@
+insert into book_popularity (value, book_id) values (0.4, 5);
+insert into book_popularity (value, book_id) values (0.7, 20);
+insert into book_popularity (value, book_id) values (1, 34);
+insert into book_popularity (value, book_id) values (1, 36);
+insert into book_popularity (value, book_id) values (0.4, 39);
+insert into book_popularity (value, book_id) values (1, 40);
+insert into book_popularity (value, book_id) values (1.7, 50);
+insert into book_popularity (value, book_id) values (1.4, 75);
+insert into book_popularity (value, book_id) values (0.4, 77);
+insert into book_popularity (value, book_id) values (0.4, 79);
+insert into book_popularity (value, book_id) values (0.7, 86);
+insert into book_popularity (value, book_id) values (0.4, 89);

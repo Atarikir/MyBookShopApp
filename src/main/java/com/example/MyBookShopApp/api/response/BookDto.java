@@ -1,8 +1,10 @@
 package com.example.MyBookShopApp.api.response;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class BookDto {
 
     private int id;

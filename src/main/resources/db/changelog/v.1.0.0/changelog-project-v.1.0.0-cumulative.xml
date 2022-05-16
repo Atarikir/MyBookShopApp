@@ -27,7 +27,8 @@
     <include file="2022.04.05--17--create-table-users.xml" relativeToChangelogFile="true"/>
     <include file="2022.04.05--18--create-table-book2user_type.xml" relativeToChangelogFile="true"/>
     <include file="2022.04.06--19--create-table-book_grade.xml" relativeToChangelogFile="true"/>
-<!--    <include file="2022.05.10&#45;&#45;20&#45;&#45;create-table-book_rating.xml" relativeToChangelogFile="true"/>-->
-    <include file="2022.05.10--21--add-index-foreign-key.xml" relativeToChangelogFile="true"/>
+    <include file="2022.05.10--20--create-table-book_rating.xml" relativeToChangelogFile="true"/>
+    <include file="2022.05.10--21--create-table-book_popularity.xml" relativeToChangelogFile="true"/>
+    <include file="2022.05.10--22--add-index-foreign-key.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

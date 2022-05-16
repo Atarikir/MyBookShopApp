@@ -1,13 +1,15 @@
 package com.example.MyBookShopApp.data.book.review;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "book_review")
-@Data
+@Getter
+@Setter
 public class BookReviewEntity {
 
     @Id

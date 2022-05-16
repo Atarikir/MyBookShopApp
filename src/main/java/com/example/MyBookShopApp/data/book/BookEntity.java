@@ -2,11 +2,11 @@ package com.example.MyBookShopApp.data.book;
 
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.genre.GenreEntity;
-import com.example.MyBookShopApp.data.user.UserContactEntity;
 import com.example.MyBookShopApp.data.user.UserEntity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +14,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "book")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookEntity {
@@ -47,8 +48,13 @@ public class BookEntity {
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private Short discount;
 
-    @Column(name="book_rating", columnDefinition = "INT")
-    private Integer bookRating;
+    @OneToOne(mappedBy = "bookId", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private BookRatingEntity bookRating;
+
+    @OneToOne(mappedBy = "bookId", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private BookPopularityEntity bookPopularity;
 
     @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookGradeEntity> bookGradeList;

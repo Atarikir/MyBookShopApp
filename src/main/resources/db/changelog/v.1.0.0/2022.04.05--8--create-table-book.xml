@@ -37,9 +37,9 @@
             <column name="title" type="VARCHAR(255)" remarks="название книги">
                 <constraints nullable="false"/>
             </column>
-            <column defaultValueNumeric="0" name="book_rating" type="INT" remarks="число от 1 до 5, которое
-            рассчитывается как среднее значение всех оценок пользователей данной книги,
-            если ни один пользователь не оценил книгу, её рейтинг равен 0"/>
+<!--            <column defaultValueNumeric="0" name="book_rating" type="INT" remarks="число от 1 до 5, которое-->
+<!--            рассчитывается как среднее значение всех оценок пользователей данной книги,-->
+<!--            если ни один пользователь не оценил книгу, её рейтинг равен 0"/>-->
         </createTable>
         <rollback>
             drop table book;

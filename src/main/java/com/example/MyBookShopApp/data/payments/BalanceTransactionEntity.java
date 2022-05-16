@@ -1,13 +1,15 @@
 package com.example.MyBookShopApp.data.payments;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "balance_transaction")
-@Data
+@Getter
+@Setter
 public class BalanceTransactionEntity {
 
     @Id

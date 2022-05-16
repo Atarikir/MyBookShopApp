@@ -1,13 +1,15 @@
 package com.example.MyBookShopApp.data.book.links;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "book2user")
-@Data
+@Getter
+@Setter
 public class Book2UserEntity {
 
     @Id

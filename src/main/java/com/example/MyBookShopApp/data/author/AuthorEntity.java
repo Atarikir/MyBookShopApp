@@ -4,9 +4,7 @@ import com.example.MyBookShopApp.data.book.BookEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "author")
 @ApiModel(description = "data model of author entity")
-@Data
+@Getter
+@Setter
 public class AuthorEntity {
 
     @Id

@@ -1,12 +1,14 @@
 package com.example.MyBookShopApp.data.book.file;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book_file_type")
-@Data
+@Getter
+@Setter
 public class BookFileTypeEntity {
 
     @Id

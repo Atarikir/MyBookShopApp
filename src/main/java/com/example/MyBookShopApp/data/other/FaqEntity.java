@@ -1,12 +1,14 @@
 package com.example.MyBookShopApp.data.other;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "faq")
-@Data
+@Getter
+@Setter
 public class FaqEntity {
 
     @Id

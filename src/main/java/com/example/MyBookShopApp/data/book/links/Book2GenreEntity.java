@@ -1,12 +1,14 @@
 package com.example.MyBookShopApp.data.book.links;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book2genre")
-@Data
+@Getter
+@Setter
 public class Book2GenreEntity {
 
     @Id

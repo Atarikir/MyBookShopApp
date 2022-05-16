@@ -1,13 +1,14 @@
 package com.example.MyBookShopApp.data.book.links;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "book2user_type")
-@Data
+@Getter
+@Setter
 public class Book2UserTypeEntity {
 
     @Id

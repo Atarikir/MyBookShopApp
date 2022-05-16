@@ -8,17 +8,11 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="0" author="dmitriy_kir">
-        <tagDatabase tag="db_init"/>
-    </changeSet>
-
-<!--        <include file="db/changelog/liquibase-outputChangeLog_init.xml"/>-->
-
-    <include file="v.1.0.0/changelog-project-v.1.0.0-cumulative.xml" relativeToChangelogFile="true"/>
-    <include file="v.1.0.1/changelog-project-v.1.0.1-cumulative.xml" relativeToChangelogFile="true"/>
-
-    <changeSet id="1" author="dmitriy_kir">
-        <tagDatabase tag="v.1.0.0"/>
+    <changeSet author="dmitriy_kir" id="2022.05.10--9--insert-table-book_popularity">
+        <sqlFile dbms="postgresql"
+                 encoding="UTF-8"
+                 path="db/changelog/v.1.0.1/data/book_popularity.sql"
+                 stripComments="true"/>
     </changeSet>
 
 </databaseChangeLog>
