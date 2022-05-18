@@ -12,7 +12,5 @@
     <include file="2022.05.08--5--insert-table-book2user_type.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.08--6--insert-table-users.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.08--7--insert-table-book2user.xml" relativeToChangelogFile="true"/>
-    <include file="2022.05.10--8--insert-table-book_rating.xml" relativeToChangelogFile="true"/>
-    <include file="2022.05.10--9--insert-table-book_popularity.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

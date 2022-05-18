@@ -10,7 +10,7 @@
         <div class="Card-content">
             <strong class="Card-title"><a href="#" th:text="${book.title}">Техника</a>
             </strong>
-            <div class="Card-description">Кондратенко Александр Петрович
+            <div class="Card-description" th:text="${book.authors}">Кондратенко Александр Петрович
             </div>
             <div class="Card-cost">
                 <span class="Card-priceOld" th:text="${book.price}">₽300.00</span>
@@ -21,9 +21,7 @@
     <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="recent"
                                                      data-refreshoffset="0" data-refreshlimit="20"
                                                      th:attr="data-refreshshow = ${category}"
-
                                                      th:text="#{button.refresh}">Показать еще</a>
-<!--        th:attr="data-refreshquery=${searchWordDto.example}"-->
     </div>
 </div>
 </html>

@@ -10,8 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BookService {
@@ -54,23 +57,37 @@ public class BookService {
 
     //TODO: реализовать выборку рекомендованных книг с аутентификацией пользователя
     private Page<BookEntity> getRecommendedBooks(Integer offset, Integer limit) {
-        return bookRepository.getBooksSortedByPubDateAndBookRatingValue(getPageable(offset, limit));
+        return bookRepository.findByOrderByBookRatingDescPubDateDesc(getPageable(offset, limit));
     }
 
     //TODO: реализовать выборку новых книг, если отсутствует одна дата
     private Page<BookEntity> getRecentBooks(String from, String to, Integer offset, Integer limit) {
-        Page<BookEntity> books;
+        Page<BookEntity> books = null;
+        LocalDate dateFrom;
+        LocalDate dateEnd;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         if (from == null && to == null) {
             books = bookRepository.findByOrderByPubDateDesc(getPageable(offset, limit));
-        } else {
-            return bookRepository.findByPubDateBetweenOrderByPubDateDesc(from, to, getPageable(offset, limit));
+        }
+        if (from != null && to != null) {
+            dateFrom = LocalDate.parse(from, formatter);
+            dateEnd = LocalDate.parse(to, formatter);
+            books = bookRepository.findByPubDateBetweenOrderByPubDateDesc(dateFrom, dateEnd, getPageable(offset, limit));
+        }
+        if (from == null && to != null) {
+            dateEnd = LocalDate.parse(to, formatter);
+            books = bookRepository.findByPubDateBeforeOrderByPubDateDesc(dateEnd, getPageable(offset, limit));
+        }
+        if (to == null && from != null) {
+            dateFrom = LocalDate.parse(from, formatter);
+            books = bookRepository.findByPubDateAfterOrderByPubDateDesc(dateFrom, getPageable(offset, limit));
         }
 
         return books;
     }
 
     private Page<BookEntity> getPopularBooks(Integer offset, Integer limit) {
-        return bookRepository.getBooksSortedByBookPopularityValue(getPageable(offset, limit));
+        return bookRepository.findByOrderByBookPopularityDesc(getPageable(offset, limit));
     }
 
     private BooksPageResponse getBooksPageResponse(Page<BookEntity> books, List<BookDto> bookDtoList) {
@@ -91,21 +108,4 @@ public class BookService {
     private Pageable getPageable(Integer offset, Integer limit) {
         return PageRequest.of(offset, limit);
     }
-
-    //---------------------------------------------------------------------------------------------------------------------
-
-//    public List<BookDto> getPageOfSearchResultBooks(String searchWord, Integer offset, Integer limit) {
-//        return getBookDtoList(getSearchResultsBooks(searchWord, offset, limit));
-//    }
-//
-//    private Page<BookEntity> getSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
-//        return bookRepository.findBookByTitleContaining(searchWord, getPageable(offset, limit));
-//    }
-//
-//    public BooksPageResponse getPageOfSearchResultsBooks(String searchWord, Integer offset, Integer limit) {
-//        Page<BookEntity> books = getSearchResultsBooks(searchWord, offset, limit);
-//        return getBooksPageResponse(books);
-//    }
-
-//---------------------------------------------------------------------------------------------------------------------
 }

@@ -64,22 +64,4 @@ public class BooksController {
         model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
         return "books/popular";
     }
-
-//    @GetMapping(value = {"/search", "/search/{searchWord}"}, produces = MediaType.TEXT_HTML_VALUE)
-//    public String getSearchResults(@PathVariable(value = "searchWord", required = false) SearchWordDto searchWordDto,
-//                                   Model model) {
-//        model.addAttribute("searchWordDto", searchWordDto);
-//        model.addAttribute("searchResults",
-//                bookService.getPageOfSearchResultBooks(searchWordDto.getExample(), 0, 20));
-//        return "/search/index";
-//    }
-//
-//    @GetMapping(value = "/search/{searchWord}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public ResponseEntity<BooksPageResponse> getNextSearchNextPage(@PathVariable(value = "searchWord", required = false)
-//                                                   SearchWordDto searchWordDto,
-//                                                   @RequestParam(value = "offset", required = false) Integer offset,
-//                                                   @RequestParam(value = "limit", required = false) Integer limit) {
-//        return ResponseEntity.ok(bookService.getPageOfSearchResultsBooks(searchWordDto.getExample(), offset, limit));
-//    }
 }

@@ -48,13 +48,11 @@ public class BookEntity {
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private Short discount;
 
-    @OneToOne(mappedBy = "bookId", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private BookRatingEntity bookRating;
+    @Column(columnDefinition = "SMALLINT DEFAULT 0")
+    private Short bookRating;
 
-    @OneToOne(mappedBy = "bookId", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private BookPopularityEntity bookPopularity;
+    @Column(columnDefinition = "FLOAT DEFAULT 0")
+    private Float bookPopularity;
 
     @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookGradeEntity> bookGradeList;

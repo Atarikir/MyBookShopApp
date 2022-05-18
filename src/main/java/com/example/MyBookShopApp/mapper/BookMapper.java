@@ -21,8 +21,6 @@ public abstract class BookMapper {
     protected Book2AuthorRepository book2AuthorRepository;
     @Autowired
     protected AuthorRepository authorRepository;
-    @Autowired
-    private BookRatingRepository bookRatingRepository;
 
     public BookDto bookEntityToBookDTO(BookEntity book) {
         if (book == null) {
@@ -37,7 +35,7 @@ public abstract class BookMapper {
         bookDTO.setAuthors(getAuthors(book));
         bookDTO.setDiscount(Integer.valueOf(book.getDiscount()));
         bookDTO.setIsBestseller(book.getIsBestseller());
-        bookDTO.setRating(getRating(book));
+        bookDTO.setRating(Integer.valueOf(book.getBookRating()));
         bookDTO.setStatus(getStatusBook(book));
         bookDTO.setPrice(book.getPrice());
         bookDTO.setDiscountPrice(getDiscountPrice(book));
@@ -51,7 +49,7 @@ public abstract class BookMapper {
     }
 
     private String getAuthors(BookEntity book) {
-        String authorString = null;
+        String authorString = "";
         Integer bookId = book2AuthorRepository.getBookId(book.getId());
         if (bookId != null) {
             int authorId = book2AuthorRepository.getAuthorIdBySortIndex(bookId);
@@ -66,16 +64,6 @@ public abstract class BookMapper {
         }
 
         return authorString;
-    }
-
-    private Integer getRating(BookEntity book) {
-        Integer rating = 0;
-        BookEntity bookId = bookRatingRepository.getBookId(book);
-        if (bookId != null) {
-            rating = bookRatingRepository.getValueRating(bookId);
-        }
-
-        return rating;
     }
 
     //TODO: переделать поиск текущего пользователя, когда будет реализована аутентификация

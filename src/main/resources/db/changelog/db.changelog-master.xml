@@ -12,8 +12,6 @@
         <tagDatabase tag="db_init"/>
     </changeSet>
 
-<!--        <include file="db/changelog/liquibase-outputChangeLog_init.xml"/>-->
-
     <include file="v.1.0.0/changelog-project-v.1.0.0-cumulative.xml" relativeToChangelogFile="true"/>
     <include file="v.1.0.1/changelog-project-v.1.0.1-cumulative.xml" relativeToChangelogFile="true"/>
 

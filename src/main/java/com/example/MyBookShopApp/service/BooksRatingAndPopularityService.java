@@ -2,12 +2,12 @@ package com.example.MyBookShopApp.service;
 
 import com.example.MyBookShopApp.data.book.BookEntity;
 import com.example.MyBookShopApp.data.book.BookGradeEntity;
-import org.springframework.stereotype.Service;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
-@Service
-public class UtilService {
+@UtilityClass
+public class BooksRatingAndPopularityService {
 
     public Integer bookRatingCalculation(BookEntity book) {
         int rating;
