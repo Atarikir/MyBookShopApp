@@ -60,27 +60,22 @@ public class BookService {
         return bookRepository.findByOrderByBookRatingDescPubDateDesc(getPageable(offset, limit));
     }
 
-    //TODO: реализовать выборку новых книг, если отсутствует одна дата
     private Page<BookEntity> getRecentBooks(String from, String to, Integer offset, Integer limit) {
         Page<BookEntity> books = null;
-        LocalDate dateFrom;
-        LocalDate dateEnd;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        if (from == null && to == null) {
+
+        if (Objects.equals(from, "") && Objects.equals(to, "") || from == null && to == null) {
             books = bookRepository.findByOrderByPubDateDesc(getPageable(offset, limit));
-        }
-        if (from != null && to != null) {
-            dateFrom = LocalDate.parse(from, formatter);
-            dateEnd = LocalDate.parse(to, formatter);
-            books = bookRepository.findByPubDateBetweenOrderByPubDateDesc(dateFrom, dateEnd, getPageable(offset, limit));
-        }
-        if (from == null && to != null) {
-            dateEnd = LocalDate.parse(to, formatter);
+        } else if (Objects.equals(from, "") && !to.equals("") || from == null) {
+            LocalDate dateEnd = LocalDate.parse(to, formatter);
             books = bookRepository.findByPubDateBeforeOrderByPubDateDesc(dateEnd, getPageable(offset, limit));
-        }
-        if (to == null && from != null) {
-            dateFrom = LocalDate.parse(from, formatter);
-            books = bookRepository.findByPubDateAfterOrderByPubDateDesc(dateFrom, getPageable(offset, limit));
+        } else if (Objects.equals(to, "") && !Objects.equals(from, "") || to == null) {
+            LocalDate dateStart = LocalDate.parse(Objects.requireNonNull(from), formatter);
+            books = bookRepository.findByPubDateAfterOrderByPubDateDesc(dateStart, getPageable(offset, limit));
+        } else if (!Objects.equals(from, "") && !Objects.equals(to, "")){
+            LocalDate dateStart = LocalDate.parse(Objects.requireNonNull(from), formatter);
+            LocalDate dateEnd = LocalDate.parse(Objects.requireNonNull(to), formatter);
+            books = bookRepository.findByPubDateBetweenOrderByPubDateDesc(dateStart, dateEnd, getPageable(offset, limit));
         }
 
         return books;
