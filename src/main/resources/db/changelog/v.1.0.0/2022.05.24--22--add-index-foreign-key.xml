@@ -249,5 +249,34 @@
                                  referencedColumnNames="id"
                                  referencedTableName="book"/>
     </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2tag-createIndexes">
+        <createIndex indexName="fk_book2tag_book_id" tableName="book2tag">
+            <column name="book_id"/>
+        </createIndex>
+        <createIndex indexName="fk_book2tag_tag_id" tableName="book2tag">
+            <column name="tag_id"/>
+        </createIndex>
+        <comment>book2tag table</comment>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book2tag-fk-1">
+        <addForeignKeyConstraint baseColumnNames="book_id"
+                                 baseTableName="book2tag"
+                                 constraintName="fk_book2tag_book_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="book2tag-fk-2">
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="book2tag"
+                                 constraintName="fk_book2tag_tag_id"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tag"/>
+    </changeSet>
     
 </databaseChangeLog>

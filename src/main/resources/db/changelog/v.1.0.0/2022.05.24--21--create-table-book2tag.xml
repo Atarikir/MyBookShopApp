@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.05.24--20--create-table-book2tag">
+        <createTable tableName="book2tag">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="book2tag_pkey"/>
+            </column>
+            <column name="book_id" type="INT" remarks="идентификатор книги">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="INT" remarks="идентификатор тега">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table book2tag;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -54,7 +54,8 @@ p.error-browser
                     </h1>
                 </div>
                 <div class="Cards Cards_refresh"
-                     th:replace="~{fragments/books_pool_fragment :: pool(category='popular', scroll=${popular})}"></div>
+                     th:replace="~{fragments/books_pool_fragment :: pool(category='popular', scroll=${popular},
+                     objectById=null)}"></div>
             </div>
         </main>
     </div>

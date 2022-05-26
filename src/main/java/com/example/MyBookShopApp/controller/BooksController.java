@@ -52,8 +52,10 @@ public class BooksController {
     }
 
     @GetMapping(value = "/books/recent", produces = MediaType.TEXT_HTML_VALUE)
-    public String recentPage(@RequestParam(value = "from", required = false) String from,
-                             @RequestParam(value = "to", required = false) String to,
+    public String recentPage(@RequestParam(value = "from", required = false, defaultValue = "#{T(java.time.LocalDate).now().minusMonths(1).format(T(java.time.format.DateTimeFormatter).ofPattern('dd.MM.yyyy'))}")
+                             String from,
+                             @RequestParam(value = "to", required = false, defaultValue = "#{T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd.MM.yyyy'))}")
+                             String to,
                              Model model) {
         model.addAttribute("recent", bookService.getRecentBooksList(from, to, offset, limit));
         return "books/recent";

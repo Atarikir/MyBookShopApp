@@ -23,8 +23,13 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
                                                             @Param("to") LocalDate to,
                                                             Pageable pageable);
 
-    @Query(value = "select b from BookEntity b where b.pubDate between ?1 and ?2 order by b.pubDate desc")
-    Page<BookEntity> getBooksByPubDateBetween(String from, String to, Pageable pageable);
-
     Page<BookEntity> findByOrderByBookPopularityDesc(Pageable pageable);
+
+    @Query("select b from BookEntity b join Book2TagEntity b2t on b2t.bookId = b.id join TagEntity t on b2t.tagId = t.id" +
+            " where t.slug = ?1")
+    Page<BookEntity> getBooksByTagSlugPage(String slug, Pageable pageable);
+
+    @Query("select b from BookEntity b join Book2TagEntity b2t on b2t.bookId = b.id join TagEntity t on b2t.tagId = t.id" +
+            " where t.id = ?1 order by b.pubDate desc")
+    Page<BookEntity> getBooksByTagIdPage(Integer id, Pageable pageable);
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="dmitriy_kir" id="2022.05.24--21--create-table-tag">
+        <createTable tableName="tag">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="tag_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" remarks="название тега">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)" remarks="мнемонический идентификатор тега">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            drop table tag;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

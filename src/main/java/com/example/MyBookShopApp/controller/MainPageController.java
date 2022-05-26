@@ -1,6 +1,7 @@
 package com.example.MyBookShopApp.controller;
 
 import com.example.MyBookShopApp.service.BookService;
+import com.example.MyBookShopApp.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +19,12 @@ public class MainPageController {
     @Value("${value.limit}")
     private int limit;
     private final BookService bookService;
+    private final TagService tagService;
 
     @Autowired
-    public MainPageController(BookService bookService) {
+    public MainPageController(BookService bookService, TagService tagService) {
         this.bookService = bookService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/")
@@ -31,6 +34,7 @@ public class MainPageController {
         model.addAttribute("recommended", bookService.getRecommendedBooksList(offset, limit));
         model.addAttribute("recent", bookService.getRecentBooksList(from, to, offset, limit));
         model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
+        model.addAttribute("tags", tagService.getAllTags());
         return "index";
     }
 }

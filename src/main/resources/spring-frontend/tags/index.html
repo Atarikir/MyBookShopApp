@@ -19,21 +19,21 @@
 <body class="Site">
 <header class="Header" th:replace="~{fragments/common_header_fragment :: head(status='unauthorized')}"></header>
 <div class="Middle">
-    <div class="wrap">
+    <div class="wrap" th:if="${tagBySlug!=null}" th:object="${tagBySlug}">
         <main class="Middle-main">
             <ul class="breadcrumbs"
-                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category='Психологическая проза')}"></ul>
+                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category=*{name})}"></ul>
             <div class="Section">
                 <div class="Section-header">
-                    <h1 class="Section-title">Психологическая проза
+                    <h1 class="Section-title" th:text="*{name}">Психологическая проза
                     </h1>
-                    <div class="Section-header-links"><a class="Section-header-link" th:href="@{/}"
-                                                         href="/index.html#tags">Все
-                        тэги</a>
+                    <div class="Section-header-links"><a class="Section-header-link"
+                                                         href="/index.html#tags" >Все тэги</a>
                     </div>
                 </div>
                 <div class="Cards Cards_refresh"
-                     th:replace="~{fragments/books_pool_fragment :: pool(category='tag')}"></div>
+                     th:replace="~{fragments/books_pool_fragment :: pool(category='tag', scroll=${booksByTagSlug},
+                     objectById=*{id})}"></div>
             </div>
         </main>
     </div>

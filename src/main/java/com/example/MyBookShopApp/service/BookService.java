@@ -31,6 +31,14 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<BookDto> getBooksByTagIdList(String id, Integer offset, Integer limit) {
+        return getBookDtoList(getBooksByTagId(id, offset, limit));
+    }
+
+    public List<BookDto> getBooksByTagSlugList(String slug, Integer offset, Integer limit) {
+        return getBookDtoList(getBooksByTagSlug(slug, offset, limit));
+    }
+
     public List<BookDto> getRecommendedBooksList(Integer offset, Integer limit) {
         return getBookDtoList(getRecommendedBooks(offset, limit));
     }
@@ -53,6 +61,10 @@ public class BookService {
 
     public BooksPageResponse getPageOfPopularBooks(Integer offset, Integer limit) {
         return getBooksPageResponse(getPopularBooks(offset, limit), getPopularBooksList(offset, limit));
+    }
+
+    public BooksPageResponse getPageOfBooksByTagId(String id, Integer offset, Integer limit) {
+        return getBooksPageResponse(getBooksByTagId(id, offset, limit), getBooksByTagIdList(id, offset, limit));
     }
 
     //TODO: реализовать выборку рекомендованных книг с аутентификацией пользователя
@@ -83,6 +95,14 @@ public class BookService {
 
     private Page<BookEntity> getPopularBooks(Integer offset, Integer limit) {
         return bookRepository.findByOrderByBookPopularityDesc(getPageable(offset, limit));
+    }
+
+    private Page<BookEntity> getBooksByTagId(String id, Integer offset, Integer limit) {
+        return bookRepository.getBooksByTagIdPage(Integer.valueOf(id), getPageable(offset, limit));
+    }
+
+    private Page<BookEntity> getBooksByTagSlug(String slug, Integer offset, Integer limit) {
+        return bookRepository.getBooksByTagSlugPage(slug, getPageable(offset, limit));
     }
 
     private BooksPageResponse getBooksPageResponse(Page<BookEntity> books, List<BookDto> bookDtoList) {

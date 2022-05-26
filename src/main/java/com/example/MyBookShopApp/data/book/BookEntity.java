@@ -2,6 +2,7 @@ package com.example.MyBookShopApp.data.book;
 
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.genre.GenreEntity;
+import com.example.MyBookShopApp.data.tag.TagEntity;
 import com.example.MyBookShopApp.data.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -104,4 +105,12 @@ public class BookEntity {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private List<UserEntity> userReviewList;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "book2tag",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private List<TagEntity> tagEntityList;
 }
