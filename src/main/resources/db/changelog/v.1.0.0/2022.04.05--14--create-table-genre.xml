@@ -17,7 +17,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="parent_id" type="INT" remarks="идентификатор родительского жанра или NULL, если
-            жанр является корневым"/>
+            жанр является корневым">
+                <constraints foreignKeyName="fk_genre_genre" references="genre(id)"/>
+            </column>
             <column name="slug" type="VARCHAR(255)" remarks="мнемонический код жанра,
             используемый в ссылках на страницу данного жанра">
                 <constraints nullable="false"/>

@@ -20,17 +20,17 @@
 <body class="Site">
 <header class="Header" th:replace="~{fragments/common_header_fragment :: head(status='unauthorized')}"></header>
 <div class="Middle">
-    <div class="wrap">
+    <div class="wrap" th:if="${bookBySlug != null}" th:object="${bookBySlug}" >
         <main class="Middle-main">
             <ul class="breadcrumbs"
-                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category='Мара и Морок')}"></ul>
+                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category=*{title}, link='genres', linkName=#{breadcrumps.books})}"></ul>
             <div class="Product">
                 <div class="ProductCard">
                     <div class="ProductCard-look">
-                        <div class="ProductCard-photo"><img src="/assets/img/content/main/card.jpg" alt="card.jpg"/>
+                        <div class="ProductCard-photo"><img th:src="${bookBySlug.image}" src="/assets/img/content/main/card.jpg" alt="card.jpg"/>
                         </div>
                     </div>
-                    <div class="ProductCard-desc" th:replace="~{fragments/book_description_fragment :: bookDesc}"></div>
+                    <div class="ProductCard-desc" th:replace="~{fragments/book_description_fragment :: bookDesc(book=${bookBySlug})}"></div>
                 </div>
                 <div class="Product-comments">
                     <div class="Product-comments-header">

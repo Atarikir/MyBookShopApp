@@ -8,7 +8,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BooksPageResponse {
-    private Integer count;
-    private List<BookDto> books;
+public class BooksListPageResponse {
+
+  private Long count;
+  private List<BookResponseDto> books;
 }

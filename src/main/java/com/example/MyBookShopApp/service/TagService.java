@@ -11,19 +11,27 @@ import java.util.List;
 @Service
 public class TagService {
 
-    private final TagMapper tagMapper;
-    private final TagRepository tagRepository;
+  private final TagMapper tagMapper;
+  private final TagRepository tagRepository;
 
-    public TagService(TagMapper tagMapper, TagRepository tagRepository) {
-        this.tagMapper = tagMapper;
-        this.tagRepository = tagRepository;
-    }
+  public TagService(TagMapper tagMapper, TagRepository tagRepository) {
+    this.tagMapper = tagMapper;
+    this.tagRepository = tagRepository;
+  }
 
-    public List<TagDto> getAllTags() {
-        return tagMapper.tagToTagDtoList(tageEntityList());
-    }
+  public TagDto getTagDtoBySlug(String slug) {
+    return tagMapper.tagToTagDto(getTagBySlug(slug));
+  }
 
-    public List<TagEntity> tageEntityList() {
-        return tagRepository.findAll();
-    }
+  public List<TagDto> getAllTags() {
+    return tagMapper.tagToTagDtoList(tageEntityList());
+  }
+
+  private TagEntity getTagBySlug(String slug) {
+    return tagRepository.findBySlugContaining(slug);
+  }
+
+  private List<TagEntity> tageEntityList() {
+    return tagRepository.findAll();
+  }
 }

@@ -24,7 +24,7 @@ paths:
             tags:
                 - recommended
             summary: Show recommended books
-            operationId: recommendedgit
+            operationId: recommended
             parameters:
                 -   name: offset
                     in: query
