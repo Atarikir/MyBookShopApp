@@ -14,27 +14,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class MainPageController {
 
-    @Value("${value.offset}")
-    private int offset;
-    @Value("${value.limit}")
-    private int limit;
-    private final BookService bookService;
-    private final TagService tagService;
+  @Value("${value.offset}")
+  private int offset;
+  @Value("${value.limit}")
+  private int limit;
+  private final BookService bookService;
+  private final TagService tagService;
 
-    @Autowired
-    public MainPageController(BookService bookService, TagService tagService) {
-        this.bookService = bookService;
-        this.tagService = tagService;
-    }
+  @Autowired
+  public MainPageController(BookService bookService, TagService tagService) {
+    this.bookService = bookService;
+    this.tagService = tagService;
+  }
 
-    @GetMapping("/")
-    public String mainPage(@RequestParam(value = "from", required = false) String from,
-                           @RequestParam(value = "to", required = false) String to,
-                           Model model) {
-        model.addAttribute("recommended", bookService.getRecommendedBooksList(offset, limit));
-        model.addAttribute("recent", bookService.getRecentBooksList(from, to, offset, limit));
-        model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
-        model.addAttribute("tags", tagService.getAllTags());
-        return "index";
-    }
+  @GetMapping("/")
+  public String mainPage(@RequestParam(value = "from", required = false) String from,
+      @RequestParam(value = "to", required = false) String to,
+      Model model) {
+    model.addAttribute("recommended", bookService.getRecommendedBooksList(offset, limit));
+    model.addAttribute("recent", bookService.getRecentBooksList(from, to, offset, limit));
+    model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
+    model.addAttribute("tags", tagService.getAllTags());
+    return "index";
+  }
 }

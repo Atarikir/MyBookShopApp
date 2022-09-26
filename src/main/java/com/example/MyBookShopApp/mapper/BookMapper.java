@@ -5,9 +5,11 @@ import com.example.MyBookShopApp.api.response.BookResponseDto;
 import com.example.MyBookShopApp.api.response.BooksListPageResponse;
 import com.example.MyBookShopApp.data.author.AuthorEntity;
 import com.example.MyBookShopApp.data.book.BookEntity;
+import com.example.MyBookShopApp.data.tag.TagEntity;
 import com.example.MyBookShopApp.repository.AuthorRepository;
 import com.example.MyBookShopApp.repository.Book2AuthorRepository;
 import com.example.MyBookShopApp.service.AuthorService;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
@@ -45,33 +47,54 @@ public abstract class BookMapper {
     return bookResponseDTO;
   }
 
+//  public abstract BookDto bookEntityToBookDto(BookEntity book);
+
   public BookDto bookEntityToBookDto(BookEntity book) {
     if (book == null) {
       return null;
     }
     BookDto bookDto = new BookDto();
-    bookDto.setDescription(book.getDescription());
-    bookDto.setPrice(book.getPrice());
+
+    bookDto.setId( book.getId() );
+    bookDto.setPubDate( book.getPubDate() );
+    bookDto.setIsBestseller( book.getIsBestseller() );
+    bookDto.setSlug( book.getSlug() );
+    bookDto.setTitle( book.getTitle() );
+    bookDto.setImage( book.getImage() );
+    bookDto.setDescription( book.getDescription() );
+    bookDto.setPrice( book.getPrice() );
+    if ( book.getDiscount() != null ) {
+      bookDto.setDiscount( book.getDiscount().intValue() );
+    }
+    bookDto.setBookRating( book.getBookRating() );
+    bookDto.setBookPopularity( book.getBookPopularity() );
+    List<AuthorEntity> list = book.getAuthorEntityList();
+    if ( list != null ) {
+      bookDto.setAuthorEntityList( new ArrayList<AuthorEntity>( list ) );
+    }
+    List<TagEntity> list1 = book.getTagEntityList();
+    if ( list1 != null ) {
+      bookDto.setTagEntityList( new ArrayList<TagEntity>( list1 ) );
+    }
+
     bookDto.setDiscountPrice(getDiscountPrice(book));
-    bookDto.setTitle(book.getTitle());
-    bookDto.setAuthorEntityList(book.getAuthorEntityList());
-    bookDto.setTagEntityList(book.getTagEntityList());
-    bookDto.setImage(book.getImage());
+
     return bookDto;
   }
 
   //    public abstract List<BookDto> pageDtoToListDto(Page<BookDto> var1);
 //  public abstract List<BookEntity> pageBookToBookList(Page<BookEntity> books);
-//  public abstract Page<BookDto> pageEntityToPageDto(Page<BookEntity> var2);
 
-  public abstract List<BookResponseDto> pageEntityToDtoList(Page<BookEntity> var1);
+  public abstract List<BookDto> listEntityToDtoList(List<BookEntity> var2);
+
+  public abstract List<BookResponseDto> pageEntityToResponseDtoList(Page<BookEntity> var1);
 
   public BooksListPageResponse toListResponse(Page<BookEntity> entityPage) {
     if (entityPage == null) {
       return null;
     }
     return new BooksListPageResponse(entityPage.getTotalElements(),
-        this.pageEntityToDtoList(entityPage));
+        this.pageEntityToResponseDtoList(entityPage));
   }
 
   private Integer getDiscountPrice(BookEntity book) {

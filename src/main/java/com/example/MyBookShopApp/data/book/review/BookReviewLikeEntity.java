@@ -13,20 +13,20 @@ import java.time.LocalDateTime;
 @Setter
 public class BookReviewLikeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(name = "review_id", columnDefinition = "INT NOT NULL")
-    private int reviewId;
+  @Column(name = "review_id", columnDefinition = "INT NOT NULL")
+  private int reviewId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", columnDefinition = "INT NOT NULL")
-    private UserEntity userId;
+  @ManyToOne
+  @JoinColumn(name = "user_id", columnDefinition = "INT NOT NULL")
+  private UserEntity userId;
 
-    @Column(columnDefinition = "TIMESTAMP NOT NULL")
-    private LocalDateTime time;
+  @Column(columnDefinition = "TIMESTAMP NOT NULL")
+  private LocalDateTime time;
 
-    @Column(columnDefinition = "SMALLINT NOT NULL")
-    private short value;
+  @Column(columnDefinition = "SMALLINT NOT NULL")
+  private short value;
 }

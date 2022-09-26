@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="panel">
+<div th:fragment="panel(book)">
     <div class="ProductCard-cart">
         <div class="ProductCard-cartElement">
             <button class="btn btn_primary btn_outline" data-sendstatus="KEPT" data-bookid="[1111]"
                     data-btntype="check" data-btnradio="buyblock" data-check="false"
                     data-alttext="Отложена"><span class="btn-icon"><img
                     src="/assets/img/icons/heart.svg" alt="heart.svg"/></span><span
-                    class="btn-content">Отложить</span>
+                    class="btn-content" th:text="#{book.status.postpone}">Отложить</span>
             </button>
         </div>
         <div class="ProductCard-cartElement">
             <button class="btn btn_primary btn_outline" data-sendstatus="CART" data-bookid="[1111]"
+                    th:attr="data-bookid = ${book.slug}"
                     data-btntype="check" data-btnradio="buyblock" data-check="false"
                     data-alttext="В корзине"><span class="btn-icon"><img
                     src="/assets/img/icons/shopping-basket.svg"
-                    alt="shopping-basket.svg"/></span><span class="btn-content">Купить</span>
+                    alt="shopping-basket.svg"/></span><span class="btn-content" th:text="#{book.status.buy}">Купить</span>
             </button>
         </div>
     </div>
@@ -23,16 +24,24 @@
         <div class="ProductCard-cartElement"><a class="btn btn_primary btn_outline" href="#"><span
                 class="btn-icon"><img src="/assets/img/icons/download.svg"
                                       alt="download.svg"/></span><span
-                class="btn-content">Скачать</span></a>
+                class="btn-content" th:text="#{book.status.download}">Скачать</span></a>
         </div>
         <div class="ProductCard-cartElement">
             <button class="btn btn_primary btn_outline" data-sendstatus="ARCHIVED"
                     data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock"
                     data-check="false" data-alttext="Вернуть из архива"><span class="btn-icon"><img
                     src="/assets/img/icons/archive.svg" alt="archive.svg"/></span><span
-                    class="btn-content">В архив</span>
+                    class="btn-content" th:text="#{book.status.archive}">В архив</span>
             </button>
         </div>
     </div>
+    <div id="myPopup">
+        <p>Ссылки для скачивания</p>
+        <div>
+            <a href="#"></a>
+        </div>
+        <span id="myPopup__close" class="close">❎</span>
+    </div>
+    <div id="myOverlay"></div>
 </div>
 </html>

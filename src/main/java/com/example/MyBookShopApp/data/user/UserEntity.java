@@ -16,60 +16,60 @@ import java.util.List;
 @Setter
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String hash;
+  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+  private String hash;
 
-    @Column(name = "reg_time", columnDefinition = "TIMESTAMP NOT NULL")
-    private LocalDateTime regTime;
+  @Column(name = "reg_time", columnDefinition = "TIMESTAMP NOT NULL")
+  private LocalDateTime regTime;
 
-    @Column(columnDefinition = "INT NOT NULL")
-    private int balance;
+  @Column(columnDefinition = "INT NOT NULL")
+  private int balance;
 
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String name;
+  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+  private String name;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserContactEntity> userContactList;
+  @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<UserContactEntity> userContactList;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BookReviewLikeEntity> likeList;
+  @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<BookReviewLikeEntity> likeList;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MessageEntity> messageList;
+  @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<MessageEntity> messageList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "book2user",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<BookEntity> bookEntityList;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "book2user",
+      joinColumns = {@JoinColumn(name = "user_id")},
+      inverseJoinColumns = {@JoinColumn(name = "book_id")}
+  )
+  private List<BookEntity> bookEntityList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "file_download",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<BookEntity> bookEntities;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "file_download",
+      joinColumns = {@JoinColumn(name = "user_id")},
+      inverseJoinColumns = {@JoinColumn(name = "book_id")}
+  )
+  private List<BookEntity> bookEntities;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "balance_transaction",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<BookEntity> bookTransactList;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "balance_transaction",
+      joinColumns = {@JoinColumn(name = "user_id")},
+      inverseJoinColumns = {@JoinColumn(name = "book_id")}
+  )
+  private List<BookEntity> bookTransactList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "book_review",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")}
-    )
-    private List<BookEntity> bookReviewList;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "book_review",
+      joinColumns = {@JoinColumn(name = "user_id")},
+      inverseJoinColumns = {@JoinColumn(name = "book_id")}
+  )
+  private List<BookEntity> bookReviewList;
 }

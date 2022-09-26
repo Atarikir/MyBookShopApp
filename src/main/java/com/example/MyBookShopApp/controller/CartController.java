@@ -12,20 +12,20 @@ import java.util.List;
 @Controller
 public class CartController {
 
-    private final BookService bookService;
+  private final BookService bookService;
 
-    @Autowired
-    public CartController(BookService bookService) {
-        this.bookService = bookService;
-    }
+  @Autowired
+  public CartController(BookService bookService) {
+    this.bookService = bookService;
+  }
 
-    @ModelAttribute("booksList")
-    public List<BookEntity> bookList() {
-        return bookService.getBooksData();
-    }
+  @ModelAttribute("booksList")
+  public List<BookEntity> bookList() {
+    return bookService.getBooksData();
+  }
 
-    @GetMapping("/cart")
-    public String cartPage() {
-        return "cart";
-    }
+  @GetMapping("/cart")
+  public String cartPage() {
+    return "cart";
+  }
 }

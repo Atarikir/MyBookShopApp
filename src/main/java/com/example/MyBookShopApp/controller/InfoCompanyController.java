@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class InfoCompanyController {
 
-    @GetMapping("/about")
-    public String InfoCompanyPage() {
-        return "about";
-    }
+  @GetMapping("/about")
+  public String InfoCompanyPage() {
+    return "about";
+  }
 }

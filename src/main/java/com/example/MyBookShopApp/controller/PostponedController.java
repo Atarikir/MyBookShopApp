@@ -12,20 +12,20 @@ import java.util.List;
 @Controller
 public class PostponedController {
 
-    private final BookService bookService;
+  private final BookService bookService;
 
-    @Autowired
-    public PostponedController(BookService bookService) {
-        this.bookService = bookService;
-    }
+  @Autowired
+  public PostponedController(BookService bookService) {
+    this.bookService = bookService;
+  }
 
-    @ModelAttribute("booksList")
-    public List<BookEntity> bookList() {
-        return bookService.getBooksData();
-    }
+  @ModelAttribute("booksList")
+  public List<BookEntity> bookList() {
+    return bookService.getBooksData();
+  }
 
-    @GetMapping("/postponed")
-    public String postponed() {
-        return "postponed";
-    }
+  @GetMapping("/postponed")
+  public String postponed() {
+    return "postponed";
+  }
 }

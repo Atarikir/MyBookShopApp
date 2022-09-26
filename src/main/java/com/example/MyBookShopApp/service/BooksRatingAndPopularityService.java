@@ -9,17 +9,17 @@ import java.util.List;
 @UtilityClass
 public class BooksRatingAndPopularityService {
 
-    public Integer bookRatingCalculation(BookEntity book) {
-        int rating;
-        List<BookGradeEntity> bookGradeEntityList = book.getBookGradeList();
-        if (bookGradeEntityList.isEmpty()) {
-            rating = 0;
-        } else {
-            int count = bookGradeEntityList.size();
-            int sumValue = bookGradeEntityList.stream().mapToInt(BookGradeEntity::getValue).sum();
-            rating = Math.round((float) sumValue / count);
-        }
-
-        return rating;
+  public Integer bookRatingCalculation(BookEntity book) {
+    int rating;
+    List<BookGradeEntity> bookGradeEntityList = book.getBookGradeList();
+    if (bookGradeEntityList.isEmpty()) {
+      rating = 0;
+    } else {
+      int count = bookGradeEntityList.size();
+      int sumValue = bookGradeEntityList.stream().mapToInt(BookGradeEntity::getValue).sum();
+      rating = Math.round((float) sumValue / count);
     }
+
+    return rating;
+  }
 }

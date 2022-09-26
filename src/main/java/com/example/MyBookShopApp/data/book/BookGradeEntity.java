@@ -11,14 +11,14 @@ import javax.persistence.*;
 @Setter
 public class BookGradeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
-    private Short value;
+  @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
+  private Short value;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "book_id", columnDefinition = "INT NOT NULL")
-    private BookEntity bookId;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "book_id", columnDefinition = "INT NOT NULL")
+  private BookEntity bookId;
 }

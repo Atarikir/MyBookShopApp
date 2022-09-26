@@ -13,26 +13,26 @@ import java.time.LocalDateTime;
 @Setter
 public class MessageEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(columnDefinition = "TIMESTAMP NOT NULL")
-    private LocalDateTime time;
+  @Column(columnDefinition = "TIMESTAMP NOT NULL")
+  private LocalDateTime time;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", columnDefinition = "INT")
-    private UserEntity userId;
+  @ManyToOne
+  @JoinColumn(name = "user_id", columnDefinition = "INT")
+  private UserEntity userId;
 
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String email;
+  @Column(columnDefinition = "VARCHAR(255)")
+  private String email;
 
-    @Column(columnDefinition = "VARCHAR(255)")
-    private String name;
+  @Column(columnDefinition = "VARCHAR(255)")
+  private String name;
 
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String subject;
+  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+  private String subject;
 
-    @Column(columnDefinition = "TEXT NOT NULL")
-    private String text;
+  @Column(columnDefinition = "TEXT NOT NULL")
+  private String text;
 }

@@ -11,13 +11,13 @@ import javax.persistence.*;
 @Setter
 public class BookFileTypeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String name;
+  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+  private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+  @Column(columnDefinition = "TEXT")
+  private String description;
 }

@@ -34,13 +34,4 @@ public class TagsController {
     model.addAttribute("booksByTagSlug", bookService.getBooksByTagSlugList(slug, offset, limit));
     return "tags/index";
   }
-
-  @GetMapping(value = "/books/tag/{id}")
-  @ResponseBody
-  public ResponseEntity<BooksListPageResponse> getBooksByTagId(
-      @PathVariable(value = "id", required = false) String id,
-      @RequestParam(value = "offset", required = false) Integer offset,
-      @RequestParam(value = "limit", required = false) Integer limit) {
-    return ResponseEntity.ok(bookService.getPageOfBooksByTagId(id, offset, limit));
-  }
 }

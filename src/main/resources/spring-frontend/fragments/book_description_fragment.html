@@ -5,10 +5,10 @@
     <h1 class="ProductCard-title" th:text="${book.title}">Мара и морок
     </h1>
     <div class="ProductCard-authorEntity" th:each="author : ${book.authorEntityList}"><span
-        class="ProductCard-titleProp" th:text="#{title.author} + ':'">Автор:</span>&#32;<a
+        class="ProductCard-titleProp" th:text="#{title.author} + ': '">Автор:</span>&#32;<a
         href="#" th:href="@{|/authors/${author.slug}|}" th:text="${author.name}">Лия Арден</a>
     </div>
-    <div class="ProductCard-rating"><span class="ProductCard-titleProp">Рейтинг:</span>
+    <div class="ProductCard-rating"><span class="ProductCard-titleProp" th:text="#{book.rating} + ': '">Рейтинг:</span>
       <button class="trigger trigger_dropdown" type="button">
         <div class="Rating Rating_noStyleLink"><span class="Rating-stars"><span
             class="Rating-star Rating-star_view">
@@ -61,7 +61,7 @@
         <div class="modal modal_compression modal_dropdown">
           <div class="modal-window"><a class="modal-close"
                                        href="#"><span></span><span></span></a>
-            <strong class="modal-title">Распределение оценок
+            <strong class="modal-title" th:text="#{book.grade}">Распределение оценок
             </strong>
             <div class="RatingGroup"><span class="Rating"><span
                 class="Rating-stars"><span class="Rating-star Rating-star_view">
@@ -307,7 +307,7 @@
       </button>
     </div>
     <div class="ProductCard-assessment"><span
-        class="ProductCard-titleProp">Оцените книгу:</span><span class="Rating Rating_input"
+        class="ProductCard-titleProp" th:text="#{book.rate} + ': '">Оцените книгу:</span><span class="Rating Rating_input"
                                                                  data-bookid="2121"><span
         class="Rating-stars"><span class="Rating-star">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
@@ -371,8 +371,8 @@
     </div>
     <div class="ProductCard-cost">
       <span class="ProductCard-titleProp" th:text="#{title.price} + ': '">Цена:</span>
-      <span class="ProductCard-priceOld" th:text="${book.price}">₽300</span>
-      <span class="ProductCard-price" th:text="${book.discountPrice}">₽180</span>
+      <span class="ProductCard-priceOld" th:text="'₽' + ${book.price}">₽300</span>
+      <span class="ProductCard-price" th:text="'₽' + ${book.discountPrice}">₽180</span>
     </div>
   </div>
   <div class="ProductCard-text">
@@ -386,6 +386,6 @@
       кого я никогда не пойду. Таких, как он, называют Морок, и их боятся абсолютно все.
     </p>
   </div>
-  <div th:replace="~{fragments/book_slug_buttons_fragment :: panel}"></div>
+  <div th:replace="~{fragments/book_slug_buttons_fragment :: panel(book=${book})}"></div>
 </div>
 </html>

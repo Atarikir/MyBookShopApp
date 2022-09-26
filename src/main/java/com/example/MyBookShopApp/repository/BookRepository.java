@@ -2,6 +2,7 @@ package com.example.MyBookShopApp.repository;
 
 import com.example.MyBookShopApp.data.book.BookEntity;
 import java.time.LocalDate;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,6 +33,12 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
   @Query("select b from BookEntity b join Book2TagEntity b2t on b2t.bookId = b.id join TagEntity t on b2t.tagId = t.id where t.id = ?1 order by b.pubDate desc")
   Page<BookEntity> getBooksByTagIdPage(Integer id, Pageable pageable);
 
+  @Query("select b from BookEntity b join Book2AuthorEntity b2a on b2a.bookId = b.id join AuthorEntity a on b2a.authorId = a.id where a.id = ?1 order by b.pubDate desc")
+  Page<BookEntity> getBooksByAuthorIdPage(Integer id, Pageable pageable);
+
+  @Query("select b from BookEntity b join Book2GenreEntity b2g on b2g.bookId = b.id join GenreEntity g on b2g.genreId = g.id where g.id = ?1 order by b.pubDate desc")
+  Page<BookEntity> getBooksByGenreIdPage(Integer id, Pageable pageable);
+
   @Query("select b from BookEntity b join Book2GenreEntity b2g on b2g.bookId = b.id join GenreEntity g on b2g.genreId = g.id where g.slug = ?1")
   Page<BookEntity> getBooksByGenreSlugPage(String slug, Pageable pageable);
 
@@ -39,4 +46,6 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
   Page<BookEntity> getBooksByAuthorSlugPage(String slug, Pageable pageable);
 
   BookEntity findBySlug(String slug);
+
+  List<BookEntity> findBookEntitiesBySlugIn(String[] slugs);
 }
