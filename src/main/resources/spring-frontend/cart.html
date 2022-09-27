@@ -31,7 +31,7 @@
       </h1>
       <h3 th:if="${isCartEmpty}">Корзина пуста 😔</h3>
       <form class="form Cart" action="#" method="post">
-        <div class="Cart-product" th:each="book: ${bookCart}">
+        <div class="Cart-product" th:each="book : ${bookCart}">
           <div class="Cart-block Cart-block_row">
             <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="#"><img
                 class="Cart-img"
@@ -98,7 +98,9 @@
                 <div class="Cart-buttons">
                   <div class="Cart-btn">
                     <button class="btn btn_primary btn_outline" data-sendstatus="KEPT"
-                            data-bookid="[1122]"><span class="btn-icon"><img
+                            data-bookid="[1122]"
+                            th:attr="data-bookid = 'postponed/' + ${book.slug}"><span
+                        class="btn-icon"><img
                         src="/assets/img/icons/heart.svg" alt="heart.svg"/></span><span
                         class="btn-content" th:text="#{button.postpone}">Отложить</span>
                     </button>
