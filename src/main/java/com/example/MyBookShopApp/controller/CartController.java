@@ -1,14 +1,9 @@
 package com.example.MyBookShopApp.controller;
 
 import com.example.MyBookShopApp.api.response.BookDto;
-import com.example.MyBookShopApp.data.book.BookEntity;
-import com.example.MyBookShopApp.mapper.BookMapper;
-import com.example.MyBookShopApp.repository.BookRepository;
+import com.example.MyBookShopApp.service.CartService;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,31 +21,19 @@ public class CartController {
     return new ArrayList<>();
   }
 
-  private final BookRepository bookRepository;
-  private final BookMapper mapper;
+  private static final String CART_EMPTY = "isCartEmpty";
+  private static final String CART_CONTENTS = "cartContents";
+  private final CartService cartService;
 
-  public CartController(BookRepository bookRepository, BookMapper mapper) {
-    this.bookRepository = bookRepository;
-    this.mapper = mapper;
+  public CartController(CartService cartService) {
+    this.cartService = cartService;
   }
 
   @GetMapping("/cart")
   public String handleCartRequest(
       @CookieValue(value = "cartContents", required = false) String cartContents,
       Model model) {
-    if (cartContents == null || cartContents.equals("")) {
-      model.addAttribute("isCartEmpty", true);
-    } else {
-      model.addAttribute("isCartEmpty", false);
-      cartContents = cartContents.startsWith("/") ? cartContents.substring(1) : cartContents;
-      cartContents =
-          cartContents.endsWith("/") ? cartContents.substring(0, cartContents.length() - 1) :
-              cartContents;
-      String[] cookieSlugs = cartContents.split("/");
-      List<BookEntity> booksFromCookieSlugs = bookRepository.findBookEntitiesBySlugIn(cookieSlugs);
-      List<BookDto> bookDtoList = mapper.listEntityToDtoList(booksFromCookieSlugs);
-      model.addAttribute("bookCart", bookDtoList);
-    }
+    cartService.getBookList(cartContents, model, CART_EMPTY, "bookCart");
     return "cart";
   }
 
@@ -58,19 +41,7 @@ public class CartController {
   public String handleChangeBookStatus(@PathVariable("slug") String slug,
       @CookieValue(name = "cartContents", required = false) String cartContents,
       HttpServletResponse response, Model model) {
-    if (cartContents == null || cartContents.equals("")) {
-      Cookie cookie = new Cookie("cartContents", slug);
-      cookie.setPath("/");
-      response.addCookie(cookie);
-      model.addAttribute("isCartEmpty", false);
-    } else if (!cartContents.contains(slug)) {
-      StringJoiner stringJoiner = new StringJoiner("/");
-      stringJoiner.add(cartContents).add(slug);
-      Cookie cookie = new Cookie("cartContents", stringJoiner.toString());
-      cookie.setPath("/");
-      response.addCookie(cookie);
-      model.addAttribute("isCartEmpty", false);
-    }
+    cartService.addCookie(cartContents, slug, response, model, CART_CONTENTS, CART_EMPTY);
     return "redirect:/books/" + slug;
   }
 
@@ -79,16 +50,7 @@ public class CartController {
       @CookieValue(name =
           "cartContents", required = false) String cartContents, HttpServletResponse response,
       Model model) {
-    if (cartContents != null && !cartContents.equals("")) {
-      ArrayList<String> cookieBooks = new ArrayList<>(Arrays.asList(cartContents.split("/")));
-      cookieBooks.remove(slug);
-      Cookie cookie = new Cookie("cartContents", String.join("/", cookieBooks));
-      cookie.setPath("/");
-      response.addCookie(cookie);
-      model.addAttribute("isCartEmpty", false);
-    } else {
-      model.addAttribute("isCartEmpty", true);
-    }
+    cartService.removeCookie(cartContents, slug, response, model, CART_CONTENTS, CART_EMPTY);
     return "redirect:/cart";
   }
 }

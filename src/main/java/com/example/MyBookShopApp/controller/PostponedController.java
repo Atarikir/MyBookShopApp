@@ -1,33 +1,27 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.api.response.BookDto;
 import com.example.MyBookShopApp.data.book.BookEntity;
-import com.example.MyBookShopApp.mapper.BookMapper;
-import com.example.MyBookShopApp.repository.BookRepository;
+import com.example.MyBookShopApp.service.PostponedService;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.StringJoiner;
-import javax.servlet.http.Cookie;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PostponedController {
 
-  private final BookRepository bookRepository;
-  private final BookMapper mapper;
+  private final PostponedService postponedService;
+  private static final String POSTPONED_EMPTY = "isPostponedEmpty";
+  private static final String POSTPONED_CONTENTS = "postponedContents";
 
-  public PostponedController(BookRepository bookRepository, BookMapper mapper) {
-    this.bookRepository = bookRepository;
-    this.mapper = mapper;
+  public PostponedController(PostponedService postponedService) {
+    this.postponedService = postponedService;
   }
 
   @ModelAttribute("bookPostponed")
@@ -39,21 +33,7 @@ public class PostponedController {
   public String handlePostponedRequest(
       @CookieValue(value = "postponedContents", required = false) String postponedContents,
       Model model) {
-    if (postponedContents == null || postponedContents.equals("")) {
-      model.addAttribute("isPostponedEmpty", true);
-    } else {
-      model.addAttribute("isPostponedEmpty", false);
-      postponedContents =
-          postponedContents.startsWith("/") ? postponedContents.substring(1) : postponedContents;
-      postponedContents =
-          postponedContents.endsWith("/") ? postponedContents.substring(0,
-              postponedContents.length() - 1) :
-              postponedContents;
-      String[] cookieSlugs = postponedContents.split("/");
-      List<BookEntity> booksFromCookieSlugs = bookRepository.findBookEntitiesBySlugIn(cookieSlugs);
-      List<BookDto> bookDtoList = mapper.listEntityToDtoList(booksFromCookieSlugs);
-      model.addAttribute("bookPostponed", bookDtoList);
-    }
+    postponedService.getBookList(postponedContents, model, POSTPONED_EMPTY, "bookPostponed");
     return "postponed";
   }
 
@@ -61,19 +41,8 @@ public class PostponedController {
   public String handleChangeBookStatus(@PathVariable("slug") String slug,
       @CookieValue(name = "postponedContents", required = false) String postponedContents,
       HttpServletResponse response, Model model) {
-    if (postponedContents == null || postponedContents.equals("")) {
-      Cookie cookie = new Cookie("postponedContents", slug);
-      cookie.setPath("/");
-      response.addCookie(cookie);
-      model.addAttribute("isPostponedEmpty", false);
-    } else if (!postponedContents.contains(slug)) {
-      StringJoiner stringJoiner = new StringJoiner("/");
-      stringJoiner.add(postponedContents).add(slug);
-      Cookie cookie = new Cookie("postponedContents", stringJoiner.toString());
-      cookie.setPath("/");
-      response.addCookie(cookie);
-      model.addAttribute("isPostponedEmpty", false);
-    }
+    postponedService.addCookie(postponedContents, slug, response, model, POSTPONED_CONTENTS,
+        POSTPONED_EMPTY);
     return "redirect:/books/" + slug;
   }
 
@@ -83,17 +52,8 @@ public class PostponedController {
           "postponedContents", required = false) String postponedContents,
       HttpServletResponse response,
       Model model) {
-    if (postponedContents != null && !postponedContents.equals("")) {
-      ArrayList<String> cookieBooks = new ArrayList<>(Arrays.asList(postponedContents.split("/")));
-      cookieBooks.remove(slug);
-      Cookie cookie = new Cookie("postponedContents", String.join("/", cookieBooks));
-      cookie.setPath("/");
-      response.addCookie(cookie);
-      model.addAttribute("isPostponedEmpty", false);
-    } else {
-      model.addAttribute("isPostponedEmpty", true);
-    }
-
+    postponedService.removeCookie(postponedContents, slug, response, model, POSTPONED_CONTENTS,
+        POSTPONED_EMPTY);
     return "redirect:/postponed";
   }
 }
