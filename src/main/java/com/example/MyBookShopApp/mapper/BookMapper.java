@@ -70,11 +70,11 @@ public abstract class BookMapper {
     bookDto.setBookPopularity( book.getBookPopularity() );
     List<AuthorEntity> list = book.getAuthorEntityList();
     if ( list != null ) {
-      bookDto.setAuthorEntityList( new ArrayList<AuthorEntity>( list ) );
+      bookDto.setAuthorEntityList( new ArrayList<>( list ) );
     }
     List<TagEntity> list1 = book.getTagEntityList();
     if ( list1 != null ) {
-      bookDto.setTagEntityList( new ArrayList<TagEntity>( list1 ) );
+      bookDto.setTagEntityList( new ArrayList<>( list1 ) );
     }
 
     bookDto.setDiscountPrice(getDiscountPrice(book));

@@ -1,6 +1,9 @@
 package com.example.MyBookShopApp.data.book;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +12,9 @@ import javax.persistence.*;
 @Table(name = "book_grade")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookGradeEntity {
 
   @Id
