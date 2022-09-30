@@ -50,10 +50,82 @@
         <div class="Product-comments">
           <div class="Product-comments-header">
             <h3 class="Product-comments-title" th:text="#{book.review}">Отзывы
-            </h3><span class="Product-comments-amount">567 отзывов</span>
+            </h3>
+            <span class="Rating">
+              <span class="Rating-stars">
+                <span class="Rating-star Rating-star_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                         viewBox="0 0 19 18">
+                      <g>
+                        <g>
+                          <path fill="#ffc000"
+                                d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                        </g>
+                      </g>
+                    </svg></span><span class="Rating-star Rating-star_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                         viewBox="0 0 19 18">
+                      <g>
+                        <g>
+                          <path fill="#ffc000"
+                                d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                        </g>
+                      </g>
+                    </svg></span><span class="Rating-star Rating-star_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                         viewBox="0 0 19 18">
+                      <g>
+                        <g>
+                          <path fill="#ffc000"
+                                d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                        </g>
+                      </g>
+                    </svg></span><span class="Rating-star Rating-star_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                         viewBox="0 0 19 18">
+                      <g>
+                        <g>
+                          <path fill="#ffc000"
+                                d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                        </g>
+                      </g>
+                    </svg></span><span class="Rating-star Rating-star_view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                         viewBox="0 0 19 18">
+                      <g>
+                        <g>
+                          <path fill="#ffc000"
+                                d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                        </g>
+                      </g>
+                    </svg>
+              </span>
+              </span>
+              <span class="Rating-title">567 отзывов</span>
+            </span>
+            <!--            <span class="Product-comments-amount">567 отзывов</span>-->
           </div>
         </div>
-        <div th:replace="~{fragments/book_reviews_fragment :: reviewBlock}"></div>
+        <strong class="Comments-title">Написать отзыв
+        </strong>
+        <div class="Comments-addComment">
+          <form class="form" action="#" method="post" data-bookid="1111"
+                th:attr="data-bookid = ${bookBySlug.id}">
+            <div class="form-group">
+                                <textarea class="form-textarea Comments-review" name="review"
+                                          id="review"
+                                          placeholder="Текст отзыва"
+                                          data-validate="require"></textarea>
+            </div>
+            <div class="form-group Comments-sendReview">
+              <button class="btn btn_warning" type="submit">Отправить отзыв
+              </button>
+            </div>
+          </form>
+        </div>
+        <div
+            th:replace="~{fragments/book_reviews_fragment :: reviewBlock(bookReviewList=${bookReviewList}, likes=${likes}, dislikes=${dislikes})}">
+        </div>
       </div>
     </main>
   </div>

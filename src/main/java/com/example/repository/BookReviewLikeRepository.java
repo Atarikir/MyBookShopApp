@@ -1,0 +1,13 @@
+package com.example.repository;
+
+import com.example.data.book.review.BookReviewLikeEntity;
+import com.example.data.user.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BookReviewLikeRepository extends JpaRepository<BookReviewLikeEntity, Integer> {
+
+  BookReviewLikeEntity findBookReviewLikeEntityByReviewIdAndUser(Integer reviewId,
+      UserEntity user);
+
+  long countBookReviewLikeEntityByValueAndAndReviewId(Short value, Integer reviewId);
+}

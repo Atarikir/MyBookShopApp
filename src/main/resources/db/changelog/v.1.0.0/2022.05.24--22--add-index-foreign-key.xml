@@ -199,6 +199,16 @@
                                  referencedTableName="users"/>
     </changeSet>
 
+    <changeSet author="dmitriy_kir" id="book_review_like-fk-2">
+        <addForeignKeyConstraint baseColumnNames="review_id"
+          baseTableName="book_review_like"
+          constraintName="fk_book_review_like_review_id"
+          onDelete="NO ACTION"
+          onUpdate="NO ACTION"
+          referencedColumnNames="id"
+          referencedTableName="book_review"/>
+    </changeSet>
+
     <changeSet author="dmitriy_kir" id="message-createIndexes">
         <createIndex indexName="fk_message_user_id" tableName="message">
             <column name="user_id"/>
