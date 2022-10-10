@@ -58,7 +58,7 @@ public class BookReviewService {
   @Transactional
   public ResultErrorResponse addRateReviewBook(Integer reviewId, Short valueRate) {
     UserEntity user = new UserEntity();
-    user.setId(1);
+    user.setId(2);
     BookReviewEntity bookReviewEntity = bookReviewRepository.findById(reviewId).orElseThrow();
     BookReviewLikeEntity bookReviewLikeEntity = bookReviewLikeRepository.findBookReviewLikeEntityByReviewIdAndUser(
         reviewId,
@@ -86,16 +86,16 @@ public class BookReviewService {
     return resultErrorResponse;
   }
 
-  public Long getCountLikes(BookReviewEntity review) {
-    return getCountRate(review, LIKE_VALUE);
-  }
-
-  public Long getCountDislikes(BookReviewEntity review) {
-    return getCountRate(review, DISLIKE_VALUE);
-  }
-
-  private Long getCountRate(BookReviewEntity review, Short valueRate) {
-    return bookReviewLikeRepository.countBookReviewLikeEntityByValueAndAndReviewId(valueRate,
-        review.getId());
-  }
+//  public Long getCountLikes(BookReviewEntity review) {
+//    return getCountRate(review, LIKE_VALUE);
+//  }
+//
+//  public Long getCountDislikes(BookReviewEntity review) {
+//    return getCountRate(review, DISLIKE_VALUE);
+//  }
+//
+//  private Long getCountRate(BookReviewEntity review, Short valueRate) {
+//    return bookReviewLikeRepository.countBookReviewLikeEntityByValueAndAndReviewId(valueRate,
+//        review.getId());
+//  }
 }

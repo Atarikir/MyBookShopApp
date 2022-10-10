@@ -24,7 +24,7 @@ public class BookRatingService {
     if (valueGrade != null) {
       bookGradeRepository.save(BookGradeEntity.builder()
           .value(valueGrade)
-          .bookId(book)
+          .book(book)
           .build());
       short rating = bookRatingCalculation(book);
       book.setBookRating(rating);

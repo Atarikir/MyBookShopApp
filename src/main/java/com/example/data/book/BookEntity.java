@@ -1,6 +1,7 @@
 package com.example.data.book;
 
 import com.example.data.author.AuthorEntity;
+import com.example.data.book.review.BookReviewEntity;
 import com.example.data.genre.GenreEntity;
 import com.example.data.tag.TagEntity;
 import com.example.data.user.UserEntity;
@@ -55,8 +56,11 @@ public class BookEntity {
   @Column(columnDefinition = "FLOAT DEFAULT 0")
   private Float bookPopularity;
 
-  @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<BookGradeEntity> bookGradeList;
+
+  @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<BookReviewEntity> bookReviewEntityList;
 
 //  @OneToMany(mappedBy = "bookEntity")
 //  private List<BookFileEntity> bookFileEntityList = new ArrayList<>();

@@ -25,7 +25,7 @@ public class BookReviewEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
   @JoinColumn(name = "book_id", nullable = false, referencedColumnName = "id")
   private BookEntity book;
 

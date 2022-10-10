@@ -85,13 +85,13 @@
                       data-btnradio="two2" data-likeid="1111"
                       th:attr="data-likeid = ${bookReview.id}"><span class="btn-icon"><img
                   src="/assets/img/icons/comment/like.svg" alt="like.svg"/></span><span
-                  class="btn-content">200</span>
+                  class="btn-content" th:text="${bookReview.likes}">200</span>
               </button>
               <button class="btn btn_white btn_dislike" data-btntype="check" data-check="false"
                       data-btnradio="two2" data-likeid="1111"
                       th:attr="data-likeid = ${bookReview.id}"><span class="btn-icon"><img
                   src="/assets/img/icons/comment/dislike.svg" alt="dislike.svg"/></span><span
-                  class="btn-content">100</span>
+                  class="btn-content" th:text="${bookReview.dislikes}">100</span>
               </button>
             </div>
             <button class="Spoiler-trigger btn btn_primary btn_nr" type="button"

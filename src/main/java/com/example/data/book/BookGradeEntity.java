@@ -26,5 +26,5 @@ public class BookGradeEntity {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "book_id", columnDefinition = "INT NOT NULL")
-  private BookEntity bookId;
+  private BookEntity book;
 }

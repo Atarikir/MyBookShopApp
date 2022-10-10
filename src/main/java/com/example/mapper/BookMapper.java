@@ -55,26 +55,29 @@ public abstract class BookMapper {
     }
     BookDto bookDto = new BookDto();
 
-    bookDto.setId( book.getId() );
-    bookDto.setPubDate( book.getPubDate() );
-    bookDto.setIsBestseller( book.getIsBestseller() );
-    bookDto.setSlug( book.getSlug() );
-    bookDto.setTitle( book.getTitle() );
-    bookDto.setImage( book.getImage() );
-    bookDto.setDescription( book.getDescription() );
-    bookDto.setPrice( book.getPrice() );
-    if ( book.getDiscount() != null ) {
-      bookDto.setDiscount( book.getDiscount().intValue() );
+    bookDto.setId(book.getId());
+    bookDto.setPubDate(book.getPubDate());
+    bookDto.setIsBestseller(book.getIsBestseller());
+    bookDto.setSlug(book.getSlug());
+    bookDto.setTitle(book.getTitle());
+    bookDto.setImage(book.getImage());
+    bookDto.setDescription(book.getDescription());
+    bookDto.setPrice(book.getPrice());
+    if (book.getBookReviewEntityList() != null) {
+      bookDto.setBookReviewEntityList(book.getBookReviewEntityList());
     }
-    bookDto.setBookRating( book.getBookRating() );
-    bookDto.setBookPopularity( book.getBookPopularity() );
+    if (book.getDiscount() != null) {
+      bookDto.setDiscount(book.getDiscount().intValue());
+    }
+    bookDto.setBookRating(book.getBookRating());
+    bookDto.setBookPopularity(book.getBookPopularity());
     List<AuthorEntity> list = book.getAuthorEntityList();
-    if ( list != null ) {
-      bookDto.setAuthorEntityList( new ArrayList<>( list ) );
+    if (list != null) {
+      bookDto.setAuthorEntityList(new ArrayList<>(list));
     }
     List<TagEntity> list1 = book.getTagEntityList();
-    if ( list1 != null ) {
-      bookDto.setTagEntityList( new ArrayList<>( list1 ) );
+    if (list1 != null) {
+      bookDto.setTagEntityList(new ArrayList<>(list1));
     }
 
     bookDto.setDiscountPrice(getDiscountPrice(book));
