@@ -16,9 +16,6 @@ public abstract class BookReviewMapper {
   @Autowired
   private BookReviewLikeRepository bookReviewLikeRepository;
 
-  //  @Mapping(source = "time", target = "time", qualifiedByName = "LocalDateTimeToString")
-//  @Mapping(source = "id", target = "bookReviewLikes", qualifiedByName = "rateToLikes")
-//  @Mapping(source = "id", target = "bookReviewDislikes", qualifiedByName = "rateToDislikes")
   BookReviewDto entityToDto(BookReviewEntity bookReviewEntity) {
     BookReviewDto bookReviewDto = new BookReviewDto();
     bookReviewDto.setId(bookReviewEntity.getId());
@@ -31,18 +28,15 @@ public abstract class BookReviewMapper {
     return bookReviewDto;
   }
 
-  //  @Named("LocalDateTimeToString")
   String convertLocalDateTimeToString(LocalDateTime time) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     return time.plusHours(3).format(formatter);
   }
 
-  //  @Named("rateToLikes")
   Long getBookReviewLikes(BookReviewEntity bookReview) {
     return bookReviewLikeRepository.countBookReviewLikeEntitiesByReviewAndValue(bookReview, (short) 1);
   }
 
-  //  @Named("rateToDislikes")
   Long getBookReviewDislikes(BookReviewEntity bookReview) {
     return bookReviewLikeRepository.countBookReviewLikeEntitiesByReviewAndValue(bookReview, (short) -1);
   }

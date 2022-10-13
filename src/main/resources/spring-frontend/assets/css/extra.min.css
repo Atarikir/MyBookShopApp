@@ -1461,7 +1461,8 @@
 
 .Comment {
   position: relative;
-  display: flex
+  display: flex;
+  margin-bottom: 40px;
 }
 
 .Comment-date, .Comment-title {

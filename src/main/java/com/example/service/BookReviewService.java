@@ -85,17 +85,4 @@ public class BookReviewService {
     }
     return resultErrorResponse;
   }
-
-//  public Long getCountLikes(BookReviewEntity review) {
-//    return getCountRate(review, LIKE_VALUE);
-//  }
-//
-//  public Long getCountDislikes(BookReviewEntity review) {
-//    return getCountRate(review, DISLIKE_VALUE);
-//  }
-//
-//  private Long getCountRate(BookReviewEntity review, Short valueRate) {
-//    return bookReviewLikeRepository.countBookReviewLikeEntityByValueAndAndReviewId(valueRate,
-//        review.getId());
-//  }
 }
