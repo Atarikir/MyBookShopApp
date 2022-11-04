@@ -10,6 +10,8 @@ import com.example.mapper.BookReviewMapper;
 import com.example.repository.BookRepository;
 import com.example.repository.BookReviewLikeRepository;
 import com.example.repository.BookReviewRepository;
+import com.example.repository.UserRepository;
+import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class BookReviewService {
   private final BookReviewMapper mapper;
   private final BookRepository bookRepository;
   private final BookReviewLikeRepository bookReviewLikeRepository;
+  private final UserRepository userRepository;
 
   private static final short LIKE_VALUE = 1;
   private static final short DISLIKE_VALUE = -1;
@@ -32,13 +35,12 @@ public class BookReviewService {
 
 
   @Transactional
-  public ResultErrorResponse addBookReview(Integer bookId, String text) {
+  public ResultErrorResponse addBookReview(Integer bookId, String text, Principal principal) {
     if (text.length() < MIN_LENGTH_TEXT) {
-      return utilityService.errorsRequest(ERROR_TEXT);
+      return utilityService.errorsResponse(ERROR_TEXT);
     }
     BookEntity book = bookRepository.findById(bookId).orElseThrow();
-    UserEntity user = new UserEntity(); //TODO : переделать при добавлении авторизации
-    user.setId(2);
+    UserEntity user = userRepository.findByName(principal.getName());
     bookReviewRepository.save(BookReviewEntity.builder()
         .book(book)
         .user(user)

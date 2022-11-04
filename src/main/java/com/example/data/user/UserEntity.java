@@ -32,6 +32,15 @@ public class UserEntity {
   @Column(columnDefinition = "VARCHAR(255) NOT NULL")
   private String name;
 
+  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+  private String email;
+
+  @Column(columnDefinition = "VARCHAR(255)")
+  private String phone;
+
+  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
+  private String password;
+
   @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<UserContactEntity> userContactList;
 

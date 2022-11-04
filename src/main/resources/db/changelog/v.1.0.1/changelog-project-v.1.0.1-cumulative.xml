@@ -10,8 +10,8 @@
     <include file="2022.04.08--3--insert-table-book2author.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.02--4--insert-table-book_grade.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.08--5--insert-table-book2user_type.xml" relativeToChangelogFile="true"/>
-    <include file="2022.05.08--6--insert-table-users.xml" relativeToChangelogFile="true"/>
-    <include file="2022.05.08--7--insert-table-book2user.xml" relativeToChangelogFile="true"/>
+<!--    <include file="2022.05.08&#45;&#45;6&#45;&#45;insert-table-users.xml" relativeToChangelogFile="true"/>-->
+<!--    <include file="2022.05.08&#45;&#45;7&#45;&#45;insert-table-book2user.xml" relativeToChangelogFile="true"/>-->
     <include file="2022.05.25--8--insert-table-tag.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.25--9--insert-table-book2tag.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.27--10--insert-table-genre.xml" relativeToChangelogFile="true"/>

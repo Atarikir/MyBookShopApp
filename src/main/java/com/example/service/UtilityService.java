@@ -20,7 +20,7 @@ public class UtilityService {
         .build();
   }
 
-  public ResultErrorResponse errorsRequest(String errorText) {
+  public ResultErrorResponse errorsResponse(String errorText) {
     return ResultErrorResponse.builder()
         .result(false)
         .error(errorText)
