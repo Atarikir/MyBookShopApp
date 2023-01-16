@@ -13,7 +13,8 @@
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="users_pkey"/>
             </column>
-            <column name="balance" type="INT" remarks="баланс личного счёта, по умолчанию<!--                <constraints nullable="false"/>-->
+            <column name="balance" type="INT" remarks="баланс личного счёта, по умолчанию 0">
+<!--                <constraints nullable="false"/>-->
             </column>
             <column name="hash" type="VARCHAR(255)" remarks="хэш пользователя, используемый для
             внешней идентификации пользователя с целью скрытия его ID">

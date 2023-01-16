@@ -1,8 +1,8 @@
 package com.example.controller;
 
 import com.example.api.request.RegistrationForm;
+import com.example.service.AuthService;
 import com.example.service.UserRegisterService;
-import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class AuthController {
 
+  private final AuthService authService;
   private final UserRegisterService userRegisterService;
 
   @GetMapping("/signin")

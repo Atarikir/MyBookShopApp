@@ -28,6 +28,11 @@ public abstract class BookReviewMapper {
     return bookReviewDto;
   }
 
+//  @Mapping(source = "time", target = "time", qualifiedByName = "convertLocalDateTimeToString")
+//  @Mapping(source = "", target = "", qualifiedByName = )
+//  abstract BookReviewDto entityToDto(BookReviewEntity bookReviewEntity);
+
+//  @Named("convertLocalDateTimeToString")
   String convertLocalDateTimeToString(LocalDateTime time) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     return time.plusHours(3).format(formatter);

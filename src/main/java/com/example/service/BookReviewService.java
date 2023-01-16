@@ -11,7 +11,6 @@ import com.example.repository.BookRepository;
 import com.example.repository.BookReviewLikeRepository;
 import com.example.repository.BookReviewRepository;
 import com.example.repository.UserRepository;
-import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,12 +34,16 @@ public class BookReviewService {
 
 
   @Transactional
-  public ResultErrorResponse addBookReview(Integer bookId, String text, Principal principal) {
+  public ResultErrorResponse addBookReview(Integer bookId, String text) {
     if (text.length() < MIN_LENGTH_TEXT) {
       return utilityService.errorsResponse(ERROR_TEXT);
     }
     BookEntity book = bookRepository.findById(bookId).orElseThrow();
-    UserEntity user = userRepository.findByName(principal.getName());
+//    UserEntity user = userRepository.findByName(principal.getName());
+
+    UserEntity user = new UserEntity(); //TODO : переделать при добавлении авторизации
+    user.setId(1);
+
     bookReviewRepository.save(BookReviewEntity.builder()
         .book(book)
         .user(user)

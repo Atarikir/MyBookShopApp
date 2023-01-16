@@ -2,13 +2,14 @@ package com.example.controller.api;
 
 import com.example.api.response.ResultErrorResponse;
 import com.example.service.BookReviewService;
-import java.security.Principal;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class BookReviewApiController {
@@ -17,8 +18,8 @@ public class BookReviewApiController {
 
   @PostMapping("/bookReview")
   public ResponseEntity<ResultErrorResponse> addReview(@RequestParam Integer bookId,
-      @RequestParam String text, Principal principal) {
-    return ResponseEntity.ok(bookReviewService.addBookReview(bookId, text, principal));
+      @RequestParam String text) {
+    return ResponseEntity.ok(bookReviewService.addBookReview(bookId, text));
   }
 
   @PostMapping("/rateBookReview")

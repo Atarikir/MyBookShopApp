@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.service.AuthService;
 import com.example.service.UserService;
 import com.example.service.jwt.JWTRequestFilter;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+//@EnableOAuth2Sso
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
   private final JWTRequestFilter filter;
+  private final AuthService authService;
 
   @Bean
   PasswordEncoder getPasswordEncoder() {
@@ -50,11 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/**").permitAll()
         .and().formLogin()
         .loginPage("/signin").failureUrl("/signin")
-        .and().logout().logoutUrl("/logout").logoutSuccessUrl("/signin").deleteCookies("token")
-        .and().oauth2Login()
-        //.loginPage("/signin").defaultSuccessUrl("/oauth2LoginSuccess")
-        .and().oauth2Client();
-    //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .and().logout().addLogoutHandler(
+            (request, response, authentication) -> authService.saveTokenByBlackList(request))
+        .logoutUrl("/logout").logoutSuccessUrl("/signin").deleteCookies("token");
+    //.and().oauth2Login()
+    //.loginPage("/signin").defaultSuccessUrl("/oauth2LoginSuccess")
+    //.and().oauth2Client();
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
   }
 }

@@ -7,16 +7,8 @@ import com.example.service.UserRegisterService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -46,6 +38,16 @@ public class AuthApiController {
     httpServletResponse.addCookie(cookie);
     return loginResponse;
   }
+
+//  @PostMapping(value = "/logout")
+//  public void logout(HttpServletRequest request) {
+//    authService.saveTokenByBlackList(request);
+//  }
+
+//  @PutMapping(value = "/logout")
+//  public void logout(HttpServletRequest httpServletRequest) {
+//    authService.saveTokenByBlackList(httpServletRequest);
+//  }
 
 //  @PostMapping("/oauth2LoginSuccess")
 //  public String getOauth2LoginInfo() {

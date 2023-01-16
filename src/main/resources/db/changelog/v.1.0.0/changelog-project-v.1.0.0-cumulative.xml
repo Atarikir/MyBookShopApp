@@ -30,5 +30,6 @@
     <include file="2022.05.24--20--create-table-tag.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.24--21--create-table-book2tag.xml" relativeToChangelogFile="true"/>
     <include file="2022.05.24--22--add-index-foreign-key.xml" relativeToChangelogFile="true"/>
+    <include file="2022.11.05--23--create-table-jwt_black_list.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
