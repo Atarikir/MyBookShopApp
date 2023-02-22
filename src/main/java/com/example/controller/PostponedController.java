@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class PostponedController {
+public class PostponedController extends BaseController {
 
   private final PostponedService postponedService;
   private static final String POSTPONED_EMPTY = "isPostponedEmpty";

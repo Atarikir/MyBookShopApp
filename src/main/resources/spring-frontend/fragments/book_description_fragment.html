@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div class="ProductCard-desc" th:fragment="bookDesc(book)">
+<div class="ProductCard-desc" th:fragment="bookDesc(book, auth)">
   <div class="ProductCard-header">
     <h1 class="ProductCard-title" th:text="${book.title}">Мара и морок
     </h1>
@@ -324,62 +324,68 @@
         </div>
       </button>
     </div>
-    <div class="ProductCard-assessment"><span
-        class="ProductCard-titleProp" th:text="#{book.rate} + ': '">Оцените книгу:</span><span
-        class="Rating Rating_input"
-        th:attr="data-bookid = ${book.id}"
-        data-bookid="2121"><span
-        class="Rating-stars"><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
-                             viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="1"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
-                             viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="2"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
-                             viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="3"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
-                             viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="4"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
-                             viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="5"/></span></span>
+    <div th:if="${auth}" class="ProductCard-assessment">
+      <span class="ProductCard-titleProp" th:text="#{book.rate} + ': '">Оцените книгу:</span>
+      <span class="Rating Rating_input" th:attr="data-bookid = ${book.id}" data-bookid="2121">
+        <span class="Rating-stars">
+          <span class="Rating-star">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+              <g>
+                <g>
+                  <path fill="#ffc000"
+                        d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <input name="rating" type="radio" value="1"/>
+          <span class="Rating-star">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+              <g>
+                <g>
+                  <path fill="#ffc000"
+                        d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <input name="rating" type="radio" value="2"/>
+          <span class="Rating-star">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+              <g>
+                <g>
+                  <path fill="#ffc000"
+                        d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <input name="rating" type="radio" value="3"/>
+          <span class="Rating-star">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+              <g>
+                <g>
+                  <path fill="#ffc000"
+                        d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                </g>
+              </g>
+
+            </svg>
+          </span>
+          <input name="rating" type="radio" value="4"/>
+          <span class="Rating-star">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+              <g>
+                <g>
+                  <path fill="#ffc000"
+                        d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <input name="rating" type="radio" value="5"/>
+        </span>
+      </span>
     </div>
     <div class="ProductCard-tags"><span class="ProductCard-titleProp"
                                         th:text="#{title.tags} + ': '">Тэги:</span>

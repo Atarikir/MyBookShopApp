@@ -247,6 +247,9 @@
         <createIndex indexName="fk_book_grade_book_id" tableName="book_grade">
             <column name="book_id"/>
         </createIndex>
+        <createIndex indexName="fk_book_grade_user_id" tableName="book_grade">
+            <column name="user_id"/>
+        </createIndex>
         <comment>book_grade table</comment>
     </changeSet>
 
@@ -258,6 +261,16 @@
                                  onUpdate="NO ACTION"
                                  referencedColumnNames="id"
                                  referencedTableName="book"/>
+    </changeSet>
+
+    <changeSet author="dmitriy_kir" id="book_grade-fk-2">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+          baseTableName="book_grade"
+          constraintName="fk_book_grade_user_id"
+          onDelete="NO ACTION"
+          onUpdate="NO ACTION"
+          referencedColumnNames="id"
+          referencedTableName="users"/>
     </changeSet>
 
     <changeSet author="dmitriy_kir" id="book2tag-createIndexes">

@@ -32,8 +32,9 @@ public class UserContactEntity {
   @Column(name = "code_time", columnDefinition = "TIMESTAMP")
   private LocalDateTime codeTime;
 
-  @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-  private String contact;
+  @Enumerated(EnumType.STRING)
+  @Column(columnDefinition = "ENUM('PHONE', 'EMAIL') NOT NULL")
+  private ContactType contact;
 
   @ManyToOne
   @JoinColumn(name = "user_id", columnDefinition = "INT NOT NULL")

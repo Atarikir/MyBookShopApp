@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-public class TagsController {
+public class TagsController extends BaseController {
 
   @Value("${value.offset}")
   private int offset;

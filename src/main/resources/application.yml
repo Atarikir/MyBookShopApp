@@ -1,28 +1,57 @@
 server:
   port: 8085
+  servlet:
+    session:
+      tracking-modes: cookie
 
 spring:
   messages.basename: lang.messages
   web.resources.static-locations: classpath:/spring-frontend/
   thymeleaf.prefix: classpath:/spring-frontend/
+  #  security:
+  #    user:
+  #      name: admin
+  #      password: admin
+  #    oauth2:
+  #      client:
+  #        registration:
+  #          facebook:
+  #            client-id: 2205472349613842
+  #            client-secret: 77d6778699ac224ab9daf0c963a11ebd
+  #            scope:
+  #              - email
+  #              - public_profile
 
   datasource:
-#    url: jdbc:p6spy:postgresql://localhost:5432/bookstore
+    #    url: jdbc:p6spy:postgresql://localhost:5432/bookstore
     url: jdbc:postgresql://localhost:5432/bookstore
     username: ${DB_USER}
     password: ${DB_PASSWORD}
-#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    #    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     driver-class-name: org.postgresql.Driver
-    initialization-mode: always
-
+    initialization-mode: never
   jpa:
     hibernate.ddl-auto: validate #create-drop
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
-
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
+
+###https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbGx0bUJGUE9nNHZxME4wWlhKYW5YdGdmX2g1QXxBQ3Jtc0tuWGk0OGtqei1zWFFHcG5kdF96d3ZMVThjV2NjWEZCX3RYQkZzOU9ldFhOOGVPNUxxNWxRYVY4MUM4Qkc0X3FnZExuUmRULUJCTC1XQXJ1ZkNLS05RWVFtVEJpZEZ3U1U0Wnd6cWJBeHVXbUxFb2NzZw&q=https%3A%2F%2Fconsole.cloud.google.com%2Fapis%2Fcredentials&v=-ohlXEJeRX8
+
+#  security:
+#    oauth2:
+#      client:
+#        clientI: 4403541424-d6ld9lci9mdnlejp849840eu6c6poe1n.apps.googleusercontent.com
+#        clientSecret: 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
+#        clientAuthenticationScheme: form
+#        scope: openid,email,profile
+#        accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+#        userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+#    resource:
+#      userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+#      preferTokenInfo: true
 
 value:
   offset: 0
@@ -32,3 +61,6 @@ upload:
   path: /home/shelby/Pictures/book-app-storage/book-covers
 download:
   path: /home/shelby/Pictures/book-app-storage/book-files
+
+auth:
+  secret: skillbox

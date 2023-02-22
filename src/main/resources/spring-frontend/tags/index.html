@@ -23,7 +23,7 @@
 </head>
 <body class="Site">
 <header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized')}"></header>
+        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null, auth=${isAuth})}"></header>
 <div class="Middle">
   <div class="wrap" th:if="${tagBySlug != null}" th:object="${tagBySlug}">
     <main class="Middle-main">

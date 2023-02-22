@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.data.book.review.BookReviewEntity;
 import com.example.service.AuthorService;
 import com.example.service.BookReviewService;
 import com.example.service.BookService;
@@ -12,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/books")
 @RequiredArgsConstructor
-public class BooksController {
+public class BooksController extends BaseController {
 
   @Value("${value.offset}")
   private int offset;
@@ -61,12 +59,9 @@ public class BooksController {
 
   @GetMapping("/{slug}")
   public String getBookPageBySlug(@PathVariable("slug") String slug, Model model) {
-//    log.info("slug in BookController - " + slug);
     model.addAttribute("bookBySlug", bookService.getBookDtoBySlug(slug));
     model.addAttribute("authorsByBook", authorService.getAuthorListByBookSlug(slug));
     model.addAttribute("bookReviewList", bookReviewService.getBookReviewListByBookSlug(slug));
-//    model.addAttribute("likes", bookReviewService.getCountLikes(review));
-//    model.addAttribute("dislikes", bookReviewService.getCountDislikes(review));
     return "books/slug";
   }
 

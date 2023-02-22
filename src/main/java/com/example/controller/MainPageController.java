@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
-public class MainPageController {
+public class MainPageController extends BaseController {
 
   @Value("${value.offset}")
   private int offset;

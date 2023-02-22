@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class CartController {
+public class CartController extends BaseController {
 
   @ModelAttribute(name = "bookCart")
   public List<BookDto> bookCart() {
