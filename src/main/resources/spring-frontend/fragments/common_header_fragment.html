@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<header class="Header" th:fragment="head(status, user)">
+<header class="Header" th:fragment="head(status, user, auth)">
   <div class="Header-rowMain">
     <div class="wrap">
       <div class="row">
@@ -40,7 +40,7 @@
         <div class="row-block Header-cart"
              th:replace="${status == 'authorized'} ?
              ~{fragments/cart_block_fragment :: authorized(user=${user})} :
-             ~{fragments/cart_block_fragment :: unauthorized}"></div>
+             ~{fragments/cart_block_fragment :: unauthorized(auth=${auth})}"></div>
         <div class="row-block Header-trigger"><a class="menuTrigger" href="#navigate">
           <div class="menuTrigger-content">Показать навигацию
           </div>

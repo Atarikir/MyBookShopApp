@@ -1,8 +1,10 @@
 package com.example.service;
 
+import com.example.api.request.RateBookRequest;
 import com.example.api.response.ResultErrorResponse;
 import com.example.data.book.BookEntity;
 import com.example.data.book.BookGradeEntity;
+import com.example.data.user.UserEntity;
 import com.example.repository.BookGradeRepository;
 import com.example.repository.BookRepository;
 import java.util.List;
@@ -17,15 +19,24 @@ public class BookRatingService {
   private final UtilityService utilityService;
   private final BookRepository bookRepository;
   private final BookGradeRepository bookGradeRepository;
+  private final UserRegisterService userRegisterService;
 
   @Transactional
-  public ResultErrorResponse addBookRating(Integer bookId, Short valueGrade) {
-    BookEntity book = bookRepository.findById(bookId).orElseThrow();
-    if (valueGrade != null) {
-      bookGradeRepository.save(BookGradeEntity.builder()
-          .value(valueGrade)
-          .book(book)
-          .build());
+  public ResultErrorResponse addBookRating(RateBookRequest request) {
+    if (request.getValue() != null) {
+      BookEntity book = bookRepository.findById(request.getBookId()).orElseThrow();
+      UserEntity user = userRegisterService.getRegisteredUser();
+      BookGradeEntity grade = bookGradeRepository.findByBookAndUser(book, user);
+      if (grade != null) {
+        grade.setValue(request.getValue());
+      } else {
+        grade = BookGradeEntity.builder()
+            .value(request.getValue())
+            .book(book)
+            .user(userRegisterService.getRegisteredUser())
+            .build();
+      }
+      bookGradeRepository.save(grade);
       short rating = bookRatingCalculation(book);
       book.setBookRating(rating);
       bookRepository.save(book);

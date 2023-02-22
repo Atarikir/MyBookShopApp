@@ -25,7 +25,7 @@
 </head>
 <body class="Site">
 <header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null)}"></header>
+        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null, auth=${isAuth})}"></header>
 <div class="Middle Middle_form">
   <div class="Middle-top">
     <div class="wrap">
@@ -44,6 +44,7 @@
               </label>
               <br>
               <span th:if="${regOk}">РЕГИСТРАЦИЯ ПРОШЛА УСПЕШНО!</span>
+              <span th:if="${regNotOk}">Такой email уже существует. Введите другой адрес почты.</span>
             </div>
             <div class="form-group">
               <div class="row">

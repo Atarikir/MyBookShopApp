@@ -4,12 +4,14 @@ import com.example.data.BookStoreUserDetails;
 import com.example.data.JwtBlackList;
 import com.example.repository.JwtBlackListRepository;
 import com.example.service.UserService;
+import io.jsonwebtoken.JwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +46,16 @@ public class JWTRequestFilter extends OncePerRequestFilter {
       for (Cookie cookie : cookies) {
         if (cookie.getName().equals("token")) {
           token = cookie.getValue();
-          username = jwtUtil.extractUsername(token);
+          try {
+            username = jwtUtil.extractUsername(token);
+          } catch (JwtException exception) {
+            HttpSession session = httpServletRequest.getSession();
+            SecurityContextHolder.clearContext();
+            if (session != null) {
+              session.invalidate();
+            }
+            cookie.setMaxAge(0);
+          }
         }
       }
 
@@ -66,52 +77,4 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     }
     filterChain.doFilter(httpServletRequest, httpServletResponse);
   }
-
-  //    final String authHeader = httpServletRequest.getHeader("authorization");
-
-//    if ("OPTIONS".equals(httpServletRequest.getMethod())) {
-//      httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-//
-//      filterChain.doFilter(httpServletRequest, httpServletResponse);
-//    } else {
-//
-//      if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//        throw new ServletException("Missing or invalid Authorization header");
-//      }
-//
-//      token = authHeader.substring(7);
-//      JwtBlackList blacklist = this.jwtBlackListRepository.findByTokenEquals(token);
-//
-//      if(blacklist == null) {
-//        final Claims claims = Jwts.parser().setSigningKey("topsecretjwtpass".getBytes(
-//            StandardCharsets.UTF_8)).parseClaimsJws(token).getBody();
-//        httpServletRequest.setAttribute("claims", claims);
-//      } else {
-//        throw new ServletException("Invalid token." + "");
-//
-//      }
-//      filterChain.doFilter(httpServletRequest, httpServletResponse);
-//    }
-
-//  if (tokenProvider.validateToken(jwt) && userRepository.findOneWithAuthoritiesByEmailIgnoreCaseAndDeleteFlag(authentication.getName()).isPresent()) {
-//    SecurityContextHolder.getContext().setAuthentication(authentication);
-//    LOG.debug("set Authentication to auth context for '{}', uri: {}", authentication.getName(), requestURI);
-//    filterChain.doFilter(servletRequest, servletResponse);
-//  }
-
-  //check if the token is in the blacklist
-//  if (StringUtils.hasText(jwt) && jwtTokenBlacklistRepository.findByToken(jwt).isPresent()) {
-//    LOG.info("blacklisted token");
-//    ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
-//  }
-
-//  /**
-//   * Routinely Deletes expired tokens from the Blacklist
-//   */
-//  @Scheduled(cron = "0 0 12 * * ?")
-//  public void deleteExpiredTokens() {
-//    log.debug("Request to delete expired tokens from blacklist");
-//    long now = (new Date().getTime()) / 1000;
-//    jwtTokenBlacklistRepository.deleteAllByExpiryLessThan(now);
-//  }
 }

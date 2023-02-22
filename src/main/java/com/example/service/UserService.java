@@ -17,7 +17,7 @@ public class UserService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity user = userRepository.findBookstoreUserByEmail(username);
+    UserEntity user = userRepository.findByEmail(username);
     if (user != null) {
       return new BookStoreUserDetails(user);
     } else {

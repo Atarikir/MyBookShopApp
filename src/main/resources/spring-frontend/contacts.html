@@ -18,7 +18,7 @@
 </head>
 <body class="Site">
 <header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null)}"></header>
+        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null, auth=${isAuth})}"></header>
 <div class="Middle">
     <div class="Middle-top">
         <div class="wrap">
@@ -29,7 +29,7 @@
     <div class="wrap">
         <main class="Middle-main">
             <ul class="breadcrumbs"
-                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category=${#messages.msg('footer.contacts')})}"></ul>
+                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category=${#messages.msg('footer.contacts')}, link=null, linkName=null)}"></ul>
             <div class="Contacts">
                 <div class="row">
                     <div class="row-block">

@@ -17,12 +17,12 @@
     <script defer src="/assets/js/scripts.min.js?v=74020866"></script>
 </head>
 <body class="Site">
-<header class="Header" th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null)}"></header>
+<header class="Header" th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null, auth=${isAuth})}"></header>
 <div class="Middle">
     <div class="wrap">
         <main class="Middle-main">
             <ul class="breadcrumbs"
-                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category=${#messages.msg('footer.about')})}"></ul>
+                th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category=${#messages.msg('footer.about')}, link=null, linkName=null)}"></ul>
             <h1 class="Middle-title" th:text="#{footer.about}">О компании
             </h1>
             <article class="Article">

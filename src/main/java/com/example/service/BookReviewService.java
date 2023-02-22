@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.api.request.BookReviewRequest;
+import com.example.api.request.RateBookReviewRequest;
 import com.example.api.response.BookReviewDto;
 import com.example.api.response.ResultErrorResponse;
 import com.example.data.book.BookEntity;
@@ -10,12 +12,13 @@ import com.example.mapper.BookReviewMapper;
 import com.example.repository.BookRepository;
 import com.example.repository.BookReviewLikeRepository;
 import com.example.repository.BookReviewRepository;
-import com.example.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookReviewService {
@@ -24,32 +27,31 @@ public class BookReviewService {
   private final BookReviewMapper mapper;
   private final BookRepository bookRepository;
   private final BookReviewLikeRepository bookReviewLikeRepository;
-  private final UserRepository userRepository;
+  private final UserRegisterService userRegisterService;
 
-  private static final short LIKE_VALUE = 1;
-  private static final short DISLIKE_VALUE = -1;
   private static final int MIN_LENGTH_TEXT = 20;
   private static final String ERROR_TEXT = "Отзыв слишком короткий. Напишите, пожалуйста, более развёрнутый отзыв";
   private final UtilityService utilityService;
 
 
   @Transactional
-  public ResultErrorResponse addBookReview(Integer bookId, String text) {
-    if (text.length() < MIN_LENGTH_TEXT) {
+  public ResultErrorResponse addBookReview(BookReviewRequest request) {
+    if (request.getText().length() < MIN_LENGTH_TEXT) {
       return utilityService.errorsResponse(ERROR_TEXT);
     }
-    BookEntity book = bookRepository.findById(bookId).orElseThrow();
-//    UserEntity user = userRepository.findByName(principal.getName());
 
-    UserEntity user = new UserEntity(); //TODO : переделать при добавлении авторизации
-    user.setId(1);
+    BookEntity book = bookRepository.findById(request.getBookId()).orElseThrow();
+    UserEntity user = userRegisterService.getRegisteredUser();
 
-    bookReviewRepository.save(BookReviewEntity.builder()
-        .book(book)
-        .user(user)
-        .time(utilityService.getTimeNow())
-        .text(text)
-        .build());
+    log.debug("book - " + book + " user - " + user);
+
+    bookReviewRepository.save(
+        BookReviewEntity.builder()
+            .book(book)
+            .user(user)
+            .time(utilityService.getTimeNow())
+            .text(request.getText())
+            .build());
     return utilityService.getResultTrue();
   }
 
@@ -61,12 +63,11 @@ public class BookReviewService {
   }
 
   @Transactional
-  public ResultErrorResponse addRateReviewBook(Integer reviewId, Short valueRate) {
-    UserEntity user = new UserEntity();
-    user.setId(2);
-    BookReviewEntity bookReviewEntity = bookReviewRepository.findById(reviewId).orElseThrow();
+  public ResultErrorResponse addRateReviewBook(RateBookReviewRequest request) {
+    UserEntity user = userRegisterService.getRegisteredUser();
+    BookReviewEntity bookReviewEntity = bookReviewRepository.findById(request.getReviewId()).orElseThrow();
     BookReviewLikeEntity bookReviewLikeEntity = bookReviewLikeRepository.findBookReviewLikeEntityByReviewIdAndUser(
-        reviewId,
+        request.getReviewId(),
         user);
     ResultErrorResponse resultErrorResponse;
     if (bookReviewLikeEntity == null) {
@@ -74,15 +75,15 @@ public class BookReviewService {
           .review(bookReviewEntity)
           .user(user)
           .time(utilityService.getTimeNow())
-          .value(valueRate)
+          .value(request.getValue())
           .build()
       );
       resultErrorResponse = utilityService.getResultTrue();
     } else {
-      if (bookReviewLikeEntity.getValue() == valueRate) {
+      if (bookReviewLikeEntity.getValue() == request.getValue()) {
         resultErrorResponse = utilityService.getResultFalse();
       } else {
-        bookReviewLikeEntity.setValue(valueRate);
+        bookReviewLikeEntity.setValue(request.getValue());
         bookReviewLikeEntity.setTime(utilityService.getTimeNow());
         bookReviewLikeRepository.save(bookReviewLikeEntity);
         resultErrorResponse = utilityService.getResultTrue();

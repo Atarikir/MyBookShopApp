@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/assets/css/extra.min.css?v=87821122">
   <link rel="stylesheet" href="/assets/css/DownloadBookWindowStyle.css">
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <script defer src="/assets/js/scripts.min.js?v=87821122"></script>
 </head>
 <body class="Site">
 <header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null)}"></header>
+        th:replace="~{fragments/common_header_fragment :: head(status='unauthorized', user=null, auth=${isAuth})}"></header>
 <div class="Middle">
   <div class="wrap" th:if="${bookBySlug != null}" th:object="${bookBySlug}">
     <main class="Middle-main">
@@ -44,7 +44,7 @@
             </form>
           </div>
           <div class="ProductCard-desc"
-               th:replace="~{fragments/book_description_fragment :: bookDesc(book=${bookBySlug})}">
+               th:replace="~{fragments/book_description_fragment :: bookDesc(book=${bookBySlug}, auth=${isAuth})}">
           </div>
         </div>
         <div class="Product-comments">
@@ -116,25 +116,40 @@
             <!--            <span class="Product-comments-amount">567 отзывов</span>-->
           </div>
         </div>
-        <strong class="Comments-title">Написать отзыв
-        </strong>
-        <div class="Comments-addComment">
-          <form class="form" action="#" method="post" data-bookid="1111"
-                th:attr="data-bookid = ${bookBySlug.id}">
-            <div class="form-group">
+        <div th:if="${isNotAuth}">
+          <div class="form-group">
+            <label class="form-label Login-title">Отзывы могут оставлять только авторизованные
+              пользователи</label>
+          </div>
+          <div class="form-group form-group_center"><a class="Login-reg" href="/signup.html"
+                                                       th:href="@{/signup}"
+                                                       th:text="#{signup}">Зарегистрироваться</a>
+          </div>
+          <div class="form-group form-group_center"><a class="Login-reg" th:href="@{/signin}"
+                                                       th:text="#{signin}">Войти</a>
+          </div>
+        </div>
+        <div th:if="${isAuth}">
+          <strong class="Comments-title">Написать отзыв
+          </strong>
+          <div class="Comments-addComment">
+            <form class="form" action="#" method="post" data-bookid="1111"
+                  th:attr="data-bookid = ${bookBySlug.id}">
+              <div class="form-group">
                                 <textarea class="form-textarea Comments-review" name="review"
                                           id="review"
                                           placeholder="Текст отзыва"
                                           data-validate="require"></textarea>
-            </div>
-            <div class="form-group Comments-sendReview">
-              <button class="btn btn_warning" type="submit">Отправить отзыв
-              </button>
-            </div>
-          </form>
+              </div>
+              <div class="form-group Comments-sendReview">
+                <button class="btn btn_warning" type="submit">Отправить отзыв
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
         <div
-            th:replace="~{fragments/book_reviews_fragment :: reviewBlock(bookReviewList=${bookReviewList}, likes=${likes}, dislikes=${dislikes})}">
+            th:replace="~{fragments/book_reviews_fragment :: reviewBlock(bookReviewList=${bookReviewList}, auth=${isAuth})}">
         </div>
       </div>
     </main>
@@ -143,7 +158,7 @@
 <footer class="Footer" th:replace="~{fragments/common_footer_fragment :: footer}"></footer>
 <script src="/assets/plg/jQuery/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/assets/js/UploadNewBookImageScript.js"></script>
-<script src="/assets/js/DownloadBookWindowScript.js"></script>
+<!--<script src="/assets/js/UploadNewBookImageScript.js"></script>-->
+<!--<script src="/assets/js/DownloadBookWindowScript.js"></script>-->
 </body>
 </html>

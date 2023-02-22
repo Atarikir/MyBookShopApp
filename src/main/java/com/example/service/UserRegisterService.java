@@ -1,21 +1,20 @@
 package com.example.service;
 
 import com.example.api.request.ContactConfirmationPayload;
+import com.example.api.request.RegistrationForm;
 import com.example.api.response.ContactConfirmationResponse;
 import com.example.api.response.ResultErrorResponse;
 import com.example.data.BookStoreUserDetails;
 import com.example.data.user.UserEntity;
 import com.example.repository.UserRepository;
-import com.example.api.request.RegistrationForm;
 import com.example.service.jwt.JWTUtil;
+import javax.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +29,8 @@ public class UserRegisterService {
   private final AuthenticationManager authenticationManager;
 
   public void registerNewUser(RegistrationForm registrationForm) {
-    if (userRepository.findBookstoreUserByEmail(registrationForm.getEmail()) == null) {
+    UserEntity userEntity = userRepository.findByEmail(registrationForm.getEmail());
+    if (userEntity == null) {
       UserEntity user = new UserEntity();
       user.setRegTime(utilityService.getTimeNow());
       user.setName(registrationForm.getName());
@@ -39,14 +39,14 @@ public class UserRegisterService {
       user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
       userRepository.save(user);
     } else {
-      utilityService.errorsResponse("Такой email уже существует. Введите другой адрес почты.");
+      throw new EntityExistsException("Такой email уже существует. Введите другой адрес почты.");
     }
   }
 
   public ResultErrorResponse login(ContactConfirmationPayload payload) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-    OAuth2User user = oauthToken.getPrincipal();
+//    OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+//    OAuth2User user = oauthToken.getPrincipal();
 //    Authentication authentication =
 //        authenticationManager.authenticate(
 //            new UsernamePasswordAuthenticationToken(payload.getContact(),
@@ -55,9 +55,10 @@ public class UserRegisterService {
     return utilityService.getResultTrue();
   }
 
-  public Object getCurrentUser() {
+  public UserEntity getCurrentUser() {
     BookStoreUserDetails userDetails =
-        (BookStoreUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        (BookStoreUserDetails) SecurityContextHolder.getContext().getAuthentication()
+            .getPrincipal();
     return userDetails.user();
   }
 
@@ -70,5 +71,9 @@ public class UserRegisterService {
     ContactConfirmationResponse response = new ContactConfirmationResponse();
     response.setResult(jwtToken);
     return response;
+  }
+
+  public UserEntity getRegisteredUser() {
+    return userRepository.findByEmail(this.getCurrentUser().getEmail());
   }
 }

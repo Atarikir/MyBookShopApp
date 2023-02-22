@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="reviewBlock(bookReviewList, likes, dislikes)">
+<div th:fragment="reviewBlock(bookReviewList, auth)">
   <div class="Comments" th:each="bookReview : ${bookReviewList}">
     <div class="Comment">
       <div class="Comment-column Comment-column_pict">
@@ -93,7 +93,7 @@
             Aenean leo ligula, porttitor eu, consequat vitae.
           </p>
           <div class="Comment-footer">
-            <div class="Comment-appeal">
+            <div class="Comment-appeal" th:if="${auth}">
               <button class="btn btn_white btn_like" data-btntype="check" data-check="false"
                       data-btnradio="two2" data-likeid="1111"
                       th:attr="data-likeid = ${bookReview.id}"><span class="btn-icon"><img

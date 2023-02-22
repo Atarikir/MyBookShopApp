@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Тут название страницы написать</title>
+  <title>Мой профиль</title>
   <meta name="description" content="Описание страницы">
   <meta charset="utf-8">
   <meta name="viewport"
@@ -23,7 +23,7 @@
 </head>
 <body class="Site">
 <header class="Header"
-        th:replace="~{fragments/common_header_fragment :: head(status='authorized', user=${curUsr})}"></header>
+        th:replace="~{fragments/common_header_fragment :: head(status='authorized', user=${curUsr}, auth=${isAuth})}"></header>
 <div class="Middle">
   <div class="Middle-top">
     <div class="wrap">

@@ -1,8 +1,8 @@
 package com.example.controller;
 
 import com.example.api.request.RegistrationForm;
-import com.example.service.AuthService;
 import com.example.service.UserRegisterService;
+import javax.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController extends BaseController {
 
-  private final AuthService authService;
   private final UserRegisterService userRegisterService;
 
   @GetMapping("/signin")
@@ -29,8 +28,13 @@ public class AuthController {
 
   @PostMapping("/reg")
   public String handleUserRegistration(RegistrationForm registrationForm, Model model) {
-    userRegisterService.registerNewUser(registrationForm);
-    model.addAttribute("regOk", true);
+    try {
+      userRegisterService.registerNewUser(registrationForm);
+      model.addAttribute("regOk", true);
+    } catch (EntityExistsException ex) {
+      model.addAttribute("regNotOk", true);
+    }
+
     return "signin";
   }
 
@@ -38,6 +42,12 @@ public class AuthController {
   public String handleMy(Model model) {
     model.addAttribute("currentUser", userRegisterService.getCurrentUser());
     return "my";
+  }
+
+  @GetMapping("/myarchive")
+  public String handleMyArchive(Model model) {
+    model.addAttribute("curUser", userRegisterService.getCurrentUser());
+    return "myarchive";
   }
 
   @GetMapping("/profile")
