@@ -13,6 +13,7 @@ import com.example.repository.BookRepository;
 import com.example.repository.BookReviewLikeRepository;
 import com.example.repository.BookReviewRepository;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,13 +36,14 @@ public class BookReviewService {
 
 
   @Transactional
-  public ResultErrorResponse addBookReview(BookReviewRequest request) {
+  public ResultErrorResponse addBookReview(BookReviewRequest request,
+      HttpServletRequest servletRequest) {
     if (request.getText().length() < MIN_LENGTH_TEXT) {
       return utilityService.errorsResponse(ERROR_TEXT);
     }
 
     BookEntity book = bookRepository.findById(request.getBookId()).orElseThrow();
-    UserEntity user = userRegisterService.getRegisteredUser();
+    UserEntity user = userRegisterService.getRegisteredUser(servletRequest);
 
     log.debug("book - " + book + " user - " + user);
 
@@ -63,9 +65,11 @@ public class BookReviewService {
   }
 
   @Transactional
-  public ResultErrorResponse addRateReviewBook(RateBookReviewRequest request) {
-    UserEntity user = userRegisterService.getRegisteredUser();
-    BookReviewEntity bookReviewEntity = bookReviewRepository.findById(request.getReviewId()).orElseThrow();
+  public ResultErrorResponse addRateReviewBook(RateBookReviewRequest request,
+      HttpServletRequest servletRequest) {
+    UserEntity user = userRegisterService.getRegisteredUser(servletRequest);
+    BookReviewEntity bookReviewEntity = bookReviewRepository.findById(request.getReviewId())
+        .orElseThrow();
     BookReviewLikeEntity bookReviewLikeEntity = bookReviewLikeRepository.findBookReviewLikeEntityByReviewIdAndUser(
         request.getReviewId(),
         user);

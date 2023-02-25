@@ -8,6 +8,7 @@ import com.example.data.user.UserEntity;
 import com.example.repository.BookGradeRepository;
 import com.example.repository.BookRepository;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +23,11 @@ public class BookRatingService {
   private final UserRegisterService userRegisterService;
 
   @Transactional
-  public ResultErrorResponse addBookRating(RateBookRequest request) {
+  public ResultErrorResponse addBookRating(RateBookRequest request,
+      HttpServletRequest servletRequest) {
     if (request.getValue() != null) {
       BookEntity book = bookRepository.findById(request.getBookId()).orElseThrow();
-      UserEntity user = userRegisterService.getRegisteredUser();
+      UserEntity user = userRegisterService.getRegisteredUser(servletRequest);
       BookGradeEntity grade = bookGradeRepository.findByBookAndUser(book, user);
       if (grade != null) {
         grade.setValue(request.getValue());
@@ -33,7 +35,7 @@ public class BookRatingService {
         grade = BookGradeEntity.builder()
             .value(request.getValue())
             .book(book)
-            .user(userRegisterService.getRegisteredUser())
+            .user(user)
             .build();
       }
       bookGradeRepository.save(grade);

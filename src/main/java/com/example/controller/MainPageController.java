@@ -2,8 +2,7 @@ package com.example.controller;
 
 import com.example.service.BookService;
 import com.example.service.TagService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@Slf4j
+@RequiredArgsConstructor
 public class MainPageController extends BaseController {
 
   @Value("${value.offset}")
@@ -20,12 +19,6 @@ public class MainPageController extends BaseController {
   private int limit;
   private final BookService bookService;
   private final TagService tagService;
-
-  @Autowired
-  public MainPageController(BookService bookService, TagService tagService) {
-    this.bookService = bookService;
-    this.tagService = tagService;
-  }
 
   @GetMapping("/")
   public String mainPage(@RequestParam(value = "from", required = false) String from,

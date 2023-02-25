@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.service.BookService;
 import com.example.service.GenreService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+@RequiredArgsConstructor
 public class GenresController extends BaseController {
 
   @Value("${value.offset}")
@@ -17,11 +19,6 @@ public class GenresController extends BaseController {
   private int limit;
   private final GenreService genreService;
   private final BookService bookService;
-
-  public GenresController(GenreService genreService, BookService bookService) {
-    this.genreService = genreService;
-    this.bookService = bookService;
-  }
 
   @GetMapping("/genres")
   public String genresPage(Model model) {

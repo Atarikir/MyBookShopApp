@@ -3,11 +3,10 @@ package com.example.controller;
 import com.example.data.author.AuthorEntity;
 import com.example.service.AuthorService;
 import com.example.service.BookService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@Api(description = "authors data")
+@RequiredArgsConstructor
 public class AuthorsController extends BaseController {
 
   @Value("${value.offset}")
@@ -26,12 +25,6 @@ public class AuthorsController extends BaseController {
   private int limit;
   private final BookService bookService;
   private final AuthorService authorService;
-
-  @Autowired
-  public AuthorsController(BookService bookService, AuthorService authorService) {
-    this.bookService = bookService;
-    this.authorService = authorService;
-  }
 
   @ModelAttribute("authorsMap")
   public Map<String, List<AuthorEntity>> authorsMap() {

@@ -1,6 +1,6 @@
 package com.example.config;
 
-import com.example.service.AuthService;
+import com.example.service.CustomLogoutHandler;
 import com.example.service.UserService;
 import com.example.service.jwt.JWTRequestFilter;
 import lombok.RequiredArgsConstructor;
@@ -11,20 +11,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-//@EnableOAuth2Sso
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
   private final JWTRequestFilter filter;
-  private final AuthService authService;
+  private final CustomLogoutHandler customLogoutHandler;
 
   @Bean
   PasswordEncoder getPasswordEncoder() {
@@ -51,15 +49,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/my", "/profile").authenticated()//.hasRole("USER")
         .antMatchers("/**").permitAll()
-        .and().formLogin()
+        .and()
+        .formLogin()
         .loginPage("/signin").failureUrl("/signin")
-        .and().logout().addLogoutHandler(
-            (request, response, authentication) -> authService.saveTokenByBlackList(request))
-        .logoutUrl("/logout").logoutSuccessUrl("/signin").deleteCookies("token");
-    //.and().oauth2Login()
-    //.loginPage("/signin").defaultSuccessUrl("/oauth2LoginSuccess")
-    //.and().oauth2Client();
-    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .and().logout().addLogoutHandler(customLogoutHandler)
+        .logoutUrl("/logout").logoutSuccessUrl("/signin")
+        .deleteCookies("token", "sub", "JSESSIONID")
+        //.invalidateHttpSession(true).clearAuthentication(true)
+        .and().oauth2Login()
+        .defaultSuccessUrl("/my").defaultSuccessUrl("/oauth2LoginSuccess")
+        .and().oauth2Client();
+    //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
   }
 }

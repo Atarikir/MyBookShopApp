@@ -3,6 +3,7 @@ package com.example.controller.api;
 import com.example.api.request.RateBookRequest;
 import com.example.api.response.ResultErrorResponse;
 import com.example.service.BookRatingService;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,8 @@ public class BookRatingApiController {
   private final BookRatingService bookRatingService;
 
   @PostMapping("/rateBook")
-  public ResponseEntity<ResultErrorResponse> addBookRating(@RequestBody RateBookRequest request) {
-    return ResponseEntity.ok(bookRatingService.addBookRating(request));
+  public ResponseEntity<ResultErrorResponse> addBookRating(@RequestBody RateBookRequest request,
+      HttpServletRequest servletRequest) {
+    return ResponseEntity.ok(bookRatingService.addBookRating(request, servletRequest));
   }
 }

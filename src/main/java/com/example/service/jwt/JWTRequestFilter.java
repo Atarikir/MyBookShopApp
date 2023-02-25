@@ -54,7 +54,11 @@ public class JWTRequestFilter extends OncePerRequestFilter {
             if (session != null) {
               session.invalidate();
             }
+            cookie.setValue("");
+            cookie.setPath("/");
             cookie.setMaxAge(0);
+
+            httpServletResponse.addCookie(cookie);
           }
         }
       }

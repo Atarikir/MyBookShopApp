@@ -5,6 +5,7 @@ import com.example.service.PostponedService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,15 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class PostponedController extends BaseController {
 
   private final PostponedService postponedService;
   private static final String POSTPONED_EMPTY = "isPostponedEmpty";
   private static final String POSTPONED_CONTENTS = "postponedContents";
-
-  public PostponedController(PostponedService postponedService) {
-    this.postponedService = postponedService;
-  }
 
   @ModelAttribute("bookPostponed")
   public List<BookEntity> bookPostponed() {

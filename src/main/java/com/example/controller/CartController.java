@@ -5,6 +5,7 @@ import com.example.service.CartService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class CartController extends BaseController {
 
   @ModelAttribute(name = "bookCart")
@@ -24,10 +26,6 @@ public class CartController extends BaseController {
   private static final String CART_EMPTY = "isCartEmpty";
   private static final String CART_CONTENTS = "cartContents";
   private final CartService cartService;
-
-  public CartController(CartService cartService) {
-    this.cartService = cartService;
-  }
 
   @GetMapping("/cart")
   public String handleCartRequest(
