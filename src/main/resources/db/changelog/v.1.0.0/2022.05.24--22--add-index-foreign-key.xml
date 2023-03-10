@@ -73,6 +73,9 @@
         <createIndex indexName="fk_book2user_user_id" tableName="book2user">
             <column name="user_id"/>
         </createIndex>
+        <createIndex indexName="fk_book2user_type_id" tableName="book2user">
+            <column name="type_id"/>
+        </createIndex>
         <comment>book2user table</comment>
     </changeSet>
 
@@ -93,6 +96,15 @@
                                  onUpdate="NO ACTION"
                                  referencedColumnNames="id"
                                  referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="dmitriy_kir" id="book2user-fk-3">
+        <addForeignKeyConstraint baseColumnNames="type_id"
+          baseTableName="book2user"
+          constraintName="fk_book2user_type_id"
+          onDelete="NO ACTION"
+          onUpdate="NO ACTION"
+          referencedColumnNames="id"
+          referencedTableName="book2user_type"/>
     </changeSet>
 
     <changeSet author="dmitriy_kir" id="file_download-createIndexes">

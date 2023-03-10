@@ -7,13 +7,20 @@ import com.example.api.request.RegistrationForm;
 import com.example.api.response.ContactConfirmationResponse;
 import com.example.api.response.ResultErrorResponse;
 import com.example.data.BookStoreUserDetails;
+import com.example.data.book.links.Book2UserEntity;
 import com.example.data.user.UserEntity;
+import com.example.repository.Book2UserRepository;
 import com.example.repository.UserRepository;
 import com.example.service.jwt.JWTUtil;
 import java.util.Arrays;
+import java.util.List;
 import javax.persistence.EntityExistsException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,24 +34,32 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserRegisterService {
 
+  @Value("${lengthHash}")
+  private int lengthHash;
+
   private final JWTUtil jwtUtil;
   private final UserService userService;
-  private final UtilityService utilityService;
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
+  private final Book2UserRepository book2UserRepository;
+//  private final GeneralContentService generalContentService;
 
   @Transactional
-  public void registerNewUser(RegistrationForm registrationForm) {
+  public void registerNewUser(RegistrationForm registrationForm, HttpServletRequest request,
+      HttpServletResponse response) {
     UserEntity userEntity = userRepository.findByEmail(registrationForm.getEmail());
     if (userEntity == null) {
-      UserEntity user = new UserEntity();
-      user.setRegTime(utilityService.getTimeNow());
-      user.setName(registrationForm.getName());
-      user.setEmail(registrationForm.getEmail());
-      user.setPhone(registrationForm.getPhone());
-      user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
-      userRepository.save(user);
+      UserEntity userAnon = this.getAnonymousUser(request);
+      userAnon.setRegTime(UtilityService.getTimeNowUTC());
+      userAnon.setName(registrationForm.getName());
+      userAnon.setEmail(registrationForm.getEmail());
+      userAnon.setPhone(registrationForm.getPhone());
+      userAnon.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
+      userRepository.save(userAnon);
+      UtilityService.removeCookie("username",
+          UtilityService.getCookieValueByName(request, "username"),
+          UtilityService.getCookieValueByName(request, "username"), response);
     } else {
       throw new EntityExistsException("Такой email уже существует. Введите другой адрес почты.");
     }
@@ -60,10 +75,11 @@ public class UserRegisterService {
       return new BookStoreUserDetails(user).user();
     }
     user = new UserEntity();
+    user.setHash(RandomStringUtils.randomAlphanumeric(lengthHash));
     user.setEmail(email);
     user.setPassword(passwordEncoder.encode(oAuth2User.getAttribute("sub")));
     user.setName((String) oAuth2User.getAttributes().get("name"));
-    user.setRegTime(utilityService.getTimeNow());
+    user.setRegTime(UtilityService.getTimeNowUTC());
     return new BookStoreUserDetails(user).user();
   }
 
@@ -72,8 +88,34 @@ public class UserRegisterService {
     userRepository.save(this.getOAuth2User());
   }
 
-  public ResultErrorResponse login(ContactConfirmationPayload payload) {
-    return utilityService.getResultTrue();
+  @Transactional
+  public ContactConfirmationResponse login(ContactConfirmationPayload payload,
+      HttpServletRequest request, HttpServletResponse response) {
+    ContactConfirmationResponse loginResponse = this.jwtLogin(payload);
+    Cookie cookie = new Cookie("token", loginResponse.getResult());
+    response.addCookie(cookie);
+    UserEntity userAnon = this.getAnonymousUser(request);
+    if (!userAnon.getBookEntityList().isEmpty()) {
+      UserEntity user = userRepository.findByEmail(payload.getContact());
+      List<Book2UserEntity> book2UserList = book2UserRepository.findByUserId(userAnon.getId());
+      book2UserList.forEach(book2UserAnon -> {
+            Book2UserEntity book2User = Book2UserEntity.builder()
+                .time(UtilityService.getTimeNowUTC())
+                .typeId(book2UserAnon.getTypeId())
+                .userId(user.getId())
+                .bookId(book2UserAnon.getBookId())
+                .build();
+            Book2UserEntity book2UserDb = book2UserRepository.findByBookIdAndUserId(
+                book2User.getBookId(), book2User.getUserId());
+            if (book2UserDb == null) {
+              book2UserRepository.save(book2User);
+            }
+            book2UserRepository.delete(book2UserAnon);
+            //generalContentService.popularityCalculation();
+          }
+      );
+    }
+    return loginResponse;
   }
 
   public UserEntity getCurrentUser() {
@@ -103,5 +145,22 @@ public class UserRegisterService {
       email = this.getCurrentUser().getEmail();
     }
     return userRepository.findByEmail(email);
+  }
+
+  public UserEntity getAnonymousUser(HttpServletRequest request) {
+    String userName = UtilityService.getCookieValueByName(request, "username");
+    if (userName != null && !userName.isEmpty()) {
+      return userRepository.findByEmail(userName);
+    }
+    return null;
+  }
+
+  public UserEntity getUser(HttpServletRequest request) {
+    UserEntity user;
+    user = this.getRegisteredUser(request);
+    if (user == null) {
+      user = this.getAnonymousUser(request);
+    }
+    return user;
   }
 }

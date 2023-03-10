@@ -1,5 +1,7 @@
-package com.example.service;
+package com.example.handler;
 
+import com.example.service.AuthService;
+import com.example.service.UtilityService;
 import java.util.Arrays;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,14 +34,15 @@ public class CustomLogoutHandler implements LogoutHandler {
       new SecurityContextLogoutHandler().logout(request, response, auth);
       auth.setAuthenticated(false);
       SecurityContextHolder.clearContext();
-      for (Cookie cookie : request.getCookies()) {
-        String cookieName = cookie.getName();
-        log.info("cookie name={}", cookieName);
-        Cookie cookieToDelete = new Cookie(cookieName, null);
-        cookieToDelete.setPath(request.getContextPath() + "/");
-        cookieToDelete.setMaxAge(0);
-        response.addCookie(cookieToDelete);
-      }
+      UtilityService.removeAllCookie(request, response);
+//      for (Cookie cookie : request.getCookies()) {
+//        String cookieName = cookie.getName();
+//        log.info("cookie name={}", cookieName);
+//        Cookie cookieToDelete = new Cookie(cookieName, null);
+//        cookieToDelete.setPath(request.getContextPath() + "/");
+//        cookieToDelete.setMaxAge(0);
+//        response.addCookie(cookieToDelete);
+//      }
       SecurityContextHolder.getContext().setAuthentication(null);
     }
   }

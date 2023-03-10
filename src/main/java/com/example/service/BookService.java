@@ -7,6 +7,7 @@ import com.example.data.book.BookEntity;
 import com.example.mapper.BookMapper;
 import com.example.repository.BookRepository;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +28,8 @@ public class BookService {
   private final BookRepository bookRepository;
   private final ResourceStorage storage;
 
-  public BookService(BookRepository bookRepository, BookMapper bookMapper, ResourceStorage storage) {
+  public BookService(BookRepository bookRepository, BookMapper bookMapper,
+      ResourceStorage storage) {
     this.bookRepository = bookRepository;
     this.bookMapper = bookMapper;
     this.storage = storage;
@@ -37,16 +39,21 @@ public class BookService {
     return bookRepository.findAll();
   }
 
-  public List<BookResponseDto> getBooksByGenreSlugList(String slug, int offset, int limit) {
-    return bookMapper.pageEntityToResponseDtoList(getBooksByGenreSlug(slug, offset, limit));
+  public List<BookResponseDto> getBooksByGenreSlugList(String slug, int offset, int limit,
+      HttpServletRequest request) {
+    return bookMapper.pageEntityToResponseDtoList(getBooksByGenreSlug(slug, offset, limit),
+        request);
   }
 
-  public List<BookResponseDto> getBooksByTagSlugList(String slug, Integer offset, Integer limit) {
-    return bookMapper.pageEntityToResponseDtoList(getBooksByTagSlug(slug, offset, limit));
+  public List<BookResponseDto> getBooksByTagSlugList(String slug, Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.pageEntityToResponseDtoList(getBooksByTagSlug(slug, offset, limit), request);
   }
 
-  public List<BookResponseDto> getBooksByAuthorSlugList(String slug, int offset, int limit) {
-    return bookMapper.pageEntityToResponseDtoList(getBooksByAuthorSlug(slug, offset, limit));
+  public List<BookResponseDto> getBooksByAuthorSlugList(String slug, int offset, int limit,
+      HttpServletRequest request) {
+    return bookMapper.pageEntityToResponseDtoList(getBooksByAuthorSlug(slug, offset, limit),
+        request);
   }
 
   public BookDto getBookDtoBySlug(String slug) {
@@ -57,42 +64,49 @@ public class BookService {
     return bookRepository.findBySlug(slug);
   }
 
-  public List<BookResponseDto> getRecommendedBooksList(Integer offset, Integer limit) {
-    return bookMapper.pageEntityToResponseDtoList(getRecommendedBooks(offset, limit));
+  public List<BookResponseDto> getRecommendedBooksList(Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.pageEntityToResponseDtoList(getRecommendedBooks(offset, limit), request);
   }
 
   public List<BookResponseDto> getRecentBooksList(String from, String to, Integer offset,
-      Integer limit) {
-    return bookMapper.pageEntityToResponseDtoList(getRecentBooks(from, to, offset, limit));
+      Integer limit, HttpServletRequest request) {
+    return bookMapper.pageEntityToResponseDtoList(getRecentBooks(from, to, offset, limit), request);
   }
 
-  public List<BookResponseDto> getPopularBooksList(Integer offset, Integer limit) {
-    return bookMapper.pageEntityToResponseDtoList(getPopularBooks(offset, limit));
+  public List<BookResponseDto> getPopularBooksList(Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.pageEntityToResponseDtoList(getPopularBooks(offset, limit), request);
   }
 
-  public BooksListPageResponse getPageOfRecommendedBooks(Integer offset, Integer limit) {
-    return bookMapper.toListResponse(getRecommendedBooks(offset, limit));
+  public BooksListPageResponse getPageOfRecommendedBooks(Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.toListResponse(getRecommendedBooks(offset, limit), request);
   }
 
   public BooksListPageResponse getPageOfRecentBooks(String from, String to, Integer offset,
-      Integer limit) {
-    return bookMapper.toListResponse(getRecentBooks(from, to, offset, limit));
+      Integer limit, HttpServletRequest request) {
+    return bookMapper.toListResponse(getRecentBooks(from, to, offset, limit), request);
   }
 
-  public BooksListPageResponse getPageOfPopularBooks(Integer offset, Integer limit) {
-    return bookMapper.toListResponse(getPopularBooks(offset, limit));
+  public BooksListPageResponse getPageOfPopularBooks(Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.toListResponse(getPopularBooks(offset, limit), request);
   }
 
-  public BooksListPageResponse getPageOfBooksByTagId(Integer id, Integer offset, Integer limit) {
-    return bookMapper.toListResponse(getBooksByTagId(id, offset, limit));
+  public BooksListPageResponse getPageOfBooksByTagId(Integer id, Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.toListResponse(getBooksByTagId(id, offset, limit), request);
   }
 
-  public BooksListPageResponse getPageOfBooksByAuthorId(Integer id, Integer offset, Integer limit) {
-    return bookMapper.toListResponse(getBooksByAuthorId(id, offset, limit));
+  public BooksListPageResponse getPageOfBooksByAuthorId(Integer id, Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.toListResponse(getBooksByAuthorId(id, offset, limit), request);
   }
 
-  public BooksListPageResponse getPageOfBooksByGenreId(Integer id, Integer offset, Integer limit) {
-    return bookMapper.toListResponse(getBooksByGenreId(id, offset, limit));
+  public BooksListPageResponse getPageOfBooksByGenreId(Integer id, Integer offset, Integer limit,
+      HttpServletRequest request) {
+    return bookMapper.toListResponse(getBooksByGenreId(id, offset, limit), request);
   }
 
   public void saveImageBook(MultipartFile file, String slug) throws IOException {

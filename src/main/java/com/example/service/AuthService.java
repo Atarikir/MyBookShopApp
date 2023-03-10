@@ -2,10 +2,13 @@ package com.example.service;
 
 import com.example.api.response.ContactConfirmationResponse;
 import com.example.data.JwtBlackList;
+import com.example.data.book.links.Book2UserEntity;
+import com.example.data.user.UserEntity;
 import com.example.repository.JwtBlackListRepository;
 import com.example.service.jwt.JWTUtil;
 import io.jsonwebtoken.JwtException;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,18 +33,18 @@ public class AuthService {
   }
 
   @Transactional
-  public void saveTokenByBlackList(HttpServletRequest httpServletRequest) {
+  public void saveTokenByBlackList(HttpServletRequest request) {
     String token = null;
-    Cookie[] cookies = httpServletRequest.getCookies();
+//    Cookie[] cookies = httpServletRequest.getCookies();
     try {
-      if (cookies != null) {
-        for (Cookie cookie : cookies) {
-          if (cookie.getName().equals("token")) {
-            token = cookie.getValue();
-            log.debug("token - " + token);
-//          username = jwtUtil.extractUsername(token);
-          }
-        }
+      if (request.getCookies() != null) {
+        token = UtilityService.getCookieValueByName(request,"token");
+//        for (Cookie cookie : cookies) {
+//          if (cookie.getName().equals("token")) {
+//            token = cookie.getValue();
+//            log.debug("token - " + token);
+//          }
+//        }
 
         Date dateTokenExpiration = jwtUtil.extractExpiration(token);
         JwtBlackList jwtBlackList = new JwtBlackList(token, dateTokenExpiration);
@@ -50,7 +53,7 @@ public class AuthService {
         jwtBlackListRepository.save(jwtBlackList);
       }
     } catch (JwtException ex)  {
-      HttpSession session = httpServletRequest.getSession();
+      HttpSession session = request.getSession();
       SecurityContextHolder.clearContext();
       if (session != null) {
         session.invalidate();

@@ -1,7 +1,8 @@
 package com.example.repository;
 
 import com.example.data.user.UserEntity;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
@@ -9,4 +10,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
   UserEntity findByName(String name);
 
   UserEntity findByEmail(String email);
+
+  List<UserEntity> findByNameAndRegTimeBefore(String name, LocalDateTime time);
 }

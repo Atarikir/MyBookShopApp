@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BookRatingService {
 
-  private final UtilityService utilityService;
   private final BookRepository bookRepository;
   private final BookGradeRepository bookGradeRepository;
   private final UserRegisterService userRegisterService;
@@ -42,9 +41,9 @@ public class BookRatingService {
       short rating = bookRatingCalculation(book);
       book.setBookRating(rating);
       bookRepository.save(book);
-      return utilityService.getResultTrue();
+      return UtilityService.getResultTrue();
     }
-    return utilityService.getResultFalse();
+    return UtilityService.getResultFalse();
   }
 
   private Short bookRatingCalculation(BookEntity book) {

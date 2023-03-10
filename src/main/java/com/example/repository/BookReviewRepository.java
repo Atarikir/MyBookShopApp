@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookReviewRepository extends JpaRepository<BookReviewEntity, Integer> {
 
-  List<BookReviewEntity> findBookReviewEntitiesByBook(BookEntity book);
+  List<BookReviewEntity> findByBook(BookEntity book);
 
   BookReviewEntity findBookReviewEntityByBook(BookEntity book);
 }

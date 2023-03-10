@@ -5,12 +5,19 @@ import com.example.api.response.BookResponseDto;
 import com.example.api.response.BooksListPageResponse;
 import com.example.data.author.AuthorEntity;
 import com.example.data.book.BookEntity;
+import com.example.data.book.links.Book2UserEntity;
+import com.example.data.enums.Book2UserType;
 import com.example.data.tag.TagEntity;
+import com.example.data.user.UserEntity;
 import com.example.repository.AuthorRepository;
 import com.example.repository.Book2AuthorRepository;
+import com.example.repository.Book2UserRepository;
 import com.example.service.AuthorService;
+import com.example.service.UserRegisterService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +33,12 @@ public abstract class BookMapper {
   protected Book2AuthorRepository book2AuthorRepository;
   @Autowired
   protected AuthorRepository authorRepository;
+  @Autowired
+  private UserRegisterService userRegisterService;
+  @Autowired
+  private Book2UserRepository book2UserRepository;
 
-  public BookResponseDto bookEntityToBookResponseDto(BookEntity book) {
+  public BookResponseDto bookEntityToBookResponseDto(BookEntity book, HttpServletRequest request) {
     if (book == null) {
       return null;
     }
@@ -40,7 +51,7 @@ public abstract class BookMapper {
     bookResponseDTO.setDiscount(Integer.valueOf(book.getDiscount()));
     bookResponseDTO.setIsBestseller(book.getIsBestseller());
     bookResponseDTO.setRating(Integer.valueOf(book.getBookRating()));
-    bookResponseDTO.setStatus(getStatusBook(book));
+    bookResponseDTO.setStatus(getStatusBook(book, request));
     bookResponseDTO.setPrice(book.getPrice());
     bookResponseDTO.setDiscountPrice(getDiscountPrice(book));
 
@@ -90,14 +101,27 @@ public abstract class BookMapper {
 
   public abstract List<BookDto> listEntityToDtoList(List<BookEntity> var2);
 
-  public abstract List<BookResponseDto> pageEntityToResponseDtoList(Page<BookEntity> var1);
+//  public abstract List<BookResponseDto> pageEntityToResponseDtoList(Page<BookEntity> var1);
 
-  public BooksListPageResponse toListResponse(Page<BookEntity> entityPage) {
+  public List<BookResponseDto> pageEntityToResponseDtoList(Page<BookEntity> var1,
+      HttpServletRequest request) {
+    if (var1 == null) {
+      return Collections.emptyList();
+    }
+    List<BookResponseDto> list = new ArrayList<>();
+    for (BookEntity bookEntity : var1) {
+      list.add(bookEntityToBookResponseDto(bookEntity, request));
+    }
+    return list;
+  }
+
+  public BooksListPageResponse toListResponse(Page<BookEntity> entityPage,
+      HttpServletRequest request) {
     if (entityPage == null) {
       return null;
     }
     return new BooksListPageResponse(entityPage.getTotalElements(),
-        this.pageEntityToResponseDtoList(entityPage));
+        this.pageEntityToResponseDtoList(entityPage, request));
   }
 
   private Integer getDiscountPrice(BookEntity book) {
@@ -119,12 +143,14 @@ public abstract class BookMapper {
         authorString = author.getName() + " и другие";
       }
     }
-
     return authorString;
   }
 
-  //TODO: переделать поиск текущего пользователя, когда будет реализована аутентификация
-  private String getStatusBook(BookEntity book) {
-    return String.valueOf(false);
+  private String getStatusBook(BookEntity book, HttpServletRequest request) {
+    UserEntity currentUser = userRegisterService.getUser(request);
+    Book2UserEntity book2User = book2UserRepository.findByBookIdAndUserId(book.getId(),
+        currentUser.getId());
+    return book2User != null ? Book2UserType.getBindingTypeCodeByTypeID(book2User.getTypeId())
+        : String.valueOf(false);
   }
 }

@@ -25,17 +25,6 @@
                         </g>
                       </svg>
                     </span>
-                    <span th:class="${bookReview.likes - bookReview.dislikes} > 1 ? 'Rating-star_view' : 'Rating-star'">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
-                           viewBox="0 0 19 18">
-                        <g>
-                          <g>
-                            <path fill="#ffc000"
-                                  d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                          </g>
-                        </g>
-                      </svg>
-                    </span>
                     <span th:class="${bookReview.likes - bookReview.dislikes} > 2 ? 'Rating-star_view' : 'Rating-star'">
                       <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
                            viewBox="0 0 19 18">
@@ -47,7 +36,7 @@
                         </g>
                       </svg>
                     </span>
-                    <span th:class="${bookReview.likes - bookReview.dislikes} > 3 ? 'Rating-star_view' : 'Rating-star'">
+                    <span th:class="${bookReview.likes - bookReview.dislikes} > 4 ? 'Rating-star_view' : 'Rating-star'">
                       <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
                            viewBox="0 0 19 18">
                         <g>
@@ -58,7 +47,18 @@
                         </g>
                       </svg>
                     </span>
-                    <span th:class="${bookReview.likes - bookReview.dislikes} > 4 ? 'Rating-star_view' : 'Rating-star'">
+                    <span th:class="${bookReview.likes - bookReview.dislikes} > 6 ? 'Rating-star_view' : 'Rating-star'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                           viewBox="0 0 19 18">
+                        <g>
+                          <g>
+                            <path fill="#ffc000"
+                                  d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                    <span th:class="${bookReview.likes - bookReview.dislikes} > 8 ? 'Rating-star_view' : 'Rating-star'">
                       <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
                            viewBox="0 0 19 18">
                         <g>

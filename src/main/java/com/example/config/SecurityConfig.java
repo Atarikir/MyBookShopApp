@@ -1,6 +1,6 @@
 package com.example.config;
 
-import com.example.service.CustomLogoutHandler;
+import com.example.handler.CustomLogoutHandler;
 import com.example.service.UserService;
 import com.example.service.jwt.JWTRequestFilter;
 import lombok.RequiredArgsConstructor;

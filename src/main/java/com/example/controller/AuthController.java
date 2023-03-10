@@ -35,9 +35,10 @@ public class AuthController extends BaseController {
   }
 
   @PostMapping("/reg")
-  public String handleUserRegistration(RegistrationForm registrationForm, Model model) {
+  public String handleUserRegistration(RegistrationForm registrationForm, Model model,
+      HttpServletRequest request, HttpServletResponse response) {
     try {
-      userRegisterService.registerNewUser(registrationForm);
+      userRegisterService.registerNewUser(registrationForm, request, response);
       model.addAttribute("regOk", true);
     } catch (EntityExistsException ex) {
       model.addAttribute("regNotOk", true);
@@ -57,7 +58,7 @@ public class AuthController extends BaseController {
   }
 
   @GetMapping("/oauth2LoginSuccess")
-  public String getOauth2LoginInfo(Model model,  @AuthenticationPrincipal OAuth2User oAuth2User,
+  public String getOauth2LoginInfo(Model model, @AuthenticationPrincipal OAuth2User oAuth2User,
       HttpServletResponse response) {
     Cookie cookie = new Cookie("sub", oAuth2User.getAttribute("sub"));
     response.addCookie(cookie);

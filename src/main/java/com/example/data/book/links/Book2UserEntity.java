@@ -1,6 +1,9 @@
 package com.example.data.book.links;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.time.LocalDateTime;
 @Table(name = "book2user")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book2UserEntity {
 
   @Id

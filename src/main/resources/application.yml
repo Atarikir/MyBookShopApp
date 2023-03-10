@@ -43,3 +43,5 @@ download:
 
 auth:
   secret: skillbox
+
+lengthHash: 45

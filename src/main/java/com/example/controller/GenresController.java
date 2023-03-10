@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.service.BookService;
 import com.example.service.GenreService;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,11 @@ public class GenresController extends BaseController {
   }
 
   @GetMapping(value = "/genres/{slug}")
-  public String getGenreSlugPage(@PathVariable("slug") String slug, Model model) {
+  public String getGenreSlugPage(@PathVariable("slug") String slug, Model model,
+      HttpServletRequest request) {
     model.addAttribute("genreBySlug", genreService.getGenreDtoBySlug(slug));
     model.addAttribute("booksByGenreSlug",
-        bookService.getBooksByGenreSlugList(slug, offset, limit));
+        bookService.getBooksByGenreSlugList(slug, offset, limit, request));
     return "genres/slug";
   }
 }

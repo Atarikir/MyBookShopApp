@@ -4,6 +4,7 @@ import com.example.service.AuthorService;
 import com.example.service.BookReviewService;
 import com.example.service.BookService;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,23 +38,24 @@ public class BooksController extends BaseController {
       String from,
       @RequestParam(value = "to", required = false, defaultValue = "#{T(java.time.LocalDate).now().format(T(java.time.format.DateTimeFormatter).ofPattern('dd.MM.yyyy'))}")
       String to,
-      Model model) {
-    model.addAttribute("recent", bookService.getRecentBooksList(from, to, offset, limit));
+      Model model, HttpServletRequest request) {
+    model.addAttribute("recent", bookService.getRecentBooksList(from, to, offset, limit, request));
     return "books/recent";
   }
 
   @GetMapping(value = "/popular", produces = MediaType.TEXT_HTML_VALUE)
-  public String popularPage(Model model) {
-    model.addAttribute("popular", bookService.getPopularBooksList(offset, limit));
+  public String popularPage(Model model, HttpServletRequest request) {
+    model.addAttribute("popular", bookService.getPopularBooksList(offset, limit, request));
     return "books/popular";
   }
 
   //TODO: сделать как в recent from-to (в порядке убывания даты публикации — от самой новой до самой старой)
   @GetMapping("/author/{slug}")
-  public String getBooksAuthorSlugPage(@PathVariable("slug") String slug, Model model) {
+  public String getBooksAuthorSlugPage(@PathVariable("slug") String slug, Model model,
+      HttpServletRequest request) {
     model.addAttribute("authorBySlug", authorService.getAuthorDtoBySlug(slug));
     model.addAttribute("booksByAuthorSlug",
-        bookService.getBooksByAuthorSlugList(slug, offset, limit));
+        bookService.getBooksByAuthorSlugList(slug, offset, limit, request));
     return "books/author";
   }
 

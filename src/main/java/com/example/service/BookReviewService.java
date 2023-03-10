@@ -12,6 +12,7 @@ import com.example.mapper.BookReviewMapper;
 import com.example.repository.BookRepository;
 import com.example.repository.BookReviewLikeRepository;
 import com.example.repository.BookReviewRepository;
+import com.sun.xml.bind.v2.TODO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,43 +25,41 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BookReviewService {
 
-  private final BookReviewRepository bookReviewRepository;
   private final BookReviewMapper mapper;
   private final BookRepository bookRepository;
-  private final BookReviewLikeRepository bookReviewLikeRepository;
   private final UserRegisterService userRegisterService;
+  private final BookReviewRepository bookReviewRepository;
+  private final BookReviewLikeRepository bookReviewLikeRepository;
 
   private static final int MIN_LENGTH_TEXT = 20;
   private static final String ERROR_TEXT = "Отзыв слишком короткий. Напишите, пожалуйста, более развёрнутый отзыв";
-  private final UtilityService utilityService;
-
 
   @Transactional
   public ResultErrorResponse addBookReview(BookReviewRequest request,
       HttpServletRequest servletRequest) {
     if (request.getText().length() < MIN_LENGTH_TEXT) {
-      return utilityService.errorsResponse(ERROR_TEXT);
+      return UtilityService.errorsResponse(ERROR_TEXT);
     }
 
     BookEntity book = bookRepository.findById(request.getBookId()).orElseThrow();
     UserEntity user = userRegisterService.getRegisteredUser(servletRequest);
 
-    log.debug("book - " + book + " user - " + user);
+    log.info("book - " + book + " user - " + user);
 
     bookReviewRepository.save(
         BookReviewEntity.builder()
             .book(book)
             .user(user)
-            .time(utilityService.getTimeNow())
+            .time(UtilityService.getTimeNowUTC())
             .text(request.getText())
             .build());
-    return utilityService.getResultTrue();
+    return UtilityService.getResultTrue();
   }
 
+  //TODO: Перечень отзывов на книгу в порядке убывания их рейтинга (нужно реализовать)
   public List<BookReviewDto> getBookReviewListByBookSlug(String slug) {
     BookEntity book = bookRepository.findBySlug(slug);
-    List<BookReviewEntity> bookReviewEntityList = bookReviewRepository.findBookReviewEntitiesByBook(
-        book);
+    List<BookReviewEntity> bookReviewEntityList = bookReviewRepository.findByBook(book);
     return mapper.listEntityToDtoList(bookReviewEntityList);
   }
 
@@ -70,7 +69,7 @@ public class BookReviewService {
     UserEntity user = userRegisterService.getRegisteredUser(servletRequest);
     BookReviewEntity bookReviewEntity = bookReviewRepository.findById(request.getReviewId())
         .orElseThrow();
-    BookReviewLikeEntity bookReviewLikeEntity = bookReviewLikeRepository.findBookReviewLikeEntityByReviewIdAndUser(
+    BookReviewLikeEntity bookReviewLikeEntity = bookReviewLikeRepository.findByReviewIdAndUser(
         request.getReviewId(),
         user);
     ResultErrorResponse resultErrorResponse;
@@ -78,19 +77,19 @@ public class BookReviewService {
       bookReviewLikeRepository.save(BookReviewLikeEntity.builder()
           .review(bookReviewEntity)
           .user(user)
-          .time(utilityService.getTimeNow())
+          .time(UtilityService.getTimeNowUTC())
           .value(request.getValue())
           .build()
       );
-      resultErrorResponse = utilityService.getResultTrue();
+      resultErrorResponse = UtilityService.getResultTrue();
     } else {
       if (bookReviewLikeEntity.getValue() == request.getValue()) {
-        resultErrorResponse = utilityService.getResultFalse();
+        resultErrorResponse = UtilityService.getResultFalse();
       } else {
         bookReviewLikeEntity.setValue(request.getValue());
-        bookReviewLikeEntity.setTime(utilityService.getTimeNow());
+        bookReviewLikeEntity.setTime(UtilityService.getTimeNowUTC());
         bookReviewLikeRepository.save(bookReviewLikeEntity);
-        resultErrorResponse = utilityService.getResultTrue();
+        resultErrorResponse = UtilityService.getResultTrue();
       }
     }
     return resultErrorResponse;

@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.service.BookService;
 import com.example.service.TagService;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,11 @@ public class TagsController extends BaseController {
   private final TagService tagService;
 
   @GetMapping(value = "/tags/{slug}")
-  public String getTagSlugPage(@PathVariable("slug") String slug, Model model) {
+  public String getTagSlugPage(@PathVariable("slug") String slug, Model model,
+      HttpServletRequest request) {
     model.addAttribute("tagBySlug", tagService.getTagDtoBySlug(slug));
-    model.addAttribute("booksByTagSlug", bookService.getBooksByTagSlugList(slug, offset, limit));
+    model.addAttribute("booksByTagSlug",
+        bookService.getBooksByTagSlugList(slug, offset, limit, request));
     return "tags/index";
   }
 }

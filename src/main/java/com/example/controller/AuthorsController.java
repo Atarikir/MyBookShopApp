@@ -6,6 +6,7 @@ import com.example.service.BookService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -45,10 +46,11 @@ public class AuthorsController extends BaseController {
 
   //TODO: сделать как в recent from-to, некорректно выводит список книг автора
   @GetMapping("/authors/{slug}")
-  public String getAuthorPageBySlug(@PathVariable("slug") String slug, Model model) {
+  public String getAuthorPageBySlug(@PathVariable("slug") String slug, Model model,
+      HttpServletRequest request) {
     model.addAttribute("authorBySlug", authorService.getAuthorDtoBySlug(slug));
     model.addAttribute("booksByAuthorSlug",
-        bookService.getBooksByAuthorSlugList(slug, offset, limit));
+        bookService.getBooksByAuthorSlugList(slug, offset, limit, request));
     return "authors/slug";
   }
 }

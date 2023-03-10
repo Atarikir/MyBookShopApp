@@ -8,8 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookReviewLikeRepository extends JpaRepository<BookReviewLikeEntity, Integer> {
 
-  BookReviewLikeEntity findBookReviewLikeEntityByReviewIdAndUser(Integer reviewId,
-      UserEntity user);
+  BookReviewLikeEntity findByReviewIdAndUser(Integer reviewId, UserEntity user);
 
   long countBookReviewLikeEntitiesByReviewAndValue(BookReviewEntity bookReview, Short value);
 

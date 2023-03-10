@@ -14,25 +14,22 @@
                 <constraints primaryKey="true" primaryKeyName="users_pkey"/>
             </column>
             <column name="balance" type="INT" remarks="баланс личного счёта, по умолчанию 0">
-<!--                <constraints nullable="false"/>-->
+                <constraints nullable="false"/>
             </column>
             <column name="hash" type="VARCHAR(255)" remarks="хэш пользователя, используемый для
             внешней идентификации пользователя с целью скрытия его ID">
-<!--                <constraints nullable="false"/>-->
+                <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)" remarks="имя пользователя">
-                <constraints nullable="false"/>
             </column>
             <column name="reg_time" type="TIMESTAMP" remarks="дата и время регистрации">
-<!--                <constraints nullable="false"/>-->
+                <constraints nullable="false"/>
             </column>
             <column name="email" type="VARCHAR(255)" remarks="email пользователя">
-                <constraints nullable="false"/>
             </column>
             <column name="phone" type="VARCHAR(255)" remarks="телефон пользователя">
             </column>
             <column name="password" type="VARCHAR(255)" remarks="пароль пользователя">
-                <constraints nullable="false"/>
             </column>
         </createTable>
         <rollback>
