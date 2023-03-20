@@ -12,7 +12,6 @@ import com.example.mapper.BookReviewMapper;
 import com.example.repository.BookRepository;
 import com.example.repository.BookReviewLikeRepository;
 import com.example.repository.BookReviewRepository;
-import com.sun.xml.bind.v2.TODO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +30,11 @@ public class BookReviewService {
   private final BookReviewRepository bookReviewRepository;
   private final BookReviewLikeRepository bookReviewLikeRepository;
 
-  private static final int MIN_LENGTH_TEXT = 20;
+  private static final short MIN_LENGTH_TEXT = 20;
+  private static final int REVIEW_RATING_DEFAULT_VALUE = 0;
   private static final String ERROR_TEXT = "Отзыв слишком короткий. Напишите, пожалуйста, более развёрнутый отзыв";
+  public static final short LIKE_VALUE = 1;
+  public static final short DISLIKE_VALUE = -1;
 
   @Transactional
   public ResultErrorResponse addBookReview(BookReviewRequest request,
@@ -52,14 +54,15 @@ public class BookReviewService {
             .user(user)
             .time(UtilityService.getTimeNowUTC())
             .text(request.getText())
+            .reviewRating(REVIEW_RATING_DEFAULT_VALUE)
             .build());
     return UtilityService.getResultTrue();
   }
 
-  //TODO: Перечень отзывов на книгу в порядке убывания их рейтинга (нужно реализовать)
   public List<BookReviewDto> getBookReviewListByBookSlug(String slug) {
     BookEntity book = bookRepository.findBySlug(slug);
-    List<BookReviewEntity> bookReviewEntityList = bookReviewRepository.findByBook(book);
+    List<BookReviewEntity> bookReviewEntityList = bookReviewRepository.findByBookOrderByReviewRatingDesc(
+        book);
     return mapper.listEntityToDtoList(bookReviewEntityList);
   }
 
@@ -74,13 +77,14 @@ public class BookReviewService {
         user);
     ResultErrorResponse resultErrorResponse;
     if (bookReviewLikeEntity == null) {
-      bookReviewLikeRepository.save(BookReviewLikeEntity.builder()
+      BookReviewLikeEntity bookReviewLike = BookReviewLikeEntity.builder()
           .review(bookReviewEntity)
           .user(user)
           .time(UtilityService.getTimeNowUTC())
           .value(request.getValue())
-          .build()
-      );
+          .build();
+      this.saveReviewLike(bookReviewLike);
+      this.updateBookReview(bookReviewEntity);
       resultErrorResponse = UtilityService.getResultTrue();
     } else {
       if (bookReviewLikeEntity.getValue() == request.getValue()) {
@@ -88,10 +92,28 @@ public class BookReviewService {
       } else {
         bookReviewLikeEntity.setValue(request.getValue());
         bookReviewLikeEntity.setTime(UtilityService.getTimeNowUTC());
-        bookReviewLikeRepository.save(bookReviewLikeEntity);
+        this.saveReviewLike(bookReviewLikeEntity);
+        this.updateBookReview(bookReviewEntity);
         resultErrorResponse = UtilityService.getResultTrue();
       }
     }
     return resultErrorResponse;
+  }
+
+  @Transactional
+  public void saveReviewLike(BookReviewLikeEntity bookReviewLikeEntity) {
+    bookReviewLikeRepository.save(bookReviewLikeEntity);
+  }
+
+  @Transactional
+  public void updateBookReview(BookReviewEntity bookReview) {
+    long countLikes = mapper.getBookReviewLikes(bookReview, LIKE_VALUE);
+    long countDislikes = mapper.getBookReviewLikes(bookReview, DISLIKE_VALUE);
+    bookReview.setReviewRating(this.reviewRatingCalculation(countLikes, countDislikes));
+    bookReviewRepository.save(bookReview);
+  }
+
+  public Integer reviewRatingCalculation(long countLikes, long countDislikes) {
+    return (int) (countLikes - countDislikes);
   }
 }

@@ -39,6 +39,9 @@ public class BookReviewEntity {
   @Column(columnDefinition = "TEXT NOT NULL")
   private String text;
 
+  @Column(columnDefinition = "INT")
+  private Integer reviewRating;
+
   @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<BookReviewLikeEntity> bookReviewLikeEntityList;
 }

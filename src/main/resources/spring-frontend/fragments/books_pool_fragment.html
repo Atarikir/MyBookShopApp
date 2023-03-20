@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="Cards Cards_refresh" th:fragment="pool(category, scroll, objectById)">
-    <div class="Card" th:each="book: ${scroll}">
-        <div class="Card-picture"><a href="#a" th:href="@{|/books/${book.slug}|}"><img
-                th:src="${book.image}" src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
-            <div class="Card-sale" th:if="${book.discount != 0}" th:text="${book.discount + '% '} + #{title.sale}">30% скидка
-            </div>
-        </div>
-        <div class="Card-content">
-            <strong class="Card-title"><a href="#" th:href="@{|/books/${book.slug}|}" th:text="${book.title}">Техника</a>
-            </strong>
-            <div class="Card-description" th:text="${book.authors}">Кондратенко Александр Петрович
-            </div>
-            <div class="Card-cost">
-                <span class="Card-priceOld" th:if="${book.discount != 0}" th:text="${book.price}">₽300.00</span>
-                <span class="Card-price" th:text="${book.price - book.price*book.discount/100}">₽190.00</span>
-            </div>
-        </div>
+  <div class="Card" th:each="book: ${scroll}">
+    <div class="Card-picture"><a href="#a" th:href="@{|/books/${book.slug}|}"><img
+        th:src="${book.image}" src="/assets/img/content/main/card.jpg" alt="card.jpg"/></a>
+      <div class="Card-sale" th:if="${book.discount != 0}"
+           th:text="${book.discount + '% '} + #{title.sale}">30% скидка
+      </div>
     </div>
-    <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="recent"
-                                                     data-refreshoffset="0" data-refreshlimit="20"
-                                                     th:attr="data-refreshshow = ${category},
-                                                     data-refreshid = ${objectById}"
-                                                     th:text="#{button.refresh}">Показать еще</a>
+    <a class="Card-status" th:if="${book.status == 'KEPT'}" title="Отложена" tabindex="0">
+      <img src="/assets/img/icons/heart.svg" alt="Отложена">
+    </a>
+    <a class="Card-status" th:if="${book.status == 'PAID'}" title="Куплена" tabindex="0">
+      <img src="/assets/img/icons/check.svg" alt="Куплена">
+    </a>
+    <a class="Card-status" th:if="${book.status == 'CART'}" title="В корзине" tabindex="0">
+      <img src="/assets/img/icons/shopping-basket.svg" alt="В корзине">
+    </a>
+    <a class="Card-status" th:if="${book.status == 'ARCHIVED'}" title="В архиве" tabindex="0">
+      <img src="/assets/img/icons/archive.svg" alt="В архиве">
+    </a>
+    <div class="Card-content">
+      <strong class="Card-title"><a href="#" th:href="@{|/books/${book.slug}|}"
+                                    th:text="${book.title}">Техника</a>
+      </strong>
+      <div class="Card-description" th:text="${book.authors}">Кондратенко Александр Петрович
+      </div>
+      <div class="Card-cost">
+        <span class="Card-priceOld" th:if="${book.discount != 0}"
+              th:text="${book.price}">₽300.00</span>
+        <span class="Card-price"
+              th:text="${book.price - book.price*book.discount/100}">₽190.00</span>
+      </div>
     </div>
+  </div>
+  <div class="Cards-footer Cards-footer_center">
+    <a class="btn btn_primary" href="#" data-refreshshow="recent"
+       data-refreshoffset="0" data-refreshlimit="20"
+       th:attr="data-refreshshow = ${category}, data-refreshid = ${objectById}"
+       th:text="#{button.refresh}">Показать еще</a>
+  </div>
 </div>
 </html>

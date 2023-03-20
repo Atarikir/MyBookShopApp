@@ -17,9 +17,9 @@ public class BaseController {
       if (Arrays.stream(request.getCookies()).anyMatch(it -> it.getName().equals("sub"))
           || Arrays.stream(request.getCookies()).anyMatch(it -> it.getName().equals("token"))) {
         model.addAttribute("isAuth", true);
+      } else {
+        model.addAttribute("isNotAuth", true);
       }
-    } else {
-      model.addAttribute("isNotAuth", true);
     }
   }
 }

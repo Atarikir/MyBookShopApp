@@ -44,7 +44,6 @@ public class AuthorsController extends BaseController {
     return authorService.getAuthorsMap();
   }
 
-  //TODO: сделать как в recent from-to, некорректно выводит список книг автора
   @GetMapping("/authors/{slug}")
   public String getAuthorPageBySlug(@PathVariable("slug") String slug, Model model,
       HttpServletRequest request) {

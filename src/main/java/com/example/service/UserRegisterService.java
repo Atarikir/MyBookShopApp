@@ -5,7 +5,6 @@ import static java.util.Objects.nonNull;
 import com.example.api.request.ContactConfirmationPayload;
 import com.example.api.request.RegistrationForm;
 import com.example.api.response.ContactConfirmationResponse;
-import com.example.api.response.ResultErrorResponse;
 import com.example.data.BookStoreUserDetails;
 import com.example.data.book.links.Book2UserEntity;
 import com.example.data.user.UserEntity;
@@ -19,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +30,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserRegisterService {
@@ -39,11 +40,11 @@ public class UserRegisterService {
 
   private final JWTUtil jwtUtil;
   private final UserService userService;
+  private final BookUtilService bookUtilService;
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
   private final Book2UserRepository book2UserRepository;
-//  private final GeneralContentService generalContentService;
 
   @Transactional
   public void registerNewUser(RegistrationForm registrationForm, HttpServletRequest request,
@@ -111,7 +112,7 @@ public class UserRegisterService {
               book2UserRepository.save(book2User);
             }
             book2UserRepository.delete(book2UserAnon);
-            //generalContentService.popularityCalculation();
+            bookUtilService.bookUpdateWhenPopularityChanges(book2UserAnon.getBookId());
           }
       );
     }
@@ -138,13 +139,19 @@ public class UserRegisterService {
 
   public UserEntity getRegisteredUser(HttpServletRequest request) {
     String email = null;
-    if (Arrays.stream(request.getCookies()).anyMatch(it -> it.getName().equals("sub"))) {
-      email = this.getOAuth2User().getEmail();
+    if (request.getCookies() != null) {
+      if (Arrays.stream(request.getCookies()).anyMatch(it -> it.getName().equals("sub"))) {
+        email = this.getOAuth2User().getEmail();
+      }
+      if (Arrays.stream(request.getCookies()).anyMatch(it -> it.getName().equals("token"))) {
+        email = this.getCurrentUser().getEmail();
+      }
     }
-    if (Arrays.stream(request.getCookies()).anyMatch(it -> it.getName().equals("token"))) {
-      email = this.getCurrentUser().getEmail();
+    if (email != null) {
+      return userRepository.findByEmail(email);
+    } else {
+      return null;
     }
-    return userRepository.findByEmail(email);
   }
 
   public UserEntity getAnonymousUser(HttpServletRequest request) {

@@ -22,8 +22,11 @@
             <column name="time" type="TIMESTAMP" remarks="время, когда оставлен отзыв">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="INT" remarks="дентификатор пользователя, который написал
+            <column name="user_id" type="INT" remarks="идентификатор пользователя, который написал
             данный отзыв">
+                <constraints nullable="false"/>
+            </column>
+            <column name="review_rating" type="INT" remarks="рейтинг отзыва">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -9,4 +9,6 @@ public interface Book2UserRepository extends JpaRepository<Book2UserEntity, Inte
   Book2UserEntity findByBookIdAndUserId(Integer bookId, Integer userId);
 
   List<Book2UserEntity> findByUserId(Integer userId);
+
+  long countByBookIdAndTypeId(Integer bookId, Integer typeId);
 }

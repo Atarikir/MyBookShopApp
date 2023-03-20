@@ -49,7 +49,6 @@ public class BooksController extends BaseController {
     return "books/popular";
   }
 
-  //TODO: сделать как в recent from-to (в порядке убывания даты публикации — от самой новой до самой старой)
   @GetMapping("/author/{slug}")
   public String getBooksAuthorSlugPage(@PathVariable("slug") String slug, Model model,
       HttpServletRequest request) {

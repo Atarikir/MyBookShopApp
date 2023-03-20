@@ -133,13 +133,13 @@ public abstract class BookMapper {
     String authorString = "";
     Integer bookId = book2AuthorRepository.getBookId(book.getId());
     if (bookId != null) {
-      int authorId = book2AuthorRepository.getAuthorIdBySortIndex(bookId);
-      AuthorEntity author = authorRepository.findById(authorId);
       List<AuthorEntity> authorList = book.getAuthorEntityList();
       if (authorList.size() == 1) {
         authorString = authorList.get(0).getName();
       }
       if (authorList.size() > 1) {
+        Integer authorId = book2AuthorRepository.getAuthorIdBySortIndex(bookId);
+        AuthorEntity author = authorRepository.findById(authorId).orElseThrow();
         authorString = author.getName() + " и другие";
       }
     }
@@ -147,10 +147,15 @@ public abstract class BookMapper {
   }
 
   private String getStatusBook(BookEntity book, HttpServletRequest request) {
-    UserEntity currentUser = userRegisterService.getUser(request);
-    Book2UserEntity book2User = book2UserRepository.findByBookIdAndUserId(book.getId(),
-        currentUser.getId());
-    return book2User != null ? Book2UserType.getBindingTypeCodeByTypeID(book2User.getTypeId())
-        : String.valueOf(false);
+    if (request.getCookies() != null) {
+      UserEntity currentUser = userRegisterService.getUser(request);
+      if (currentUser != null) {
+        Book2UserEntity book2User = book2UserRepository.findByBookIdAndUserId(book.getId(),
+            currentUser.getId());
+        return book2User != null ? Book2UserType.getBindingTypeCodeByTypeID(book2User.getTypeId())
+            : String.valueOf(false);
+      }
+    }
+    return String.valueOf(false);
   }
 }

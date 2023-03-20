@@ -22,7 +22,7 @@ public class ContentApiController {
   public ResponseEntity<ResultErrorResponse> changeBookStatus(
       @RequestBody BookChangeStatusRequest bookChangeStatusRequest,
       HttpServletRequest httpServletRequest) {
-    log.info("request - " + bookChangeStatusRequest);
+//    log.info("request - " + bookChangeStatusRequest);
     return ResponseEntity.ok(
         generalContentService.changeBookStatus(bookChangeStatusRequest, httpServletRequest));
   }

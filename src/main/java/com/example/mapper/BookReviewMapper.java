@@ -3,6 +3,7 @@ package com.example.mapper;
 import com.example.api.response.BookReviewDto;
 import com.example.data.book.review.BookReviewEntity;
 import com.example.repository.BookReviewLikeRepository;
+import com.example.service.BookReviewService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,29 +24,22 @@ public abstract class BookReviewMapper {
     bookReviewDto.setUser(bookReviewEntity.getUser());
     bookReviewDto.setText(bookReviewEntity.getText());
     bookReviewDto.setTime(convertLocalDateTimeToString(bookReviewEntity.getTime()));
-    bookReviewDto.setLikes(getBookReviewLikes(bookReviewEntity));
-    bookReviewDto.setDislikes(getBookReviewDislikes(bookReviewEntity));
+    bookReviewDto.setLikes(this.getBookReviewLikes(bookReviewEntity, BookReviewService.LIKE_VALUE));
+    bookReviewDto.setDislikes(
+        this.getBookReviewLikes(bookReviewEntity, BookReviewService.DISLIKE_VALUE));
+    bookReviewDto.setReviewRating(bookReviewEntity.getReviewRating());
     return bookReviewDto;
   }
 
-//  @Mapping(source = "time", target = "time", qualifiedByName = "convertLocalDateTimeToString")
-//  @Mapping(source = "", target = "", qualifiedByName = )
-//  abstract BookReviewDto entityToDto(BookReviewEntity bookReviewEntity);
+  public abstract List<BookReviewDto> listEntityToDtoList(
+      List<BookReviewEntity> bookReviewEntityList);
 
-//  @Named("convertLocalDateTimeToString")
   String convertLocalDateTimeToString(LocalDateTime time) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     return time.plusHours(3).format(formatter);
   }
 
-  Long getBookReviewLikes(BookReviewEntity bookReview) {
-    return bookReviewLikeRepository.countBookReviewLikeEntitiesByReviewAndValue(bookReview, (short) 1);
+  public Long getBookReviewLikes(BookReviewEntity bookReview, short value) {
+    return bookReviewLikeRepository.countBookReviewLikeEntitiesByReviewAndValue(bookReview, value);
   }
-
-  Long getBookReviewDislikes(BookReviewEntity bookReview) {
-    return bookReviewLikeRepository.countBookReviewLikeEntitiesByReviewAndValue(bookReview, (short) -1);
-  }
-
-  public abstract List<BookReviewDto> listEntityToDtoList(
-      List<BookReviewEntity> bookReviewEntityList);
 }

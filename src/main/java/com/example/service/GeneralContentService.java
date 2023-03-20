@@ -28,14 +28,17 @@ public class GeneralContentService {
   private final BookRepository bookRepository;
   private final BookMapper bookMapper;
   private final Book2UserRepository book2UserRepository;
+  private final BookUtilService bookUtilService;
 
   public List<BookDto> getBookListByStatus(HttpServletRequest request, Book2UserType type) {
     if (request.getCookies() != null) {
       List<BookEntity> userBooks;
       UserEntity user = userRegisterService.getUser(request);
-      userBooks = bookRepository.getUserBooksByStatus(user.getId(),
-          Book2UserType.getBindingTypeId(type));
-      return bookMapper.listEntityToDtoList(userBooks);
+      if (user != null) {
+        userBooks = bookRepository.getUserBooksByStatus(user.getId(),
+            Book2UserType.getBindingTypeId(type));
+        return bookMapper.listEntityToDtoList(userBooks);
+      }
     }
     return Collections.emptyList();
   }
@@ -47,30 +50,19 @@ public class GeneralContentService {
     Book2UserEntity book2User = this.book2User(user, request);
     if (request.getStatus().equals("UNLINK")) {
       this.deleteBook2User(book2User);
-      //this.popularityCalculation();
+      bookUtilService.bookUpdateWhenPopularityChanges(request.getBooksIds());
     }
     if (request.getStatus().equals("CART")) {
       this.checkingBookBindingToUser(book2User);
       this.saveBook2User(CART, user, request);
-      //this.popularityCalculation();
+      bookUtilService.bookUpdateWhenPopularityChanges(request.getBooksIds());
     }
     if (request.getStatus().equals("KEPT")) {
       this.checkingBookBindingToUser(book2User);
       this.saveBook2User(KEPT, user, request);
-      //this.popularityCalculation();
+      bookUtilService.bookUpdateWhenPopularityChanges(request.getBooksIds());
     }
     return UtilityService.getResultTrue();
-  }
-
-  //TODO: реализовать расчёт популярности книги -
-  //Популярность книги представляет собой неотрицательное число, которое
-  //можно рассчитать по следующей формуле:
-  //P = B + 0,7*C + 0,4*K,
-  //где B — количество пользователей, купивших книгу, C — количество
-  //пользователей, у которых книга находится в корзине, а K — количество
-  //пользователей, у которых книга отложена.
-  public void popularityCalculation(BookChangeStatusRequest request) {
-
   }
 
   private void checkingBookBindingToUser(Book2UserEntity book2User) {

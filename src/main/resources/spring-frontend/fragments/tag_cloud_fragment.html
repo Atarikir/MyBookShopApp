@@ -2,28 +2,40 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 
 <div class="Tags" id="tags" th:fragment="cloud">
-  <th:block th:each="tag : ${tags}">
-    <div class="Tag Tag_xs"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"
-                               th:if="${tag.bookList.size() < 2}"
-                               th:text="${tag.name}">современная
-      литература</a>
-    </div>
-    <div class="Tag Tag_sm"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"
-                               th:if="${tag.bookList.size() >= 2 && tag.bookList.size() < 4}"
-                               th:text="${tag.name}">классическая литература</a>
-    </div>
-    <div class="Tag"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"
-                        th:if="${tag.bookList.size() >= 4 && tag.bookList.size() < 6}"
-                        th:text="${tag.name}">зарубежная литература</a>
-    </div>
-    <div class="Tag Tag_md"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"
-                               th:if="${tag.bookList.size() >= 6 && tag.bookList.size() < 8}"
-                               th:text="${tag.name}">фэнтези</a>
-    </div>
-    <div class="Tag Tag_lg"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"
-                               th:if="${tag.bookList.size() > 8}" th:text="${tag.name}">английская
-      литература</a>
-    </div>
-  </th:block>
+  <div class="Tag " th:each="tag : ${tags}"
+       th:classappend="${
+                        (tag.getBookList().size() > 8 ? 'Tag_lg' : '') +
+                        (tag.getBookList().size() < 8 && tag.getBookList().size() >= 6  ? 'Tag_md' : '') +
+                        (tag.getBookList().size() < 6 && tag.getBookList().size() >= 4  ? 'Tag' : '') +
+                        (tag.getBookList().size() < 4 && tag.getBookList().size() >= 2 ? 'Tag_sm' : '') +
+                        (tag.getBookList().size() < 2 ? 'Tag_xs' : '')
+                        }"
+  >
+    <a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}" th:text="${tag.name}">
+      современная литература</a>
+  </div>
+<!--  <th:block th:each="tag : ${tags}">-->
+<!--    <div class="Tag Tag_xs"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"-->
+<!--                               th:if="${tag.bookList.size() < 2}"-->
+<!--                               th:text="${tag.name}">современная-->
+<!--      литература</a>-->
+<!--    </div>-->
+<!--    <div class="Tag Tag_sm"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"-->
+<!--                               th:if="${tag.bookList.size() >= 2 && tag.bookList.size() < 4}"-->
+<!--                               th:text="${tag.name}">классическая литература</a>-->
+<!--    </div>-->
+<!--    <div class="Tag"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"-->
+<!--                        th:if="${tag.bookList.size() >= 4 && tag.bookList.size() < 6}"-->
+<!--                        th:text="${tag.name}">зарубежная литература</a>-->
+<!--    </div>-->
+<!--    <div class="Tag Tag_md"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"-->
+<!--                               th:if="${tag.bookList.size() >= 6 && tag.bookList.size() < 8}"-->
+<!--                               th:text="${tag.name}">фэнтези</a>-->
+<!--    </div>-->
+<!--    <div class="Tag Tag_lg"><a href="/tags/index.html" th:href="@{|/tags/${tag.slug}|}"-->
+<!--                               th:if="${tag.bookList.size() > 8}" th:text="${tag.name}">английская-->
+<!--      литература</a>-->
+<!--    </div>-->
+<!--  </th:block>-->
 </div>
 </html>

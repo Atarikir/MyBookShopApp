@@ -3,7 +3,8 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="bookSlider(title, category, scroll)">
   <div class="Section-header">
-    <h2 class="Section-title" th:text="${title}">Рекомендуемое
+    <h2 class="Section-title" th:text="${scroll.isEmpty} ? ${title + ': книг нет'} : ${title}">
+      Рекомендуемое
     </h2>
   </div>
   <div class="Slider Slider_carousel">
@@ -22,15 +23,18 @@
                                              th:text="#{title.bestseller}">Бестселлер</span>
               </div>
             </a>
-            <!--                            <a class="Card-status" title="Отложена" tabindex="0">-->
-            <!--                                <img src="/assets/img/icons/heart.svg" alt="Отложена">-->
-            <!--                            </a>-->
-            <!--                            <a class="Card-status" title="Куплена" tabindex="0">-->
-            <!--                                <img src="/assets/img/icons/check.svg" alt="Куплена">-->
-            <!--                            </a>-->
-            <!--                            <a class="Card-status" title="В корзине" tabindex="0">-->
-            <!--                                <img src="/assets/img/icons/shopping-basket.svg" alt="В корзине">-->
-            <!--                            </a>-->
+            <a class="Card-status" th:if="${book.status == 'KEPT'}" title="Отложена" tabindex="0">
+              <img src="/assets/img/icons/heart.svg" alt="Отложена">
+            </a>
+            <a class="Card-status" th:if="${book.status == 'PAID'}" title="Куплена" tabindex="0">
+              <img src="/assets/img/icons/check.svg" alt="Куплена">
+            </a>
+            <a class="Card-status" th:if="${book.status == 'CART'}" title="В корзине" tabindex="0">
+              <img src="/assets/img/icons/shopping-basket.svg" alt="В корзине">
+            </a>
+            <a class="Card-status" th:if="${book.status == 'ARCHIVED'}" title="В архиве" tabindex="0">
+              <img src="/assets/img/icons/archive.svg" alt="В архиве">
+            </a>
             <!--                        th:if="${category == 'recommended' && scroll == null}" th:text="Рекомендуемых книг нет"-->
             <div class="Card-content">
               <strong class="Card-title"><a href="" th:href="@{|/books/${book.slug}|}"
@@ -39,7 +43,8 @@
               <div class="Card-description" th:text="${book.authors}">Кондратенко Валерий Петрович
               </div>
               <div class="Card-cost">
-                <span class="Card-priceOld" th:if="${book.discount != 0}" th:text="'₽' + ${book.price}">₽300.00</span>
+                <span class="Card-priceOld" th:if="${book.discount != 0}"
+                      th:text="'₽' + ${book.price}">₽300.00</span>
                 <span class="Card-price" th:text="'₽' + ${book.discountPrice}">₽190.00</span>
               </div>
             </div>

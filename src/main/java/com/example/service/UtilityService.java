@@ -52,7 +52,6 @@ public class UtilityService {
       for (Cookie cookie : cookies) {
         if (cookie.getName().equals(cookieName)) {
           cookieValue = cookie.getValue();
-//            log.debug("token - " + token);
         }
       }
     }
